@@ -19,6 +19,18 @@
     <Filter Include="ヘッダー ファイル\imgui">
       <UniqueIdentifier>{687053e5-1b79-4dae-a593-99668a9e8672}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL">
+      <UniqueIdentifier>{44cf53ea-2642-4cbe-9b97-3c3eb8d2417a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\MyGLFW">
+      <UniqueIdentifier>{ec69fd55-61b7-4efa-ad9e-9abb39efd5db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\OpenGL">
+      <UniqueIdentifier>{6bd473f5-ab17-4d56-8e2a-96bd67e572d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\OpenGL\MyGLFW">
+      <UniqueIdentifier>{2da76703-71c9-4175-b754-c6a9fe184c9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="src\imgui\imgui_impl_opengl3.cpp">
       <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\MyGLFW\MyGLFW.cpp">
+      <Filter>ソース ファイル\OpenGL\MyGLFW</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="src\imgui\imgui_impl_opengl3.h">
       <Filter>ヘッダー ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\MyGLFW\MyGLFW.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\MyGLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\MyGLFW\KeyBoardState.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\MyGLFW</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
