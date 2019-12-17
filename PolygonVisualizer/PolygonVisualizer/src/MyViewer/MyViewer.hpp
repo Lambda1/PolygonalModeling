@@ -3,6 +3,10 @@
 
 #include "../OpenGL/MyGLFW/MyGLFW.hpp"
 
+#include "../imgui/imgui.h"
+#include "../imgui/imgui_impl_glfw.h"
+#include "../imgui/imgui_impl_opengl3.h"
+
 #include <string>
 #include <thread>
 
@@ -12,8 +16,11 @@ class MyViewer
 	MyGLFW m_opengl_manager;
 	int m_window_width, m_window_height;
 	std::string m_window_name;
+	// ImGui
+	ImGuiIO io;
 
 	// ‰Šú‰»ˆ—
+	void InitImGui();  // ImGui‰Šú‰»
 	void InitThread(); // ƒXƒŒƒbƒh¶¬
 public:
 	MyViewer();
