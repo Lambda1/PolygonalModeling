@@ -26,7 +26,7 @@ void MyViewer::InitImGui()
 	io = ImGui::GetIO();
 	ImGui::StyleColorsDark();
 	ImGui_ImplGlfw_InitForOpenGL(m_opengl_manager.GetWindow(), true);
-	ImGui_ImplOpenGL3_Init("#version 130");
+	ImGui_ImplOpenGL3_Init("#version 150 core");
 }
 // ÉXÉåÉbÉhê∂ê¨
 void MyViewer::InitThread()
