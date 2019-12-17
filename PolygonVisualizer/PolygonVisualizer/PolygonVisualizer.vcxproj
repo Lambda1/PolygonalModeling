@@ -134,13 +134,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="src\imgui\imgui.cpp" />
     <ClCompile Include="src\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\imgui\imgui_draw.cpp" />
     <ClCompile Include="src\imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="src\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MyViewer\MyViewer.cpp" />
     <ClCompile Include="src\OpenGL\MyGLFW\MyGLFW.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,8 @@
     <ClInclude Include="src\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\imgui\imstb_textedit.h" />
     <ClInclude Include="src\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\MainInfo.hpp" />
+    <ClInclude Include="src\MyViewer\MyViewer.hpp" />
     <ClInclude Include="src\OpenGL\MyGLFW\KeyBoardState.hpp" />
     <ClInclude Include="src\OpenGL\MyGLFW\MyGLFW.hpp" />
   </ItemGroup>

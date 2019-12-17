@@ -43,7 +43,7 @@ class MyGLFW
 
 	void InitWindow(const int &width,const int &height,const char *title);
 
-	inline bool MainLoop() { return (glfwWindowShouldClose(m_window) == GL_FALSE); }
+	inline bool MainLoop() const { return (glfwWindowShouldClose(m_window) == GL_FALSE); }
 	inline void SwapBuffer() { glfwSwapBuffers(m_window); }
 	inline void PollEvents() { glfwPollEvents(); }
 	inline void Clear(){ glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT); }

@@ -31,11 +31,14 @@
     <Filter Include="ソース ファイル\OpenGL\MyGLFW">
       <UniqueIdentifier>{2da76703-71c9-4175-b754-c6a9fe184c9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MyViewer">
+      <UniqueIdentifier>{524a0b17-9818-4e2a-be40-16d70127fee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MyViewer">
+      <UniqueIdentifier>{7b861e5b-ef99-4146-a345-19bbe5502b78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\imgui\imgui.cpp">
       <Filter>ソース ファイル\imgui</Filter>
     </ClCompile>
@@ -56,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="src\OpenGL\MyGLFW\MyGLFW.cpp">
       <Filter>ソース ファイル\OpenGL\MyGLFW</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyViewer\MyViewer.cpp">
+      <Filter>ソース ファイル\MyViewer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="src\OpenGL\MyGLFW\KeyBoardState.hpp">
       <Filter>ヘッダー ファイル\OpenGL\MyGLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyViewer\MyViewer.hpp">
+      <Filter>ヘッダー ファイル\MyViewer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainInfo.hpp">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
