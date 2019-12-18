@@ -147,7 +147,19 @@
     <ClCompile Include="src\MenuBar\MenuBar.cpp" />
     <ClCompile Include="src\MyViewer\MyViewer.cpp" />
     <ClCompile Include="src\MyWinAPI\WinFiler\WinFiler.cpp" />
+    <ClCompile Include="src\OpenGL\MathGL\MathGL.cpp" />
+    <ClCompile Include="src\OpenGL\MatrixGL\MatrixGL.cpp" />
     <ClCompile Include="src\OpenGL\MyGLFW\MyGLFW.cpp" />
+    <ClCompile Include="src\OpenGL\MyShader\MyShader.cpp" />
+    <ClCompile Include="src\OpenGL\ObjectGL\ObjectGL.cpp" />
+    <ClCompile Include="src\OpenGL\PrimitiveObjectGL\CubeGL.cpp" />
+    <ClCompile Include="src\OpenGL\PrimitiveObjectGL\PlaneGL.cpp" />
+    <ClCompile Include="src\OpenGL\PrimitiveObjectGL\SphereGL.cpp" />
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGL.cpp" />
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndex.cpp" />
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndexSolid.cpp" />
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLParticle\ShapeGLParticle.cpp" />
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLSolid\ShapeGLSolid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GUIManager\GUIManager.hpp" />
@@ -168,8 +180,20 @@
     <ClInclude Include="src\MyViewer\MyViewer.hpp" />
     <ClInclude Include="src\MyViewer\MyViewerDefine.hpp" />
     <ClInclude Include="src\MyWinAPI\WinFiler\WinFiler.hpp" />
+    <ClInclude Include="src\OpenGL\MathGL\MathGL.hpp" />
+    <ClInclude Include="src\OpenGL\MatrixGL\MatrixGL.hpp" />
     <ClInclude Include="src\OpenGL\MyGLFW\KeyBoardState.hpp" />
     <ClInclude Include="src\OpenGL\MyGLFW\MyGLFW.hpp" />
+    <ClInclude Include="src\OpenGL\MyShader\MyShader.hpp" />
+    <ClInclude Include="src\OpenGL\ObjectGL\ObjectGL.hpp" />
+    <ClInclude Include="src\OpenGL\PrimitiveObjectGL\CubeGL.hpp" />
+    <ClInclude Include="src\OpenGL\PrimitiveObjectGL\PlaneGL.hpp" />
+    <ClInclude Include="src\OpenGL\PrimitiveObjectGL\SphereGL.hpp" />
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGL.hpp" />
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndex.hpp" />
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndexSolid.hpp" />
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLParticle\ShapeGLParticle.hpp" />
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLSolid\ShapeGLSolid.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

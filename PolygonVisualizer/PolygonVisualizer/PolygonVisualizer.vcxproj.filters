@@ -70,6 +70,42 @@
     <Filter Include="ソース ファイル\MyWinAPI\WinFiler">
       <UniqueIdentifier>{aa2bd87c-001f-4d80-a576-c099e7c08868}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\OpenGL\MyShader">
+      <UniqueIdentifier>{76242ba0-8193-46be-a9dc-a0626de3d555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\MyShader">
+      <UniqueIdentifier>{d7bc5c34-e0b4-4b53-8480-720de930e03a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\OpenGL\MatrixGL">
+      <UniqueIdentifier>{0e7b11ee-75b7-49f8-a0c1-e0214bcf8a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\MatrixGL">
+      <UniqueIdentifier>{ad92726a-4729-4749-9ce9-d5d3b951b2cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\OpenGL\MathGL">
+      <UniqueIdentifier>{3597f280-b8c2-4dac-930e-d09158d9c647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\MathGL">
+      <UniqueIdentifier>{99ae8131-8337-41fa-b354-ba4ff0e94df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\OpenGL\ShapeGL">
+      <UniqueIdentifier>{fd871bd6-88e7-4ed1-8522-3fd2bd9cf344}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\ShapeGL">
+      <UniqueIdentifier>{834c10cb-7257-4efa-89f5-257b0f7fd350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\ObjectGL">
+      <UniqueIdentifier>{bdba3870-37ff-48d9-8ce5-17163844a072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\OpenGL\ObjectGL">
+      <UniqueIdentifier>{0374390e-7376-4c27-8982-4920d644d1b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\OpenGL\PrimitiveGL">
+      <UniqueIdentifier>{34a96cdc-2b39-40a2-b21d-538288b2f3cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\PrimitiveGL">
+      <UniqueIdentifier>{fd4493aa-76b5-4479-ba1f-b903a6e4ba72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp">
@@ -110,6 +146,42 @@
     </ClCompile>
     <ClCompile Include="src\MyWinAPI\WinFiler\WinFiler.cpp">
       <Filter>ソース ファイル\MyWinAPI\WinFiler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\MyShader\MyShader.cpp">
+      <Filter>ソース ファイル\OpenGL\MyShader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\MatrixGL\MatrixGL.cpp">
+      <Filter>ソース ファイル\OpenGL\MatrixGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\MathGL\MathGL.cpp">
+      <Filter>ソース ファイル\OpenGL\MathGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGL.cpp">
+      <Filter>ソース ファイル\OpenGL\ShapeGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndex.cpp">
+      <Filter>ソース ファイル\OpenGL\ShapeGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndexSolid.cpp">
+      <Filter>ソース ファイル\OpenGL\ShapeGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLParticle\ShapeGLParticle.cpp">
+      <Filter>ソース ファイル\OpenGL\ShapeGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLSolid\ShapeGLSolid.cpp">
+      <Filter>ソース ファイル\OpenGL\ShapeGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\ObjectGL\ObjectGL.cpp">
+      <Filter>ソース ファイル\OpenGL\ObjectGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\PrimitiveObjectGL\PlaneGL.cpp">
+      <Filter>ソース ファイル\OpenGL\PrimitiveGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\PrimitiveObjectGL\SphereGL.cpp">
+      <Filter>ソース ファイル\OpenGL\PrimitiveGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\PrimitiveObjectGL\CubeGL.cpp">
+      <Filter>ソース ファイル\OpenGL\PrimitiveGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +244,42 @@
     </ClInclude>
     <ClInclude Include="src\MyWinAPI\WinFiler\WinFiler.hpp">
       <Filter>ヘッダー ファイル\MyWinAPI\WinFiler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\MyShader\MyShader.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\MyShader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\MatrixGL\MatrixGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\MatrixGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\MathGL\MathGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\MathGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLSolid\ShapeGLSolid.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\ShapeGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLParticle\ShapeGLParticle.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\ShapeGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndex.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\ShapeGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndexSolid.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\ShapeGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\ShapeGL\ShapeGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\ShapeGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\ObjectGL\ObjectGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\ObjectGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\PrimitiveObjectGL\CubeGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\PrimitiveGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\PrimitiveObjectGL\PlaneGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\PrimitiveGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\PrimitiveObjectGL\SphereGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\PrimitiveGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

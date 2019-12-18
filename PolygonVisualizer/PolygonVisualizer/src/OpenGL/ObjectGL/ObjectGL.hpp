@@ -1,8 +1,6 @@
 ﻿#ifndef __OBJECT_GL_HPP__
 #define __OBJECT_GL_HPP__
 
-#include "../../DebugInfo.hpp"
-
 #include <GL/glew.h>
 
 #include <iostream>
