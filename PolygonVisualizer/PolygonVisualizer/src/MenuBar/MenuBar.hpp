@@ -53,6 +53,9 @@ public:
 	// Getter
 	// Update内で処理した箇所のフラグを返す
 	inline MENU_FLAGS GetMenuFlag() const { return m_menu_flag; }
+	// ファイル関係
+	inline std::string GetOpenFile() const { return m_open_file; }
+	inline std::string GetSaveFile() const { return m_save_file; }
 };
 
 constexpr MenuBar::MENU_FLAGS operator|(const MenuBar::MENU_FLAGS& lhs, const MenuBar::MENU_FLAGS& rhs)
@@ -60,5 +63,8 @@ constexpr MenuBar::MENU_FLAGS operator|(const MenuBar::MENU_FLAGS& lhs, const Me
 	return static_cast<MenuBar::MENU_FLAGS>(static_cast<MenuBar::FLAG_TYPE>(lhs) | static_cast<MenuBar::FLAG_TYPE>(rhs));
 }
 constexpr void operator|=(MenuBar::MENU_FLAGS &lhs, const MenuBar::MENU_FLAGS &rhs) { lhs = lhs | rhs; }
-
+constexpr MenuBar::MENU_FLAGS operator&(const MenuBar::MENU_FLAGS& lhs, const MenuBar::MENU_FLAGS& rhs)
+{
+	return static_cast<MenuBar::MENU_FLAGS>(static_cast<MenuBar::FLAG_TYPE>(lhs) & static_cast<MenuBar::FLAG_TYPE>(rhs));
+}
 #endif

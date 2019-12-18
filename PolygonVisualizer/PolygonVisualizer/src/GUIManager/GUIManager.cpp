@@ -41,8 +41,12 @@ void GUIManager::Update()
 void GUIManager::ProcessMenuBar()
 {
 	MenuBar::MENU_FLAGS flags = m_menu_bar.GetMenuFlag();
-	if (flags == MenuBar::MENU_FLAGS::OPEN_FILE)
+	if ((flags & MenuBar::MENU_FLAGS::OPEN_FILE) == MenuBar::MENU_FLAGS::OPEN_FILE)
 	{
-		//m_file_name = ;
+		m_file_name = m_menu_bar.GetOpenFile();
+	}
+	else if ((flags & MenuBar::MENU_FLAGS::SAVE_FILE) == MenuBar::MENU_FLAGS::SAVE_FILE)
+	{
+		m_file_name = m_menu_bar.GetSaveFile();
 	}
 }
