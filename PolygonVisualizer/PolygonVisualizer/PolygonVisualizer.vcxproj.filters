@@ -37,6 +37,27 @@
     <Filter Include="ヘッダー ファイル\MyViewer">
       <UniqueIdentifier>{7b861e5b-ef99-4146-a345-19bbe5502b78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\GUIManager">
+      <UniqueIdentifier>{5a7e97fc-46f4-4e4b-9bff-078040383358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GUIManager">
+      <UniqueIdentifier>{3f7bc56a-9901-4c88-bb95-feb877fac128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GUIWindow">
+      <UniqueIdentifier>{2a37aaf2-4bdd-48d5-a560-5a6b8f5ffc1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GUIWindow\ToolWindow">
+      <UniqueIdentifier>{21331467-6458-43b5-8f1b-d06794f5a593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GUIManager\ToolWindow">
+      <UniqueIdentifier>{5da78009-dbff-4bdf-b94d-383fdf14b8d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MenuBar">
+      <UniqueIdentifier>{b0262d7e-4db5-43dd-9c07-8942fafa1d27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\MenuBar">
+      <UniqueIdentifier>{c131053d-ad79-46a6-b2f4-6f971ba31998}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp">
@@ -65,6 +86,15 @@
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUIManager\GUIManager.cpp">
+      <Filter>ソース ファイル\GUIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUIWindow\ToolWindow\ToolWindow.cpp">
+      <Filter>ソース ファイル\GUIManager\ToolWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MenuBar\MenuBar.cpp">
+      <Filter>ソース ファイル\MenuBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +133,27 @@
     </ClInclude>
     <ClInclude Include="src\MainInfo.hpp">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyViewer\MyViewerDefine.hpp">
+      <Filter>ヘッダー ファイル\MyViewer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUIManager\GUIManager.hpp">
+      <Filter>ヘッダー ファイル\GUIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUIWindow\GUIWindow.hpp">
+      <Filter>ヘッダー ファイル\GUIWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUIWindow\ToolWindow\ToolWindow.hpp">
+      <Filter>ヘッダー ファイル\GUIWindow\ToolWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUIWindow\ToolWindow\ToolWindowDefine.hpp">
+      <Filter>ヘッダー ファイル\GUIWindow\ToolWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MenuBar\MenuBar.hpp">
+      <Filter>ヘッダー ファイル\MenuBar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MenuBar\MenuBarDefine.hpp">
+      <Filter>ヘッダー ファイル\MenuBar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -20,17 +20,46 @@ MyViewer::~MyViewer()
 */
 void MyViewer::InitImGui()
 {
+	// ImGui: コンテクスト作成
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
-	io = ImGui::GetIO();
-	ImGui::StyleColorsDark();
+	// ImGui: 入出力初期化
+	m_imgui_io = ImGui::GetIO();
+
+	// ImGui: 見栄えの設定
+	ImGui::StyleColorsClassic();
+
+	// ImGui: OpenGL連携
 	ImGui_ImplGlfw_InitForOpenGL(m_opengl_manager.GetWindow(), true);
-	ImGui_ImplOpenGL3_Init("#version 150 core");
+	ImGui_ImplOpenGL3_Init(MY_VIEWER_DEFINE::IMGUI::GLSL_VERSION_C_STR);
+}
+// OpenGL初期化
+void MyViewer::InitOpenGL()
+{
+	// OpenGLコンテクストの作成
+	m_opengl_manager.InitWindow(m_window_width, m_window_height, m_window_name.c_str());
+	// 背景色設定
+	glClearColor(0.3f, 0.3f, 0.3f, 1);
 }
 // スレッド生成
 void MyViewer::InitThread()
 {
+}
+// ImGuiのレンダリング
+void MyViewer::UpdateImGui()
+{
+	// フレーム生成
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
+	// GUI更新
+	m_gui_manager.Update();
+
+	// レンダリング
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 // public
@@ -40,32 +69,25 @@ void MyViewer::Init(const int& width, const int& height, const std::string& name
 	// ウィンドウデータの初期化
 	m_window_width = width, m_window_height = height;
 	m_window_name = name;
-	// OpenGLコンテクストの作成
-	m_opengl_manager.InitWindow(m_window_width, m_window_height, m_window_name.c_str());
 
 	// 初期化処理
+	InitOpenGL();
 	InitImGui();
 }
 // 更新処理
+// NOTE: ImGUIが即時処理のため, Update側で画面クリアとImGUIの描画・更新を行う.
 void MyViewer::Update()
 {
+	// 画面クリア
+	m_opengl_manager.Clear();
 
+	// ImGUIの更新
+	UpdateImGui();
 }
 // 描画処理
 void MyViewer::Draw()
 {
-	glClearColor(1,1,1,1);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
-	
-	bool is_window = true;
-	ImGui::ShowDemoWindow(&is_window);
-
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	// ダブルバッファリング
 	m_opengl_manager.SwapBuffer();
 }
 // OpenGLの処理

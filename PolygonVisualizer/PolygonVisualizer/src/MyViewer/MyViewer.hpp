@@ -1,6 +1,8 @@
 #ifndef __MY_VIEWER_HPP__
 #define __MY_VIEWER_HPP__
 
+#include "./MyViewerDefine.hpp"
+#include "../GUIManager/GUIManager.hpp"
 #include "../OpenGL/MyGLFW/MyGLFW.hpp"
 
 #include "../imgui/imgui.h"
@@ -16,12 +18,17 @@ class MyViewer
 	MyGLFW m_opengl_manager;
 	int m_window_width, m_window_height;
 	std::string m_window_name;
-	// ImGui
-	ImGuiIO io;
+	// ImGui用変数
+	GUIManager m_gui_manager;
+	ImGuiIO m_imgui_io;
 
 	// 初期化処理
-	void InitImGui();  // ImGui初期化
-	void InitThread(); // スレッド生成
+	void InitOpenGL();
+	void InitImGui();
+	void InitThread();
+
+	// ImGUI処理
+	void UpdateImGui();
 public:
 	MyViewer();
 	~MyViewer();

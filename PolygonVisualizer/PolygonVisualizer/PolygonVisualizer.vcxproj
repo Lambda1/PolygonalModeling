@@ -135,6 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GUIManager\GUIManager.cpp" />
+    <ClCompile Include="src\GUIWindow\ToolWindow\ToolWindow.cpp" />
     <ClCompile Include="src\imgui\imgui.cpp" />
     <ClCompile Include="src\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\imgui\imgui_draw.cpp" />
@@ -142,10 +144,15 @@
     <ClCompile Include="src\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MenuBar\MenuBar.cpp" />
     <ClCompile Include="src\MyViewer\MyViewer.cpp" />
     <ClCompile Include="src\OpenGL\MyGLFW\MyGLFW.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GUIManager\GUIManager.hpp" />
+    <ClInclude Include="src\GUIWindow\GUIWindow.hpp" />
+    <ClInclude Include="src\GUIWindow\ToolWindow\ToolWindow.hpp" />
+    <ClInclude Include="src\GUIWindow\ToolWindow\ToolWindowDefine.hpp" />
     <ClInclude Include="src\imgui\imconfig.h" />
     <ClInclude Include="src\imgui\imgui.h" />
     <ClInclude Include="src\imgui\imgui_impl_glfw.h" />
@@ -155,7 +162,10 @@
     <ClInclude Include="src\imgui\imstb_textedit.h" />
     <ClInclude Include="src\imgui\imstb_truetype.h" />
     <ClInclude Include="src\MainInfo.hpp" />
+    <ClInclude Include="src\MenuBar\MenuBar.hpp" />
+    <ClInclude Include="src\MenuBar\MenuBarDefine.hpp" />
     <ClInclude Include="src\MyViewer\MyViewer.hpp" />
+    <ClInclude Include="src\MyViewer\MyViewerDefine.hpp" />
     <ClInclude Include="src\OpenGL\MyGLFW\KeyBoardState.hpp" />
     <ClInclude Include="src\OpenGL\MyGLFW\MyGLFW.hpp" />
   </ItemGroup>
