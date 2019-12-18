@@ -29,12 +29,20 @@ void GUIManager::InitGUI()
 // 更新処理
 void GUIManager::Update()
 {
-	// メニューバー処理
+	// メニューバー更新処理
 	m_menu_bar.Update();
+	// ウィンドウ更新処理
+	if (m_tool_window) { m_tool_window->Update(); }
 
-	// ウィンドウ処理
-	if (m_tool_window)
+	// 各GUIの処理
+	ProcessMenuBar();
+}
+// メニューバー処理
+void GUIManager::ProcessMenuBar()
+{
+	MenuBar::MENU_FLAGS flags = m_menu_bar.GetMenuFlag();
+	if (flags == MenuBar::MENU_FLAGS::OPEN_FILE)
 	{
-		m_tool_window->Update();
+		//m_file_name = ;
 	}
 }
