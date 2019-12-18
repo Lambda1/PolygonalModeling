@@ -31,6 +31,8 @@ public:
 
 	// オープンダイアログ
 	static std::string SelectFile();
+	// セーブダイアログ
+	static std::string SaveFile();
 };
 
 #endif

@@ -29,6 +29,7 @@ void MenuBar::SaveModelFile()
 {
 	if (ImGui::MenuItem(FILE_MENU::SAVE_FILE))
 	{
+		std::cout << WinFiler::SaveFile() << std::endl;
 	}
 }
 // ファイルメニュー
