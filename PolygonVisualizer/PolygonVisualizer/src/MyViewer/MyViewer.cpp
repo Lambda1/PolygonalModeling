@@ -80,9 +80,10 @@ void MyViewer::Update()
 {
 	// 画面クリア
 	m_opengl_manager.Clear();
-
 	// ImGUIの更新
 	UpdateImGui();
+
+
 }
 // 描画処理
 void MyViewer::Draw()

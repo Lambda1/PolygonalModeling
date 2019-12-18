@@ -1,6 +1,7 @@
 #include "./MenuBar.hpp"
 
-MenuBar::MenuBar()
+MenuBar::MenuBar():
+	m_menu_flag(MENU_FLAGS::NONE)
 {
 	// メニューテーブル生成
 	InitTable();
@@ -22,14 +23,18 @@ void MenuBar::OpenModelFile()
 {
 	if (ImGui::MenuItem(FILE_MENU::OPEN_FILE))
 	{
-		std::cout << WinFiler::SelectFile() << std::endl;
+		m_open_file = WinFiler::SelectFile();
+		
+		m_menu_flag |= MENU_FLAGS::OPEN_FILE;
 	}
 }
 void MenuBar::SaveModelFile()
 {
 	if (ImGui::MenuItem(FILE_MENU::SAVE_FILE))
 	{
-		std::cout << WinFiler::SaveFile() << std::endl;
+		m_save_file = WinFiler::SaveFile();
+
+		m_menu_flag |= MENU_FLAGS::SAVE_FILE;
 	}
 }
 // ファイルメニュー
@@ -46,12 +51,16 @@ void MenuBar::FileMenu()
 // public
 void MenuBar::Update()
 {
+	// フラグクリア
+	m_menu_flag = MENU_FLAGS::NONE;
+
 	// メインメニューバー処理
 	if (ImGui::BeginMainMenuBar())
 	{
 		// ファイルメニュー
 		FileMenu();
 
+		// メニューバー終了処理
 		ImGui::EndMainMenuBar();
 	}
 }
