@@ -58,6 +58,18 @@
     <Filter Include="ソース ファイル\MenuBar">
       <UniqueIdentifier>{c131053d-ad79-46a6-b2f4-6f971ba31998}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\MyWinAPI">
+      <UniqueIdentifier>{0b78b932-524a-472c-ab52-e30865bbd16a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MyWinAPI\WinFiler">
+      <UniqueIdentifier>{069da652-a952-4f6c-8128-0a8cc4accdc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\MyWinAPI">
+      <UniqueIdentifier>{1ba8e1ad-1474-4e38-83d9-35597f4352bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\MyWinAPI\WinFiler">
+      <UniqueIdentifier>{aa2bd87c-001f-4d80-a576-c099e7c08868}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp">
@@ -95,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="src\MenuBar\MenuBar.cpp">
       <Filter>ソース ファイル\MenuBar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyWinAPI\WinFiler\WinFiler.cpp">
+      <Filter>ソース ファイル\MyWinAPI\WinFiler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="src\MenuBar\MenuBarDefine.hpp">
       <Filter>ヘッダー ファイル\MenuBar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyWinAPI\WinFiler\WinFiler.hpp">
+      <Filter>ヘッダー ファイル\MyWinAPI\WinFiler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

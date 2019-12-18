@@ -22,6 +22,7 @@ void MenuBar::OpenModelFile()
 {
 	if (ImGui::MenuItem(FILE_MENU::OPEN_FILE))
 	{
+		std::cout << WinFiler::SelectFile() << std::endl;
 	}
 }
 void MenuBar::SaveModelFile()
