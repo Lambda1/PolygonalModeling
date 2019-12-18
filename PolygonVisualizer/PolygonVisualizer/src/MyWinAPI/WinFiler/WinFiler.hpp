@@ -22,6 +22,9 @@ public:
 	};
 private:
 	WinFiler();
+
+	// ファイル共通ダイアログ
+	static OPENFILENAME CommonDialog();
 public:
 	// コピー禁止
 	WinFiler(const WinFiler&) = delete;
