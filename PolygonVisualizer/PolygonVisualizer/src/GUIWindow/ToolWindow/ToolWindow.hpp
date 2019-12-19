@@ -8,6 +8,11 @@
 
 class ToolWindow : public GUIWindow
 {
+	// ’è”
+	inline static float ONE_MINUTE = 1000.0f;
+
+	// •\¦ˆ—
+	void DisplayFrameRate();
 public:
 	ToolWindow();
 	~ToolWindow();

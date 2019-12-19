@@ -15,6 +15,34 @@ namespace MY_VIEWER_DEFINE
 		inline static const std::string DIR = "../shader";
 		inline static const std::string BASE_VERTEX   = DIR + "/base.vert";
 		inline static const std::string BASE_FRAGMENT = DIR + "/base.frag";
+	
+		// シェーダ変数管理
+		enum class TABLE : unsigned char
+		{
+			POSITION,
+			NORMAL,
+			MODEL_VIEW,
+			PROJECION,
+			NORMAL_MATRIX,
+			LPOS,
+			LAMB,
+			LDIFF,
+			LSPEC,
+			MATERIAL,
+
+			SIZE
+		};
+		inline static const std::string FRAGMENT = "fragment";
+		inline static const std::string POSITION = "position";
+		inline static const std::string NORMAL = "normal";
+		inline static const std::string MODEL_VIEW = "model_view";
+		inline static const std::string PROJECTION = "projection";
+		inline static const std::string NORMAL_MATRIX = "normal_matrix";
+		inline static const std::string MATERIAL = "Material";
+		inline static const std::string LPOS = "Lpos";
+		inline static const std::string LAMB = "Lamb";
+		inline static const std::string LDIFF = "Ldiff";
+		inline static const std::string LSPEC = "Lspec";
 	};
 };
 

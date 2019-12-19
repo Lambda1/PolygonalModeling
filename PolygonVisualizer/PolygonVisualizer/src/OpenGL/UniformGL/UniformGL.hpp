@@ -1,8 +1,6 @@
 ﻿#ifndef __UNIFORM_GL_HPP__
 #define __UNIFORM_GL_HPP__
 
-#include "../../DebugInfo.hpp"
-
 #include <memory>
 #include <GL/glew.h>
 
@@ -32,9 +30,7 @@ class UniformGL
 				glBufferSubData(GL_UNIFORM_BUFFER, i*m_block_size, sizeof(T), data+i);
 			}
 
-#if DEBUG
 			std::cout << "UBO :" << m_ubo << std::endl;
-#endif
 
 		}
 		~UniformBuffer()

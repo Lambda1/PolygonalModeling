@@ -106,6 +106,24 @@
     <Filter Include="ヘッダー ファイル\OpenGL\PrimitiveGL">
       <UniqueIdentifier>{fd4493aa-76b5-4479-ba1f-b903a6e4ba72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\ShapeManager">
+      <UniqueIdentifier>{4bb4977d-6baf-4555-a690-7ae859a3cd9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ShapeManager">
+      <UniqueIdentifier>{dda80c57-fb5b-437c-b737-a115ab9aea89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\OpenGL\LightGL">
+      <UniqueIdentifier>{0aa2af8f-48f3-4029-920e-e8ba49bbe46c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\LightGL">
+      <UniqueIdentifier>{f013c6ea-1251-44e2-a1ab-480641a1208f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\UniformGL">
+      <UniqueIdentifier>{aa47a4ca-4a41-466d-8bdf-50a42abc7ba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL\MaterialGL">
+      <UniqueIdentifier>{762d4b9c-4fc7-4e9b-ab4d-06db1152aa39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp">
@@ -182,6 +200,12 @@
     </ClCompile>
     <ClCompile Include="src\OpenGL\PrimitiveObjectGL\CubeGL.cpp">
       <Filter>ソース ファイル\OpenGL\PrimitiveGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShapeManager\ShapeManager.cpp">
+      <Filter>ソース ファイル\ShapeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\LightGL\LightGL.cpp">
+      <Filter>ソース ファイル\OpenGL\LightGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +307,18 @@
     </ClInclude>
     <ClInclude Include="src\GUIManager\GUIManagerDefine.hpp">
       <Filter>ヘッダー ファイル\GUIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShapeManager\ShapeManager.hpp">
+      <Filter>ヘッダー ファイル\ShapeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\LightGL\LightGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\LightGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\UniformGL\UniformGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\UniformGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\MaterialGL\MaterialGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\MaterialGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -147,6 +147,7 @@
     <ClCompile Include="src\MenuBar\MenuBar.cpp" />
     <ClCompile Include="src\MyViewer\MyViewer.cpp" />
     <ClCompile Include="src\MyWinAPI\WinFiler\WinFiler.cpp" />
+    <ClCompile Include="src\OpenGL\LightGL\LightGL.cpp" />
     <ClCompile Include="src\OpenGL\MathGL\MathGL.cpp" />
     <ClCompile Include="src\OpenGL\MatrixGL\MatrixGL.cpp" />
     <ClCompile Include="src\OpenGL\MyGLFW\MyGLFW.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndexSolid.cpp" />
     <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLParticle\ShapeGLParticle.cpp" />
     <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLSolid\ShapeGLSolid.cpp" />
+    <ClCompile Include="src\ShapeManager\ShapeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GUIManager\GUIManager.hpp" />
@@ -181,6 +183,8 @@
     <ClInclude Include="src\MyViewer\MyViewer.hpp" />
     <ClInclude Include="src\MyViewer\MyViewerDefine.hpp" />
     <ClInclude Include="src\MyWinAPI\WinFiler\WinFiler.hpp" />
+    <ClInclude Include="src\OpenGL\LightGL\LightGL.hpp" />
+    <ClInclude Include="src\OpenGL\MaterialGL\MaterialGL.hpp" />
     <ClInclude Include="src\OpenGL\MathGL\MathGL.hpp" />
     <ClInclude Include="src\OpenGL\MatrixGL\MatrixGL.hpp" />
     <ClInclude Include="src\OpenGL\MyGLFW\KeyBoardState.hpp" />
@@ -195,6 +199,8 @@
     <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndexSolid.hpp" />
     <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLParticle\ShapeGLParticle.hpp" />
     <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLSolid\ShapeGLSolid.hpp" />
+    <ClInclude Include="src\OpenGL\UniformGL\UniformGL.hpp" />
+    <ClInclude Include="src\ShapeManager\ShapeManager.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

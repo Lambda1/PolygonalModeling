@@ -1,4 +1,4 @@
-#include "./MyViewer.hpp"
+ï»¿#include "./MyViewer.hpp"
 
 MyViewer::MyViewer():
 	m_window_width(0), m_window_height(0)
@@ -8,6 +8,8 @@ MyViewer::MyViewer():
 
 MyViewer::~MyViewer()
 {
+	m_shader.UnUseProgram();
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
@@ -15,61 +17,95 @@ MyViewer::~MyViewer()
 
 // private
 /*
-	ImGUI‰Šú‰»
-	NOTE: ƒRƒ“ƒeƒNƒXƒgì¬Œã‚És‚¤‚±‚Æ.
+	ImGUIåˆæœŸåŒ–
+	NOTE: ã‚³ãƒ³ãƒ†ã‚¯ã‚¹ãƒˆä½œæˆå¾Œã«è¡Œã†ã“ã¨.
 */
 void MyViewer::InitImGui()
 {
-	// ImGui: ƒRƒ“ƒeƒNƒXƒgì¬
+	// ImGui: ã‚³ãƒ³ãƒ†ã‚¯ã‚¹ãƒˆä½œæˆ
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
-	// ImGui: “üo—Í‰Šú‰»
+	// ImGui: å…¥å‡ºåŠ›åˆæœŸåŒ–
 	m_imgui_io = ImGui::GetIO();
 
-	// ImGui: Œ©‰h‚¦‚Ìİ’è
+	// ImGui: è¦‹æ „ãˆã®è¨­å®š
 	ImGui::StyleColorsDark();
 	ImGui::GetStyle().Alpha = 0.9f;
 
-	// ImGui: OpenGL˜AŒg
+	// ImGui: OpenGLé€£æº
 	ImGui_ImplGlfw_InitForOpenGL(m_opengl_manager.GetWindow(), true);
 	ImGui_ImplOpenGL3_Init(MY_VIEWER_DEFINE::IMGUI::GLSL_VERSION_C_STR);
 }
-// OpenGL‰Šú‰»
+// OpenGLåˆæœŸåŒ–
 void MyViewer::InitOpenGL()
 {
-	// OpenGLƒRƒ“ƒeƒNƒXƒg‚Ìì¬
+	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	// OpenGLã‚³ãƒ³ãƒ†ã‚¯ã‚¹ãƒˆã®ä½œæˆ
 	m_opengl_manager.InitWindow(m_window_width, m_window_height, m_window_name.c_str());
-	// ”wŒiFİ’è
+	// èƒŒæ™¯è‰²è¨­å®š
 	glClearColor(0.3f, 0.3f, 0.3f, 1);
-	// ƒVƒF[ƒ_‰Šú‰»
+	// ã‚·ã‚§ãƒ¼ãƒ€åˆæœŸåŒ–
 	InitShader();
 }
+// ã‚·ã‚§ãƒ¼ãƒ€åˆæœŸåŒ–
 void MyViewer::InitShader()
 {
-	// Vertex/FragmentƒVƒF[ƒ_‚Ì‰Šú‰»
+	// Vertex/Fragmentã‚·ã‚§ãƒ¼ãƒ€ã®åˆæœŸåŒ–
 	m_shader.Set(MY_VIEWER_DEFINE::SHADER::BASE_VERTEX, MY_VIEWER_DEFINE::SHADER::BASE_FRAGMENT);
+
+	// fragment bind
+	m_shader.BindFragDataLocation(MY_VIEWER_DEFINE::SHADER::FRAGMENT);
+
+	// ãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆ
+	InitShaderTable();
 }
-// ƒXƒŒƒbƒh¶¬
+// ã‚·ã‚§ãƒ¼ãƒ€ãƒ†ãƒ¼ãƒ–ãƒ«ã®åˆæœŸåŒ–
+// NOTE: MyViewerDefine.hppã¨é€£æº
+void MyViewer::InitShaderTable()
+{
+	// Attribute
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::POSITION, m_shader.GetAttLocationValue(MY_VIEWER_DEFINE::SHADER::POSITION));
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL, m_shader.GetAttLocationValue(MY_VIEWER_DEFINE::SHADER::NORMAL));
+	// Uniform
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::MODEL_VIEW));
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::PROJECTION));
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::NORMAL_MATRIX));
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LPOS, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LPOS));
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LAMB, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LAMB));
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LDIFF, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LDIFF));
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LSPEC, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LSPEC));
+	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::MATERIAL, m_shader.GetUniformBlockIndex(MY_VIEWER_DEFINE::SHADER::MATERIAL));
+	// Block Bind
+	m_shader.UniformBlockBind(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::MATERIAL], 0);
+#if DEBUG_SHADER_TABLE_LOG
+	std::cout << "DEBUG: SHADER_TABLE_LOG" << std::endl;
+	for (auto itr = m_shader_table.begin(); itr != m_shader_table.end(); ++itr)
+	{
+		std::cout << (int)itr->first << " " << itr->second << std::endl;
+	}
+#endif
+}
+// ã‚¹ãƒ¬ãƒƒãƒ‰ç”Ÿæˆ
 void MyViewer::InitThread()
 {
 }
-// ImGui‚ÌƒŒƒ“ƒ_ƒŠƒ“ƒO
+// ImGuiã®ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°
 void MyViewer::UpdateImGui()
 {
-	// ƒtƒŒ[ƒ€¶¬
+	// ãƒ•ãƒ¬ãƒ¼ãƒ ç”Ÿæˆ
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	// GUIXV
+	// GUIæ›´æ–°
 	m_gui_manager.Update();
 
-	// ƒŒƒ“ƒ_ƒŠƒ“ƒO
+	// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
-// ƒtƒ‰ƒO‚ÉŠî‚Ã‚­ˆ—
+// ãƒ•ãƒ©ã‚°ã«åŸºã¥ãå‡¦ç†
 void MyViewer::SwitchProcessGUI()
 {
 	switch (m_gui_flags)
@@ -82,47 +118,92 @@ void MyViewer::SwitchProcessGUI()
 		break;
 	}
 }
+// ãƒ“ãƒ¥ã‚¢ãƒ¼ã®åœ°å¹³ç·šã‚’æç”»
+void MyViewer::DrawBaseStage()
+{
+	const GLfloat fovy = m_opengl_manager.GetFovy(30.0f);
+	const GLfloat aspect = m_opengl_manager.GetAspect();
+
+	MatrixGL m_projection = MathGL::Perspective(fovy, aspect, 0.01f, 300.0f);
+	MatrixGL m_view = MathGL::LookAt(10.0f, 10.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
+	m_shader.UniformMatrix4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
+
+	LightGL m_light;
+	m_light.SetPos(0.0f, 10.0f, 1.0f, 1.0f);
+	m_light.SetAmb(1.0f, 1.0f, 1.0f);
+	m_light.SetDiff(1.0f, 1.0f, 1.0f);
+	m_light.SetSpec(1.0f, 1.0f, 1.0f);
+	m_shader.Uniform4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LPOS], 1, (m_view * m_light.GetPos()).data());
+	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LAMB], 1, m_light.GetAmb());
+	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LDIFF], 1, m_light.GetDiff());
+	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LSPEC], 1, m_light.GetSpec());
+
+	GLfloat normal[9];
+	m_view.GetNormalMatrix(normal);
+	m_shader.UniformMatrix3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX], 1, GL_FALSE, normal);
+	m_shader.UniformMatrix4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
+	m_material->Select(0,0);
+	m_shape_base.Draw(0);
+}
 
 // public
-// ‰Šú‰»ˆ—
+// åˆæœŸåŒ–å‡¦ç†
 void MyViewer::Init(const int& width, const int& height, const std::string& name)
 {
-	// ƒEƒBƒ“ƒhƒEƒf[ƒ^‚Ì‰Šú‰»
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ‡ãƒ¼ã‚¿ã®åˆæœŸåŒ–
 	m_window_width = width, m_window_height = height;
 	m_window_name = name;
 
-	// ‰Šú‰»ˆ—
+	// åˆæœŸåŒ–å‡¦ç†
 	InitOpenGL();
 	InitImGui();
+
+	// debug
+	std::vector<MaterialGL> m___;
+	m___.emplace_back(MaterialGL{ 1.0f, 0.0f, 0.0f, 0.6f, 0.2f, 0.2f, 0.3f, 0.3f, 0.3f, 30.0f });
+	m_material = new UniformGL<MaterialGL>(m___.data(), m___.size());
+	CubeGL m_cube;
+	m_shape_base.SetShape(m_cube.GetVertex(), m_cube.GetVertexSize(), m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION], m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL]);
 }
-// XVˆ—
-// NOTE: ImGUI‚ª‘¦ˆ—‚Ì‚½‚ß, Update‘¤‚Å‰æ–ÊƒNƒŠƒA‚ÆImGUI‚Ì•`‰æEXV‚ğs‚¤.
+// æ›´æ–°å‡¦ç†
+// NOTE: ImGUIãŒå³æ™‚å‡¦ç†ã®ãŸã‚, Updateå´ã§ç”»é¢ã‚¯ãƒªã‚¢ã‚’è¡Œã†.
 void MyViewer::Update()
 {
-	// ‰æ–ÊƒNƒŠƒA
+	// ç”»é¢ã‚¯ãƒªã‚¢
 	m_opengl_manager.Clear();
-	// ImGUI‚ÌXV
+	// ImGUIã®æ›´æ–°
 	UpdateImGui();
 
-	// ƒtƒ‰ƒOXV
+	// ãƒ•ãƒ©ã‚°æ›´æ–°
 	m_gui_flags = m_gui_manager.GetGUIFlags();
 
-	// GUIŒ‹‰Ê‚ÉŠî‚Ã‚­ˆ—
+	// GUIçµæœã«åŸºã¥ãå‡¦ç†
 	if (m_gui_flags != GUI_MANAGER_DEFINE::FLAGS::NONE) { SwitchProcessGUI(); }
 }
-// •`‰æˆ—
+// æç”»å‡¦ç†
 void MyViewer::Draw()
 {
+	// ã‚·ã‚§ãƒ¼ãƒ€èµ·å‹•
+	m_shader.UseProgram();
 
+	// åŸºæº–ç‚¹ã‚’æç”»
+	DrawBaseStage();
 
-	// ƒ_ƒuƒ‹ƒoƒbƒtƒ@ƒŠƒ“ƒO
+	// ImGui: ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	// ãƒ€ãƒ–ãƒ«ãƒãƒƒãƒ•ã‚¡ãƒªãƒ³ã‚°
 	m_opengl_manager.SwapBuffer();
+	// ã‚·ã‚§ãƒ¼ãƒ€çµ‚äº†
+	m_shader.UnUseProgram();
 }
-// OpenGL‚Ìˆ—
+// OpenGLã®å‡¦ç†
 void MyViewer::ProcessOpenGL()
 {
-	// OpenGL: ƒCƒxƒ“ƒgˆ—
+	// OpenGL: ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
 	m_opengl_manager.PollEvents();
-	// OpenGL: ƒGƒ‰[ƒ`ƒFƒbƒN
+	// OpenGL: ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯
 	m_opengl_manager.ErrorCheck();
 }
