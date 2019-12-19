@@ -177,6 +177,8 @@
     <ClInclude Include="src\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\imgui\imstb_textedit.h" />
     <ClInclude Include="src\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\MainCamera\MainCamera.hpp" />
+    <ClInclude Include="src\MainCamera\MainCameraGL.hpp" />
     <ClInclude Include="src\MainInfo.hpp" />
     <ClInclude Include="src\MenuBar\MenuBar.hpp" />
     <ClInclude Include="src\MenuBar\MenuBarDefine.hpp" />

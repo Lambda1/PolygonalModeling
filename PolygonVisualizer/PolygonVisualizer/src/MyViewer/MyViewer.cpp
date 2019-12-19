@@ -1,7 +1,8 @@
 ﻿#include "./MyViewer.hpp"
 
 MyViewer::MyViewer():
-	m_window_width(0), m_window_height(0)
+	m_window_width(0), m_window_height(0),
+	m_fovy(0.0f), m_aspect(0.0f)
 {
 
 }
@@ -75,9 +76,7 @@ void MyViewer::InitShaderTable()
 	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LAMB, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LAMB));
 	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LDIFF, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LDIFF));
 	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LSPEC, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LSPEC));
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::MATERIAL, m_shader.GetUniformBlockIndex(MY_VIEWER_DEFINE::SHADER::MATERIAL));
-	// Block Bind
-	m_shader.UniformBlockBind(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::MATERIAL], 0);
+
 #if DEBUG_SHADER_TABLE_LOG
 	std::cout << "DEBUG: SHADER_TABLE_LOG" << std::endl;
 	for (auto itr = m_shader_table.begin(); itr != m_shader_table.end(); ++itr)
@@ -89,6 +88,23 @@ void MyViewer::InitShaderTable()
 // スレッド生成
 void MyViewer::InitThread()
 {
+}
+// ビュアー用変数初期化
+void MyViewer::InitViewer()
+{
+	// カメラ位置
+	m_main_camera.SetPos(10.0f, 10.0f, 10.0f);
+	m_main_camera.up_y = 1.0f;
+
+	// ライティング
+	m_main_light.SetPos(0.0f, 3.0f, 1.0f, 1.0f);
+	m_main_light.SetAmb(1.0f, 1.0f, 1.0f);
+	m_main_light.SetDiff(1.0f, 1.0f, 1.0f);
+	m_main_light.SetSpec(1.0f, 1.0f, 1.0f);
+	
+	// 画面処理
+	m_fovy = m_opengl_manager.GetFovy(30.0f);
+	m_aspect = m_opengl_manager.GetAspect();
 }
 // ImGuiのレンダリング
 void MyViewer::UpdateImGui()
@@ -121,29 +137,21 @@ void MyViewer::SwitchProcessGUI()
 // ビュアーの地平線を描画
 void MyViewer::DrawBaseStage()
 {
-	const GLfloat fovy = m_opengl_manager.GetFovy(30.0f);
-	const GLfloat aspect = m_opengl_manager.GetAspect();
-
-	MatrixGL m_projection = MathGL::Perspective(fovy, aspect, 0.01f, 300.0f);
-	MatrixGL m_view = MathGL::LookAt(10.0f, 10.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	m_aspect = m_opengl_manager.GetAspect();
+	m_projection = MathGL::Perspective(m_fovy, m_aspect, 0.01f, 300.0f);
+	m_view = m_main_camera.LookAt(0.0f, 0.0f, 0.0f);
 
 	m_shader.UniformMatrix4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
 
-	LightGL m_light;
-	m_light.SetPos(0.0f, 10.0f, 1.0f, 1.0f);
-	m_light.SetAmb(1.0f, 1.0f, 1.0f);
-	m_light.SetDiff(1.0f, 1.0f, 1.0f);
-	m_light.SetSpec(1.0f, 1.0f, 1.0f);
-	m_shader.Uniform4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LPOS], 1, (m_view * m_light.GetPos()).data());
-	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LAMB], 1, m_light.GetAmb());
-	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LDIFF], 1, m_light.GetDiff());
-	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LSPEC], 1, m_light.GetSpec());
+	m_shader.Uniform4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LPOS], 1, (m_view * m_main_light.GetPos()).data());
+	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LAMB], 1, m_main_light.GetAmb());
+	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LDIFF], 1, m_main_light.GetDiff());
+	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LSPEC], 1, m_main_light.GetSpec());
 
 	GLfloat normal[9];
 	m_view.GetNormalMatrix(normal);
 	m_shader.UniformMatrix3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX], 1, GL_FALSE, normal);
 	m_shader.UniformMatrix4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
-	m_material->Select(0,0);
 	m_shape_base.Draw(0);
 }
 
@@ -158,11 +166,9 @@ void MyViewer::Init(const int& width, const int& height, const std::string& name
 	// 初期化処理
 	InitOpenGL();
 	InitImGui();
+	InitViewer();
 
 	// debug
-	std::vector<MaterialGL> m___;
-	m___.emplace_back(MaterialGL{ 1.0f, 0.0f, 0.0f, 0.6f, 0.2f, 0.2f, 0.3f, 0.3f, 0.3f, 30.0f });
-	m_material = new UniformGL<MaterialGL>(m___.data(), m___.size());
 	CubeGL m_cube;
 	m_shape_base.SetShape(m_cube.GetVertex(), m_cube.GetVertexSize(), m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION], m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL]);
 }

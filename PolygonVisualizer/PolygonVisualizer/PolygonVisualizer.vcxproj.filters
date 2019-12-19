@@ -124,6 +124,9 @@
     <Filter Include="ヘッダー ファイル\OpenGL\MaterialGL">
       <UniqueIdentifier>{762d4b9c-4fc7-4e9b-ab4d-06db1152aa39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\MainCamera">
+      <UniqueIdentifier>{9d13bbbb-57b3-4fd9-8b41-7236cc6038d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp">
@@ -319,6 +322,12 @@
     </ClInclude>
     <ClInclude Include="src\OpenGL\MaterialGL\MaterialGL.hpp">
       <Filter>ヘッダー ファイル\OpenGL\MaterialGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainCamera\MainCameraGL.hpp">
+      <Filter>ヘッダー ファイル\MainCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainCamera\MainCamera.hpp">
+      <Filter>ヘッダー ファイル\MainCamera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

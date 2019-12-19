@@ -12,6 +12,7 @@
 
 // テスト処理
 #include "../OpenGL/PrimitiveObjectGL/CubeGL.hpp"
+#include "../MainCamera/MainCameraGL.hpp"
 #include "../OpenGL/LightGL/LightGL.hpp"
 #include "../OpenGL/MyShader/MyShader.hpp"
 #include "../OpenGL/MathGL/MathGL.hpp"
@@ -43,13 +44,19 @@ class MyViewer
 	GUI_MANAGER_DEFINE::FLAGS m_gui_flags;
 	// レンダリング用変数
 	ShapeManager m_shape_base;
-	UniformGL<MaterialGL>* m_material;
+	// ビュアー処理
+	MainCameraGL m_main_camera;
+	LightGL m_main_light;
+	// 投影処理用
+	GLfloat m_fovy, m_aspect;      // 画角, アスペクト比
+	MatrixGL m_projection, m_view; // PV行列
 
 	// 初期化処理
 	void InitOpenGL();
 	void InitShader();
 	void InitShaderTable();
 	void InitImGui();
+	void InitViewer();
 	void InitThread();
 
 	// ImGUI処理
