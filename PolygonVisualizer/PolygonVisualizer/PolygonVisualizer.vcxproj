@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GUIManager\GUIManager.hpp" />
+    <ClInclude Include="src\GUIManager\GUIManagerDefine.hpp" />
     <ClInclude Include="src\GUIWindow\GUIWindow.hpp" />
     <ClInclude Include="src\GUIWindow\ToolWindow\ToolWindow.hpp" />
     <ClInclude Include="src\GUIWindow\ToolWindow\ToolWindowDefine.hpp" />

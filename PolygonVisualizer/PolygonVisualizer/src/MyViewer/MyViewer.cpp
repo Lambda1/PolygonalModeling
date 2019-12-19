@@ -28,7 +28,8 @@ void MyViewer::InitImGui()
 	m_imgui_io = ImGui::GetIO();
 
 	// ImGui: 見栄えの設定
-	ImGui::StyleColorsClassic();
+	ImGui::StyleColorsDark();
+	ImGui::GetStyle().Alpha = 0.9f;
 
 	// ImGui: OpenGL連携
 	ImGui_ImplGlfw_InitForOpenGL(m_opengl_manager.GetWindow(), true);
@@ -41,6 +42,13 @@ void MyViewer::InitOpenGL()
 	m_opengl_manager.InitWindow(m_window_width, m_window_height, m_window_name.c_str());
 	// 背景色設定
 	glClearColor(0.3f, 0.3f, 0.3f, 1);
+	// シェーダ初期化
+	InitShader();
+}
+void MyViewer::InitShader()
+{
+	// Vertex/Fragmentシェーダの初期化
+	m_shader.Set(MY_VIEWER_DEFINE::SHADER::BASE_VERTEX, MY_VIEWER_DEFINE::SHADER::BASE_FRAGMENT);
 }
 // スレッド生成
 void MyViewer::InitThread()
@@ -60,6 +68,19 @@ void MyViewer::UpdateImGui()
 	// レンダリング
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+// フラグに基づく処理
+void MyViewer::SwitchProcessGUI()
+{
+	switch (m_gui_flags)
+	{
+	case GUI_MANAGER_DEFINE::FLAGS::OPEN_FILE:
+		break;
+	case GUI_MANAGER_DEFINE::FLAGS::SAVE_FILE:
+		break;
+	default:
+		break;
+	}
 }
 
 // public
@@ -83,11 +104,17 @@ void MyViewer::Update()
 	// ImGUIの更新
 	UpdateImGui();
 
+	// フラグ更新
+	m_gui_flags = m_gui_manager.GetGUIFlags();
 
+	// GUI結果に基づく処理
+	if (m_gui_flags != GUI_MANAGER_DEFINE::FLAGS::NONE) { SwitchProcessGUI(); }
 }
 // 描画処理
 void MyViewer::Draw()
 {
+
+
 	// ダブルバッファリング
 	m_opengl_manager.SwapBuffer();
 }

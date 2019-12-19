@@ -1,7 +1,8 @@
 #include "./GUIManager.hpp"
 
 GUIManager::GUIManager():
-	m_tool_window(nullptr)
+	m_tool_window(nullptr),
+	m_gui_flags(GUI_MANAGER_DEFINE::FLAGS::NONE)
 {
 	InitGUI();
 }
@@ -29,6 +30,9 @@ void GUIManager::InitGUI()
 // 更新処理
 void GUIManager::Update()
 {
+	// フラグクリア
+	m_gui_flags = GUI_MANAGER_DEFINE::FLAGS::NONE;
+
 	// メニューバー更新処理
 	m_menu_bar.Update();
 	// ウィンドウ更新処理
@@ -36,6 +40,9 @@ void GUIManager::Update()
 
 	// 各GUIの処理
 	ProcessMenuBar();
+
+	if (m_gui_flags != GUI_MANAGER_DEFINE::FLAGS::NONE)
+		std::cout << (int)m_gui_flags << std::endl;
 }
 // メニューバー処理
 void GUIManager::ProcessMenuBar()
@@ -44,9 +51,11 @@ void GUIManager::ProcessMenuBar()
 	if ((flags & MenuBar::MENU_FLAGS::OPEN_FILE) == MenuBar::MENU_FLAGS::OPEN_FILE)
 	{
 		m_file_name = m_menu_bar.GetOpenFile();
+		m_gui_flags |= GUI_MANAGER_DEFINE::FLAGS::OPEN_FILE;
 	}
 	else if ((flags & MenuBar::MENU_FLAGS::SAVE_FILE) == MenuBar::MENU_FLAGS::SAVE_FILE)
 	{
 		m_file_name = m_menu_bar.GetSaveFile();
+		m_gui_flags |= GUI_MANAGER_DEFINE::FLAGS::SAVE_FILE;
 	}
 }

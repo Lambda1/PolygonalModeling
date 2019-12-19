@@ -281,5 +281,8 @@
     <ClInclude Include="src\OpenGL\PrimitiveObjectGL\SphereGL.hpp">
       <Filter>ヘッダー ファイル\OpenGL\PrimitiveGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\GUIManager\GUIManagerDefine.hpp">
+      <Filter>ヘッダー ファイル\GUIManager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
