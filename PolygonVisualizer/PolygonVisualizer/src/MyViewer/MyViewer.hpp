@@ -35,6 +35,9 @@ class MyViewer
 	// NOTE: 1モデル読み込みと仮定
 	inline static constexpr int DRAW_ID_STAGE = 0;
 	inline static constexpr int DRAW_ID_MODEL = 1;
+	// 定数パラメータ
+	// カメラの拡大率
+	inline static constexpr GLfloat ZOOM_MAGNIFICATION = 1.0f / 8.0f;
 
 	// GLFWによるウィンドウマネージャ
 	MyGLFW m_opengl_manager;
@@ -72,8 +75,11 @@ class MyViewer
 	void InitViewer();
 	void InitThread();
 
-	// ImGUI処理
+	// ImGUI関係の更新
 	void UpdateImGui();
+	// カメラ更新
+	void UpdateCamera();
+
 	// GUIManagerフラグに基づく処理
 	void SwitchProcessGUI();
 	void RegistrationModel(); // モデル登録

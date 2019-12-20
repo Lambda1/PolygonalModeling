@@ -11,6 +11,9 @@
 
 class MyGLFW
 {
+public:
+	inline static constexpr int ZERO_VEC = 0;
+private:
 	GLFWwindow *m_window;
 
 	/* キーボード処理 */
@@ -100,7 +103,7 @@ class MyGLFW
 
 	// 変数リセット
 	// スクロール変数のクリア
-	inline void ResetScrollValue() { m_scroll_vec_x = m_scroll_vec_y = 0; }
+	inline void ResetScrollValue() { m_scroll_vec_x = m_scroll_vec_y = ZERO_VEC; }
 
 	/* Getter */
 	inline GLFWwindow* GetWindow() const { return m_window; }

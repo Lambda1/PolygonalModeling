@@ -131,7 +131,7 @@ void MyViewer::InitViewer()
 	// データ転送
 	m_gui_manager.MediationCameraPtrToToolWindow(&m_main_camera);
 }
-// ImGuiのレンダリング
+// ImGuiの更新
 void MyViewer::UpdateImGui()
 {
 	// フレーム生成
@@ -142,6 +142,20 @@ void MyViewer::UpdateImGui()
 	// GUI更新
 	m_gui_manager.Update();
 }
+// メインカメラの更新
+void MyViewer::UpdateCamera()
+{
+	// スクロールベクトルに変化があるとき, ズーム処理
+	// NOTE: 前方スクロールで拡大するため, ベクトルの向きに注意
+	if (m_opengl_manager.GetScrollVecY() != MyGLFW::ZERO_VEC)
+	{
+		m_main_camera.x -= m_opengl_manager.GetScrollVecY() * ZOOM_MAGNIFICATION;
+		m_main_camera.z -= m_opengl_manager.GetScrollVecY() * ZOOM_MAGNIFICATION;
+		// スクロールベクトルのクリア
+		m_opengl_manager.ResetScrollValue();
+	}
+}
+
 // フラグに基づく処理
 void MyViewer::SwitchProcessGUI()
 {
@@ -197,14 +211,15 @@ void MyViewer::Update()
 	// 画面クリア
 	m_opengl_manager.Clear();
 	
-	// 開始: ImGui処理
 	// ImGUIの更新
 	UpdateImGui();
 	// フラグ更新
 	m_gui_flags = m_gui_manager.GetGUIFlags();
 	// GUI結果に基づく処理
 	if (m_gui_flags != GUI_MANAGER_DEFINE::FLAGS::NONE) { SwitchProcessGUI(); }
-	// 終了: ImGui処理
+
+	// カメラ更新
+	UpdateCamera();
 
 	// PV行列の更新
 	SetPVMatrix();
