@@ -17,7 +17,16 @@ void ShapeManager::DiposeMemory()
 }
 void ShapeManager::DiposeMemoryPop()
 {
+	// Á‚µ‚Ä‚Í‚¢‚¯‚È‚¢ƒ‚ƒfƒ‹”
+	const int VALID_SHAPE_NUM = 1;
+	
+	if (m_shape.size() > VALID_SHAPE_NUM)
+	{
+		m_shape.pop_back();
+		m_shape.shrink_to_fit();
+	}
 
+	std::cout << m_shape.size() << std::endl;
 }
 /* }Œ`‚Ì“o˜^ */
 void ShapeManager::SetShape(const ObjectGL::Vertex* data, const int& size, const GLint& position_id, const GLint& normal_id)

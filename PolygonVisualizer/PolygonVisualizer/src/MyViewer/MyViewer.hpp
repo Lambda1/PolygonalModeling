@@ -31,9 +31,10 @@
 
 class MyViewer
 {
-	// 定数パラメータ
-	// ステージのSHAPE ID(固定)
+	// 固定シェーダパラメータ
+	// NOTE: 1モデル読み込みと仮定
 	inline static constexpr int DRAW_ID_STAGE = 0;
+	inline static constexpr int DRAW_ID_MODEL = 1;
 
 	// GLFWによるウィンドウマネージャ
 	MyGLFW m_opengl_manager;
@@ -101,7 +102,33 @@ class MyViewer
 		m_projection = MathGL::Perspective(m_fovy, m_aspect, 0.01f, 300.0f);
 		m_view = m_main_camera.LookAt(0.0f, 0.0f, 0.0f);
 	}
+	// ビュアー中にモデルを描画
+	// NOTE: baseシェーダ
+	inline void DrawModel()
+	{
+		if (m_model_data.IsRegistration())
+		{
+			m_shader_model.UseProgram();
+
+			// プロジェクション設定
+			m_shader_model.UniformMatrix4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
+			// 光源設定
+			UpdateShaderLight();
+			// 法線設定
+			GLfloat normal[9];
+			m_view.GetNormalMatrix(normal);
+			m_shader_model.UniformMatrix3fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX], 1, GL_FALSE, normal);
+			// ビュー設定
+			m_shader_model.UniformMatrix4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
+
+			// 描画
+			m_shape_base.Draw(DRAW_ID_MODEL);
+
+			m_shader_model.UnUseProgram();
+		}
+	}
 	// ビュアーの地平線を描画
+	// NOTE: stageシェーダ
 	inline void DrawBaseStage()
 	{
 		m_shader_stage.UseProgram();

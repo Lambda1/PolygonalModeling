@@ -159,14 +159,11 @@ void MyViewer::SwitchProcessGUI()
 // モデルデータの登録
 void MyViewer::RegistrationModel()
 {
-	/*
 	// モデル読み込み
 	m_model_data.LoadModelData(m_gui_manager.GetFileName());
 
-	// HACK: Diposeを修正すること
-
 	// 読み込み中のモデルデータの解放
-	m_shape_base.DiposeMemory();
+	m_shape_base.DiposeMemoryPop();
 	// モデルデータをGPUへ転送
 	m_shape_base.SetShape
 	(
@@ -178,7 +175,6 @@ void MyViewer::RegistrationModel()
 
 	// GUIManagerのモデルデータ更新
 	m_gui_manager.SetModelData(&m_model_data);
-	*/
 }
 
 // public
@@ -214,6 +210,8 @@ void MyViewer::Update()
 	SetPVMatrix();
 	// 基準とする地平線を描画
 	DrawBaseStage();
+	// モデルを描画
+	DrawModel();
 }
 // 描画処理
 // NOTE: モデル計算されたものをレンダリングするのみ
