@@ -33,6 +33,7 @@ void ToolWindow::DisplayCameaInfo() const
 	ImGui::TextColored(IMGUI_COLOR_DEFINE::COLOR4::GREEN, "Main Camera");
 	if (m_main_camera_ptr)
 	{
+		ImGui::Text(" Field of View : %.2f", m_main_camera_ptr->fov);
 		ImGui::Text(" POSITION : (%.2f, %.2f, %.2f)", m_main_camera_ptr->x, m_main_camera_ptr->y, m_main_camera_ptr->z);
 		ImGui::Text(" GAZE POS : (%.2f, %.2f, %.2f)", m_main_camera_ptr->gx, m_main_camera_ptr->gy, m_main_camera_ptr->gz);
 	}

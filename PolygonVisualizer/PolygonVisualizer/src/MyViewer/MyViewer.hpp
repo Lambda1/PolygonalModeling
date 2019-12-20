@@ -37,7 +37,7 @@ class MyViewer
 	inline static constexpr int DRAW_ID_MODEL = 1;
 	// 定数パラメータ
 	// カメラの拡大率
-	inline static constexpr GLfloat ZOOM_MAGNIFICATION = 1.0f / 8.0f;
+	inline static constexpr GLfloat ZOOM_MAGNIFICATION = 1.0f / 16.0f;
 
 	// GLFWによるウィンドウマネージャ
 	MyGLFW m_opengl_manager;
@@ -61,7 +61,7 @@ class MyViewer
 	LightGL m_main_light;
 	StageGL m_stage;
 	// 投影処理用
-	GLfloat m_fovy, m_aspect;      // 画角, アスペクト比
+	GLfloat m_aspect;              // 画角
 	MatrixGL m_projection, m_view; // PV行列
 	// モデルデータ
 	MyModel m_model_data;
@@ -105,8 +105,8 @@ class MyViewer
 	inline void SetPVMatrix()
 	{
 		m_aspect = m_opengl_manager.GetAspect();
-		m_projection = MathGL::Perspective(m_fovy, m_aspect, 0.01f, 300.0f);
-		m_view = m_main_camera.LookAt(0.0f, 0.0f, 0.0f);
+		m_projection = MathGL::Perspective(m_main_camera.fov, m_aspect, 0.01f, 300.0f);
+		m_view = m_main_camera.LookAt();
 	}
 	// ビュアー中にモデルを描画
 	// NOTE: baseシェーダ
@@ -135,7 +135,7 @@ class MyViewer
 	inline void DrawBaseStage()
 	{
 		m_shader_stage.UseProgram();
-		
+
 		m_shader_stage.UniformMatrix4fv(m_shader_stage_table[MY_VIEWER_DEFINE::STAGE_SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
 		m_shader_stage.UniformMatrix4fv(m_shader_stage_table[MY_VIEWER_DEFINE::STAGE_SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
 		m_shape_base.Draw(DRAW_ID_STAGE);

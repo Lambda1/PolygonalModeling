@@ -2,7 +2,7 @@
 
 MyViewer::MyViewer():
 	m_window_width(0), m_window_height(0),
-	m_fovy(0.0f), m_aspect(0.0f),
+	m_aspect(0.0f),
 	m_gui_flags(GUI_MANAGER_DEFINE::FLAGS::NONE)
 {
 
@@ -114,9 +114,11 @@ void MyViewer::InitThread()
 // ビュアー用変数初期化
 void MyViewer::InitViewer()
 {
-	// カメラ位置
+	// カメラ初期化
 	m_main_camera.SetPos(20.0f, 10.0f, 20.0f);
 	m_main_camera.up_y = 1.0f;
+	m_main_camera.fov = 0.5f;
+	m_main_camera.SetMagnification(ZOOM_MAGNIFICATION);
 
 	// ライティング
 	m_main_light.SetPos(0.0f, 3.0f, 1.0f, 1.0f);
@@ -125,7 +127,7 @@ void MyViewer::InitViewer()
 	m_main_light.SetSpec(1.0f, 1.0f, 1.0f);
 	
 	// 画面処理
-	m_fovy = m_opengl_manager.GetFovy(30.0f);
+	m_opengl_manager.GetFovy(m_main_camera.fov);
 	m_aspect = m_opengl_manager.GetAspect();
 
 	// データ転送
@@ -149,8 +151,10 @@ void MyViewer::UpdateCamera()
 	// NOTE: 前方スクロールで拡大するため, ベクトルの向きに注意
 	if (m_opengl_manager.GetScrollVecY() != MyGLFW::ZERO_VEC)
 	{
-		m_main_camera.x -= m_opengl_manager.GetScrollVecY() * ZOOM_MAGNIFICATION;
-		m_main_camera.z -= m_opengl_manager.GetScrollVecY() * ZOOM_MAGNIFICATION;
+		// 画角更新
+		if(m_opengl_manager.GetScrollVecY() == 1) m_main_camera.ZoomIn();
+		else m_main_camera.ZoomOut();
+
 		// スクロールベクトルのクリア
 		m_opengl_manager.ResetScrollValue();
 	}

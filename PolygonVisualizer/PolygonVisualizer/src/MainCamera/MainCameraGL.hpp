@@ -23,6 +23,10 @@ public:
 	{
 		return MathGL::LookAt(x, y, z, gaze_x, gaze_y, gaze_z, up_x, up_y, up_z);
 	}
+	MatrixGL LookAt() const
+	{
+		return MathGL::LookAt(x, y, z, gx, gy, gz, up_x, up_y, up_z);
+	}
 };
 
 #endif
