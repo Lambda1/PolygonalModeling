@@ -127,6 +127,9 @@ void MyViewer::InitViewer()
 	// 画面処理
 	m_fovy = m_opengl_manager.GetFovy(30.0f);
 	m_aspect = m_opengl_manager.GetAspect();
+
+	// データ転送
+	m_gui_manager.MediationCameraPtrToToolWindow(&m_main_camera);
 }
 // ImGuiのレンダリング
 void MyViewer::UpdateImGui()
@@ -138,10 +141,6 @@ void MyViewer::UpdateImGui()
 
 	// GUI更新
 	m_gui_manager.Update();
-
-	// レンダリング
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 // フラグに基づく処理
 void MyViewer::SwitchProcessGUI()

@@ -31,11 +31,15 @@ class MyGLFW
 	GLfloat m_timer_count; /* 経過時間 */
 	GLfloat last_time, elapsed_time; /* FPS処理用 */
 
+	/* マウス処理 */
+	int m_scroll_vec_x, m_scroll_vec_y; // マウススクロール方向のベクトル(正規化済み)
+
 	void InitMode();
 	
 	void SetCallBack();
 	static void KeyCallBack(GLFWwindow *window, int key, int scancode, int action, int mods);
 	static void WindowCallBack(GLFWwindow *window,int width,int height);
+	static void MouseScrollCallBack(GLFWwindow* window, double xoffset, double yoffset);
 
 	public:
 	MyGLFW();
@@ -94,6 +98,10 @@ class MyGLFW
 		}
 	}
 
+	// 変数リセット
+	// スクロール変数のクリア
+	inline void ResetScrollValue() { m_scroll_vec_x = m_scroll_vec_y = 0; }
+
 	/* Getter */
 	inline GLFWwindow* GetWindow() const { return m_window; }
 	inline const KeyState::STATE* GetKeyState() const { return m_key_state; }
@@ -106,6 +114,8 @@ class MyGLFW
 	inline GLfloat GetWindowScaleReciprocal() const { return 1.0f/m_scale; }
 	inline GLfloat GetFovy(const GLfloat &ang) const { return m_scale * (((ang/m_scale)/180.0f) * PI); }
 	inline GLfloat GetTimer() const { return static_cast<GLfloat>(glfwGetTime()); }
+	inline int GetScrollVecX() const { return m_scroll_vec_x; }
+	inline int GetScrollVecY() const { return m_scroll_vec_y; }
 };
 
 #endif

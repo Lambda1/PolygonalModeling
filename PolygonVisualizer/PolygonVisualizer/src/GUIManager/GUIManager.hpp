@@ -5,6 +5,7 @@
 #include "../MenuBar/MenuBar.hpp"
 #include "../GUIWindow/ToolWindow/ToolWindow.hpp"
 #include "../MyModel/MyModel.hpp"
+#include "../MainCamera/MainCameraGL.hpp"
 
 #include <iostream>
 #include <string>
@@ -32,6 +33,10 @@ public:
 
 	// 更新
 	void Update();
+
+	// 仲介処理
+	// ToolWindowへカメラポインタを渡す
+	void MediationCameraPtrToToolWindow(MainCameraGL *camera);
 
 	// Setter
 	// モデルデータのセット

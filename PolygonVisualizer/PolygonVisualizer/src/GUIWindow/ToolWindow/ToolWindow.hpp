@@ -5,6 +5,7 @@
 #include "../GUIWindow.hpp"
 #include "../../ColorDefine/ImGuiColorDefine.hpp"
 #include "../../MyModel/MyModel.hpp"
+#include "../../MainCamera/MainCameraGL.hpp"
 
 #include "../../imgui/imgui.h"
 
@@ -15,11 +16,16 @@ class ToolWindow : public GUIWindow
 
 	// モデルデータ
 	const MyModel* m_model_data_ptr;
+	// カメラデータ
+	// NOTE: ツール側から編集する可能性があるので非const
+	MainCameraGL* m_main_camera_ptr;
 
 	// 表示処理
-	void DisplayFrameRate();
+	void DisplayFrameRate() const;
 	// モデルデータ表示
-	void DisplayModelData();
+	void DisplayModelData() const;
+	// カメラ設定表示
+	void DisplayCameaInfo() const;
 public:
 	ToolWindow();
 	~ToolWindow();
@@ -28,6 +34,7 @@ public:
 
 	// Setter
 	inline void SetModelData(const MyModel* model_data) { m_model_data_ptr = model_data; }
+	inline void SetMainCamera(MainCameraGL* camera) { m_main_camera_ptr = camera; }
 };
 
 #endif

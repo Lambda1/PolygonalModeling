@@ -44,8 +44,9 @@ void MyGLFW::InitMode()
 void MyGLFW::SetCallBack()
 {
 	glfwSetWindowUserPointer(m_window, this);
-	//glfwSetKeyCallback(m_window, KeyCallBack);
 	glfwSetWindowSizeCallback(m_window, WindowCallBack);
+	glfwSetScrollCallback(m_window, MouseScrollCallBack);
+
 }
 /* キー入力コールバック関数 */
 /* NOTE: 同時押しに対応していないため, デバッグ以外には使用しない. */
@@ -66,6 +67,7 @@ void MyGLFW::KeyCallBack(GLFWwindow *window, int key, int scancode, int action, 
 		{ win_p->m_key_state[check_range] = KeyState::STATE::RELEASE; }
 	}
 }
+// ウィンドウ変更時コールバック関数
 void MyGLFW::WindowCallBack(GLFWwindow *window,int width,int height)
 {
 	int fb_width, fb_height;
@@ -81,6 +83,14 @@ void MyGLFW::WindowCallBack(GLFWwindow *window,int width,int height)
 		win_p->m_window_size[0] = static_cast<GLfloat>(width);
 		win_p->m_window_size[1] = static_cast<GLfloat>(height);
 	}
+}
+// マウススクロール時コールバック関数
+void MyGLFW::MouseScrollCallBack(GLFWwindow* window, double xoffset, double yoffset)
+{
+	MyGLFW* win_p = static_cast<MyGLFW*>(glfwGetWindowUserPointer(window));
+
+	win_p->m_scroll_vec_x = static_cast<int>(xoffset);
+	win_p->m_scroll_vec_y = static_cast<int>(yoffset);
 }
 
 void MyGLFW::InitWindow(const int &width,const int &height,const char *title)

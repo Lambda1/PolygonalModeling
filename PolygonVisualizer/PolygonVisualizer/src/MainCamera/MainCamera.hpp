@@ -11,10 +11,13 @@ public:
 	T x, y, z, w;
 	// upベクトル
 	T up_x, up_y, up_z;
+	// 注視点座標
+	T gx, gy, gz;
 
 	MainCamera():
 		x(0), y(0), z(0), w(1),
-		up_x(0), up_y(1), up_z(0)
+		up_x(0), up_y(1), up_z(0),
+		gx(0), gy(0), gz(0)
 	{
 	}
 	virtual ~MainCamera()

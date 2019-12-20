@@ -41,6 +41,7 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	// 名前登録
 	RegistrationFileIndo(open_model_data);
 
+	// テストモデル
 	CubeGL m_cube(5.0f);
 	for (int i = 0; i < m_cube.GetVertexSize(); ++i)
 	{

@@ -27,6 +27,12 @@ void GUIManager::InitGUI()
 		std::abort();
 	}
 }
+// 仲介処理
+// ToolWindowへカメラポインタを渡す
+void GUIManager::MediationCameraPtrToToolWindow(MainCameraGL* camera)
+{
+	m_tool_window->SetMainCamera(camera);
+}
 // public
 // 更新処理
 void GUIManager::Update()
