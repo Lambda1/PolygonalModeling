@@ -9,7 +9,7 @@ MyViewer::MyViewer():
 
 MyViewer::~MyViewer()
 {
-	m_shader.UnUseProgram();
+	m_shader_model.UnUseProgram();
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
@@ -53,33 +53,54 @@ void MyViewer::InitOpenGL()
 void MyViewer::InitShader()
 {
 	// Vertex/Fragmentシェーダの初期化
-	m_shader.Set(MY_VIEWER_DEFINE::SHADER::BASE_VERTEX, MY_VIEWER_DEFINE::SHADER::BASE_FRAGMENT);
+	m_shader_model.Set(MY_VIEWER_DEFINE::SHADER::BASE_VERTEX, MY_VIEWER_DEFINE::SHADER::BASE_FRAGMENT);
+	m_shader_stage.Set(MY_VIEWER_DEFINE::STAGE_SHADER::BASE_VERTEX, MY_VIEWER_DEFINE::STAGE_SHADER::BASE_FRAGMENT);
 
 	// fragment bind
-	m_shader.BindFragDataLocation(MY_VIEWER_DEFINE::SHADER::FRAGMENT);
+	m_shader_model.BindFragDataLocation(MY_VIEWER_DEFINE::SHADER::FRAGMENT);
 
 	// テーブル作成
-	InitShaderTable();
+	InitModelShaderTable();
+	InitStageShaderTable();
+
+	// ステージデータの転送
+	m_shape_base.SetShapeWire(m_stage.GetVertex(), m_stage.GetVertexSize(), m_shader_stage_table[MY_VIEWER_DEFINE::STAGE_SHADER::TABLE::POSITION]);
 }
 // シェーダテーブルの初期化
 // NOTE: MyViewerDefine.hppと連携
-void MyViewer::InitShaderTable()
+void MyViewer::InitModelShaderTable()
 {
 	// Attribute
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::POSITION, m_shader.GetAttLocationValue(MY_VIEWER_DEFINE::SHADER::POSITION));
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL, m_shader.GetAttLocationValue(MY_VIEWER_DEFINE::SHADER::NORMAL));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::POSITION, m_shader_model.GetAttLocationValue(MY_VIEWER_DEFINE::SHADER::POSITION));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL, m_shader_model.GetAttLocationValue(MY_VIEWER_DEFINE::SHADER::NORMAL));
 	// Uniform
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::MODEL_VIEW));
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::PROJECTION));
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::NORMAL_MATRIX));
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LPOS, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LPOS));
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LAMB, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LAMB));
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LDIFF, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LDIFF));
-	m_shader_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LSPEC, m_shader.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LSPEC));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW, m_shader_model.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::MODEL_VIEW));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION, m_shader_model.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::PROJECTION));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX, m_shader_model.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::NORMAL_MATRIX));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LPOS, m_shader_model.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LPOS));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LAMB, m_shader_model.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LAMB));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LDIFF, m_shader_model.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LDIFF));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::LSPEC, m_shader_model.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::LSPEC));
 
 #if DEBUG_SHADER_TABLE_LOG
-	std::cout << "DEBUG: SHADER_TABLE_LOG" << std::endl;
-	for (auto itr = m_shader_table.begin(); itr != m_shader_table.end(); ++itr)
+	std::cout << "DEBUG: MODEL_SHADER_TABLE_LOG" << std::endl;
+	for (auto itr = m_shader_model_table.begin(); itr != m_shader_model_table.end(); ++itr)
+	{
+		std::cout << (int)itr->first << " " << itr->second << std::endl;
+	}
+#endif
+}
+// ステージシェーダの初期化
+void MyViewer::InitStageShaderTable()
+{
+	// Attribute
+	m_shader_stage_table.emplace(MY_VIEWER_DEFINE::STAGE_SHADER::TABLE::POSITION, m_shader_stage.GetAttLocationValue(MY_VIEWER_DEFINE::STAGE_SHADER::POSITION));
+	// Uniform
+	m_shader_stage_table.emplace(MY_VIEWER_DEFINE::STAGE_SHADER::TABLE::PROJECION, m_shader_stage.GetUniLocationValue(MY_VIEWER_DEFINE::STAGE_SHADER::PROJECTION));
+	m_shader_stage_table.emplace(MY_VIEWER_DEFINE::STAGE_SHADER::TABLE::MODEL_VIEW, m_shader_stage.GetUniLocationValue(MY_VIEWER_DEFINE::STAGE_SHADER::MODEL_VIEW));
+#if DEBUG_SHADER_TABLE_LOG
+	std::cout << "DEBUG: STAGE_SHADER_TABLE_LOG" << std::endl;
+	for (auto itr = m_shader_stage_table.begin(); itr != m_shader_stage_table.end(); ++itr)
 	{
 		std::cout << (int)itr->first << " " << itr->second << std::endl;
 	}
@@ -138,47 +159,26 @@ void MyViewer::SwitchProcessGUI()
 // モデルデータの登録
 void MyViewer::RegistrationModel()
 {
+	/*
 	// モデル読み込み
 	m_model_data.LoadModelData(m_gui_manager.GetFileName());
+
+	// HACK: Diposeを修正すること
 
 	// 読み込み中のモデルデータの解放
 	m_shape_base.DiposeMemory();
 	// モデルデータをGPUへ転送
-	m_shape_base.SetShapeWire
+	m_shape_base.SetShape
 	(
 		m_model_data.GetModelData(),
 		m_model_data.GetModelDataSize(),
-		m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION],
-		m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL]
+		m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION],
+		m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL]
 	);
 
 	// GUIManagerのモデルデータ更新
 	m_gui_manager.SetModelData(&m_model_data);
-}
-// ビュアーの地平線を描画
-void MyViewer::DrawBaseStage()
-{
-	m_aspect = m_opengl_manager.GetAspect();
-	m_projection = MathGL::Perspective(m_fovy, m_aspect, 0.01f, 300.0f);
-	m_view = m_main_camera.LookAt(0.0f, 0.0f, 0.0f);
-
-	static GLfloat r = 0.0f;
-	m_view = m_view * MathGL::Quaternion(r, 0, 1, 0);
-	r += 0.01f;
-
-	m_shader.UniformMatrix4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
-
-	m_shader.Uniform4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LPOS], 1, (m_view * m_main_light.GetPos()).data());
-	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LAMB], 1, m_main_light.GetAmb());
-	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LDIFF], 1, m_main_light.GetDiff());
-	m_shader.Uniform3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::LSPEC], 1, m_main_light.GetSpec());
-
-	GLfloat normal[9];
-	m_view.GetNormalMatrix(normal);
-	m_shader.UniformMatrix3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX], 1, GL_FALSE, normal);
-	m_shader.UniformMatrix4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
-	
-	if (m_model_data.IsRegistration()) { m_shape_base.Draw(0); }
+	*/
 }
 
 // public
@@ -200,21 +200,23 @@ void MyViewer::Update()
 {
 	// 画面クリア
 	m_opengl_manager.Clear();
+	
+	// 開始: ImGui処理
 	// ImGUIの更新
 	UpdateImGui();
-
 	// フラグ更新
 	m_gui_flags = m_gui_manager.GetGUIFlags();
 	// GUI結果に基づく処理
 	if (m_gui_flags != GUI_MANAGER_DEFINE::FLAGS::NONE) { SwitchProcessGUI(); }
+	// 終了: ImGui処理
 
-	// ここから3D描画
-	m_shader.UseProgram();	 // シェーダ起動
-	DrawBaseStage();         // 基準点を描画
-	m_shader.UnUseProgram(); // シェーダ終了
-	// ここまで3D描画
+	// PV行列の更新
+	SetPVMatrix();
+	// 基準とする地平線を描画
+	DrawBaseStage();
 }
 // 描画処理
+// NOTE: モデル計算されたものをレンダリングするのみ
 void MyViewer::Draw()
 {
 	// ImGui: レンダリング

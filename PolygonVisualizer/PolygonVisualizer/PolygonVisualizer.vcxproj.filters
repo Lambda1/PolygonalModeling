@@ -222,6 +222,9 @@
     <ClCompile Include="src\MyModel\MyModel.cpp">
       <Filter>ソース ファイル\MyModel</Filter>
     </ClCompile>
+    <ClCompile Include="src\OpenGL\PrimitiveObjectGL\StageGL.cpp">
+      <Filter>ソース ファイル\OpenGL\PrimitiveGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\imgui\imconfig.h">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="src\ColorDefine\ImGuiColorDefine.hpp">
       <Filter>ヘッダー ファイル\ColorDefine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\PrimitiveObjectGL\StageGL.hpp">
+      <Filter>ヘッダー ファイル\OpenGL\PrimitiveGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

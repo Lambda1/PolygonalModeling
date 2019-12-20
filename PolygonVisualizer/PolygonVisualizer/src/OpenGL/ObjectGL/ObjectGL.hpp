@@ -15,6 +15,7 @@ class ObjectGL
 	inline static constexpr int m_nor = 3; /* 法線ベクトル(RGB) */
 
 	public:
+	// 基本データ
 	struct Vertex
 	{
 		GLfloat position[m_dim]; /* 位置 */

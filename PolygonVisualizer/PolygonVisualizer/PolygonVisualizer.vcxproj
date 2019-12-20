@@ -157,6 +157,7 @@
     <ClCompile Include="src\OpenGL\PrimitiveObjectGL\CubeGL.cpp" />
     <ClCompile Include="src\OpenGL\PrimitiveObjectGL\PlaneGL.cpp" />
     <ClCompile Include="src\OpenGL\PrimitiveObjectGL\SphereGL.cpp" />
+    <ClCompile Include="src\OpenGL\PrimitiveObjectGL\StageGL.cpp" />
     <ClCompile Include="src\OpenGL\ShapeGL\ShapeGL.cpp" />
     <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndex.cpp" />
     <ClCompile Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndexSolid.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="src\OpenGL\PrimitiveObjectGL\CubeGL.hpp" />
     <ClInclude Include="src\OpenGL\PrimitiveObjectGL\PlaneGL.hpp" />
     <ClInclude Include="src\OpenGL\PrimitiveObjectGL\SphereGL.hpp" />
+    <ClInclude Include="src\OpenGL\PrimitiveObjectGL\StageGL.hpp" />
     <ClInclude Include="src\OpenGL\ShapeGL\ShapeGL.hpp" />
     <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndex.hpp" />
     <ClInclude Include="src\OpenGL\ShapeGL\ShapeGLIndex\ShapeGLIndexSolid.hpp" />

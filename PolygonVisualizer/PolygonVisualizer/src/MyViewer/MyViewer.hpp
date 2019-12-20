@@ -11,7 +11,7 @@
 #include "../imgui/imgui_impl_opengl3.h"
 
 // テスト処理
-#include "../OpenGL/PrimitiveObjectGL/CubeGL.hpp"
+#include "../OpenGL/PrimitiveObjectGL/StageGL.hpp"
 #include "../MainCamera/MainCameraGL.hpp"
 #include "../OpenGL/LightGL/LightGL.hpp"
 #include "../OpenGL/MyShader/MyShader.hpp"
@@ -31,13 +31,20 @@
 
 class MyViewer
 {
+	// 定数パラメータ
+	// ステージのSHAPE ID(固定)
+	inline static constexpr int DRAW_ID_STAGE = 0;
+
 	// GLFWによるウィンドウマネージャ
 	MyGLFW m_opengl_manager;
 	int m_window_width, m_window_height;
 	std::string m_window_name;
-	// シェーダ処理
-	MyShader m_shader;
-	std::map<MY_VIEWER_DEFINE::SHADER::TABLE, const GLint> m_shader_table;
+	// モデルシェーダ処理
+	MyShader m_shader_model;
+	std::map<MY_VIEWER_DEFINE::SHADER::TABLE, const GLint> m_shader_model_table;
+	// モデルシェーダ処理
+	MyShader m_shader_stage;
+	std::map<MY_VIEWER_DEFINE::STAGE_SHADER::TABLE, const GLint> m_shader_stage_table;
 	// ImGui用変数
 	GUIManager m_gui_manager;
 	ImGuiIO m_imgui_io;
@@ -48,6 +55,7 @@ class MyViewer
 	// ビュアー処理
 	MainCameraGL m_main_camera;
 	LightGL m_main_light;
+	StageGL m_stage;
 	// 投影処理用
 	GLfloat m_fovy, m_aspect;      // 画角, アスペクト比
 	MatrixGL m_projection, m_view; // PV行列
@@ -57,7 +65,8 @@ class MyViewer
 	// 初期化処理
 	void InitOpenGL();
 	void InitShader();
-	void InitShaderTable();
+	void InitModelShaderTable();
+	void InitStageShaderTable();
 	void InitImGui();
 	void InitViewer();
 	void InitThread();
@@ -68,8 +77,41 @@ class MyViewer
 	void SwitchProcessGUI();
 	void RegistrationModel(); // モデル登録
 
-	// レンダリング処理
-	void DrawBaseStage();
+	/*
+		シェーダ更新処理
+		NOTE: 毎フレーム実行するため, inline展開
+	*/
+	// シェーダ中の光源を更新
+	inline void UpdateShaderLight()
+	{
+		m_shader_model.Uniform4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::LPOS], 1, (m_view * m_main_light.GetPos()).data());
+		m_shader_model.Uniform3fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::LAMB], 1, m_main_light.GetAmb());
+		m_shader_model.Uniform3fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::LDIFF], 1, m_main_light.GetDiff());
+		m_shader_model.Uniform3fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::LSPEC], 1, m_main_light.GetSpec());
+	}
+
+	/*
+		レンダリング処理
+		NOTE: 毎フレーム実行するため, inline展開
+	*/
+	// pv行列の計算
+	inline void SetPVMatrix()
+	{
+		m_aspect = m_opengl_manager.GetAspect();
+		m_projection = MathGL::Perspective(m_fovy, m_aspect, 0.01f, 300.0f);
+		m_view = m_main_camera.LookAt(0.0f, 0.0f, 0.0f);
+	}
+	// ビュアーの地平線を描画
+	inline void DrawBaseStage()
+	{
+		m_shader_stage.UseProgram();
+		
+		m_shader_stage.UniformMatrix4fv(m_shader_stage_table[MY_VIEWER_DEFINE::STAGE_SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
+		m_shader_stage.UniformMatrix4fv(m_shader_stage_table[MY_VIEWER_DEFINE::STAGE_SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
+		m_shape_base.Draw(DRAW_ID_STAGE);
+
+		m_shader_stage.UnUseProgram();
+	}
 public:
 	MyViewer();
 	~MyViewer();

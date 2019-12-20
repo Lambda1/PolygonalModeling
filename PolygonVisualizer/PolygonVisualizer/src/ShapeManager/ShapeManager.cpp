@@ -15,6 +15,10 @@ void ShapeManager::DiposeMemory()
 	m_shape.clear();
 	m_shape.shrink_to_fit();
 }
+void ShapeManager::DiposeMemoryPop()
+{
+
+}
 /* ê}å`ÇÃìoò^ */
 void ShapeManager::SetShape(const ObjectGL::Vertex* data, const int& size, const GLint& position_id, const GLint& normal_id)
 {
@@ -26,6 +30,11 @@ void ShapeManager::SetShapeWire(const ObjectGL::Vertex* vertex_data, const int& 
 {
 	m_shape.emplace_back(new ShapeGL(static_cast<GLsizei>(vertex_size), vertex_data));
 	m_shape.back()->VertexAttribPointer(position_id, normal_id);
+}
+void ShapeManager::SetShapeWire(const ObjectGL::Vertex* vertex_data, const int& vertex_size, const GLint& position_id)
+{
+	m_shape.emplace_back(new ShapeGL(static_cast<GLsizei>(vertex_size), vertex_data));
+	m_shape.back()->VertexAttribPointer(position_id);
 }
 void ShapeManager::SetShapeWireIndex(const ObjectGL::Vertex* vertex_data, const int& vertex_size, const GLuint* index_data, const GLint& index_size, const GLint& position_id, const GLint& normal_id)
 {

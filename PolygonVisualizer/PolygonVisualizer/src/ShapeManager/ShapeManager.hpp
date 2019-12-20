@@ -38,11 +38,15 @@ class ShapeManager
 			m_shape[index]->Draw();
 		}
 
+		// ‘Sƒƒ‚ƒŠ‚Ì‰ğ•ú
 		void DiposeMemory();
+		// ÅŒã‚É‘«‚³‚ê‚½ƒƒ‚ƒŠ‚Ì‰ğ•ú
+		void DiposeMemoryPop();
 
 		/* Setter */
 		void SetShape(const ObjectGL::Vertex* data, const int &size,const GLint &position_id, const GLint &normal_id);
 		void SetShapeWire(const ObjectGL::Vertex* data, const int& size, const GLint& position_id, const GLint& normal_id);
+		void SetShapeWire(const ObjectGL::Vertex* data, const int& size, const GLint& position_id);
 		void SetShapeParticle(const ObjectGL::Vertex* data, const int& size, const GLint& position_id);
 		void SetShapeWireIndex(const ObjectGL::Vertex* vertex_data, const int& vertex_size, const GLuint* index_data, const GLint& index_size, const GLint& position_id, const GLint& normal_id);
 

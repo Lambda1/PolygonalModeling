@@ -41,7 +41,7 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	// –¼‘O“o˜^
 	RegistrationFileIndo(open_model_data);
 
-	CubeGL m_cube;
+	CubeGL m_cube(5.0f);
 	for (int i = 0; i < m_cube.GetVertexSize(); ++i)
 	{
 		m_model.emplace_back(m_cube.GetVertex()[i]);
