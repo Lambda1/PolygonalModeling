@@ -46,6 +46,8 @@ public:
 	// ƒ‚ƒfƒ‹ƒwƒbƒ_
 	inline std::string GetFileName() const { return m_file_name; }
 	inline const char* GetFileName_C_STR() const { return m_file_name.c_str(); }
+	inline int GetModelFaceNum() const { return m_face_count; }
+	inline int GetModelVertexNum() const { return m_vertex_count; }
 };
 
 #endif

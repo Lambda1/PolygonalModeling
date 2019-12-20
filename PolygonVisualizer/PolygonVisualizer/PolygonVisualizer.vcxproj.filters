@@ -133,6 +133,9 @@
     <Filter Include="ヘッダー ファイル\MyModel">
       <UniqueIdentifier>{e7edd321-6992-4708-b607-eedd40444c26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\ColorDefine">
+      <UniqueIdentifier>{ed7a5ae1-dcaa-455b-aadc-2e604e506ae4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp">
@@ -340,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="src\MyModel\MyModel.hpp">
       <Filter>ヘッダー ファイル\MyModel</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ColorDefine\ImGuiColorDefine.hpp">
+      <Filter>ヘッダー ファイル\ColorDefine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

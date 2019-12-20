@@ -1,8 +1,9 @@
 #ifndef __TOOL_WINDOW_HPP__
 #define __TOOL_WINDOW_HPP__
 
-#include "../GUIWindow.hpp"
 #include "./ToolWindowDefine.hpp"
+#include "../GUIWindow.hpp"
+#include "../../ColorDefine/ImGuiColorDefine.hpp"
 #include "../../MyModel/MyModel.hpp"
 
 #include "../../imgui/imgui.h"

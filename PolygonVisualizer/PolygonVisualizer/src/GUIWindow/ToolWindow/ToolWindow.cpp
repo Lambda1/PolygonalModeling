@@ -13,16 +13,18 @@ ToolWindow::~ToolWindow()
 void ToolWindow::DisplayFrameRate()
 {
 	float frame_rate = ImGui::GetIO().Framerate;
-	ImGui::Text("Frame Rate:");
-	ImGui::Text("%.2f[fps] (%.3f[ms/frame])", frame_rate, ONE_MINUTE / frame_rate);
+	ImGui::TextColored(IMGUI_COLOR_DEFINE::COLOR4::BLUE, "Frame Rate");
+	ImGui::Text(" %.2f[fps] (%.3f[ms/frame])", frame_rate, ONE_MINUTE / frame_rate);
 }
 // モデルデータ
 void ToolWindow::DisplayModelData()
 {
-	ImGui::Text("Information Load Model");
+	ImGui::TextColored(IMGUI_COLOR_DEFINE::COLOR4::RED, "Information Load Model");
 	if (m_model_data_ptr)
 	{
-		ImGui::Text("FILE NAME: %s", m_model_data_ptr->GetFileName_C_STR());
+		ImGui::Text(" FILE NAME: %s", m_model_data_ptr->GetFileName_C_STR());
+		ImGui::Text(" VERTEX: %-d", m_model_data_ptr->GetModelVertexNum());
+		ImGui::Text(" FACE  : %-d", m_model_data_ptr->GetModelFaceNum());
 	}
 }
 
