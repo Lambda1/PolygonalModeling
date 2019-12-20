@@ -127,6 +127,12 @@
     <Filter Include="ヘッダー ファイル\MainCamera">
       <UniqueIdentifier>{9d13bbbb-57b3-4fd9-8b41-7236cc6038d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MyModel">
+      <UniqueIdentifier>{00b5140d-e87d-4d1d-82fb-9084b93b85f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MyModel">
+      <UniqueIdentifier>{e7edd321-6992-4708-b607-eedd40444c26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp">
@@ -209,6 +215,9 @@
     </ClCompile>
     <ClCompile Include="src\OpenGL\LightGL\LightGL.cpp">
       <Filter>ソース ファイル\OpenGL\LightGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyModel\MyModel.cpp">
+      <Filter>ソース ファイル\MyModel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="src\MainCamera\MainCamera.hpp">
       <Filter>ヘッダー ファイル\MainCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyModel\MyModel.hpp">
+      <Filter>ヘッダー ファイル\MyModel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

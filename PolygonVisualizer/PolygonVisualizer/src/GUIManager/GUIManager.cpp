@@ -2,7 +2,8 @@
 
 GUIManager::GUIManager():
 	m_tool_window(nullptr),
-	m_gui_flags(GUI_MANAGER_DEFINE::FLAGS::NONE)
+	m_gui_flags(GUI_MANAGER_DEFINE::FLAGS::NONE),
+	m_model_data_ptr(nullptr)
 {
 	InitGUI();
 }
@@ -42,7 +43,7 @@ void GUIManager::Update()
 	ProcessMenuBar();
 
 	if (m_gui_flags != GUI_MANAGER_DEFINE::FLAGS::NONE)
-		std::cout << (int)m_gui_flags << std::endl;
+		std::cout << "GUI MANAGER DEFINE FLAGS: " << (int)m_gui_flags << std::endl;
 }
 // メニューバー処理
 void GUIManager::ProcessMenuBar()

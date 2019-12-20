@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+#define DEBUG true
+
 class ObjectGL
 {
 	GLuint m_vao, m_vbo, m_ibo;

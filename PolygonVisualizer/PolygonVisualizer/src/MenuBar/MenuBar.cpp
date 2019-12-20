@@ -24,17 +24,18 @@ void MenuBar::OpenModelFile()
 	if (ImGui::MenuItem(FILE_MENU::OPEN_FILE))
 	{
 		m_open_file = WinFiler::SelectFile();
-		
-		m_menu_flag |= MENU_FLAGS::OPEN_FILE;
+		// ファイルが選択されているとき, フラグを立てる
+		if (m_open_file.size() != 0) { m_menu_flag |= MENU_FLAGS::OPEN_FILE; }
 	}
 }
+// セーブファイル
 void MenuBar::SaveModelFile()
 {
 	if (ImGui::MenuItem(FILE_MENU::SAVE_FILE))
 	{
 		m_save_file = WinFiler::SaveFile();
-
-		m_menu_flag |= MENU_FLAGS::SAVE_FILE;
+		// ファイルが選択されているとき, フラグを立てる
+		if (m_open_file.size() != 0) { m_menu_flag |= MENU_FLAGS::SAVE_FILE; }
 	}
 }
 // ファイルメニュー

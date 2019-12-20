@@ -18,6 +18,7 @@
 #include "../OpenGL/MathGL/MathGL.hpp"
 #include "../OpenGL/MaterialGL/MaterialGL.hpp"
 #include "../OpenGL/UniformGL/UniformGL.hpp"
+#include "../MyModel/MyModel.hpp"
 #include "../ShapeManager/ShapeManager.hpp"
 
 #include <GL/glew.h>
@@ -50,6 +51,8 @@ class MyViewer
 	// 投影処理用
 	GLfloat m_fovy, m_aspect;      // 画角, アスペクト比
 	MatrixGL m_projection, m_view; // PV行列
+	// モデルデータ
+	MyModel m_model_data;
 
 	// 初期化処理
 	void InitOpenGL();
@@ -63,6 +66,7 @@ class MyViewer
 	void UpdateImGui();
 	// GUIManagerフラグに基づく処理
 	void SwitchProcessGUI();
+	void RegistrationModel(); // モデル登録
 
 	// レンダリング処理
 	void DrawBaseStage();

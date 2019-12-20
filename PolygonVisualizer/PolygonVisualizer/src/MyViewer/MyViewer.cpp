@@ -127,6 +127,7 @@ void MyViewer::SwitchProcessGUI()
 	switch (m_gui_flags)
 	{
 	case GUI_MANAGER_DEFINE::FLAGS::OPEN_FILE:
+		RegistrationModel(); // モデルデータ登録
 		break;
 	case GUI_MANAGER_DEFINE::FLAGS::SAVE_FILE:
 		break;
@@ -134,12 +135,36 @@ void MyViewer::SwitchProcessGUI()
 		break;
 	}
 }
+// モデルデータの登録
+void MyViewer::RegistrationModel()
+{
+	// モデル読み込み
+	m_model_data.LoadModelData(m_gui_manager.GetFileName());
+
+	// 読み込み中のモデルデータの解放
+	m_shape_base.DiposeMemory();
+	// モデルデータをGPUへ転送
+	m_shape_base.SetShapeWire
+	(
+		m_model_data.GetModelData(),
+		m_model_data.GetModelDataSize(),
+		m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION],
+		m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL]
+	);
+
+	// GUIManagerのモデルデータ更新
+	m_gui_manager.SetModelData(&m_model_data);
+}
 // ビュアーの地平線を描画
 void MyViewer::DrawBaseStage()
 {
 	m_aspect = m_opengl_manager.GetAspect();
 	m_projection = MathGL::Perspective(m_fovy, m_aspect, 0.01f, 300.0f);
 	m_view = m_main_camera.LookAt(0.0f, 0.0f, 0.0f);
+
+	static GLfloat r = 0.0f;
+	m_view = m_view * MathGL::Quaternion(r, 0, 1, 0);
+	r += 0.01f;
 
 	m_shader.UniformMatrix4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
 
@@ -152,7 +177,8 @@ void MyViewer::DrawBaseStage()
 	m_view.GetNormalMatrix(normal);
 	m_shader.UniformMatrix3fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX], 1, GL_FALSE, normal);
 	m_shader.UniformMatrix4fv(m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
-	m_shape_base.Draw(0);
+	
+	if (m_model_data.IsRegistration()) { m_shape_base.Draw(0); }
 }
 
 // public
@@ -167,10 +193,6 @@ void MyViewer::Init(const int& width, const int& height, const std::string& name
 	InitOpenGL();
 	InitImGui();
 	InitViewer();
-
-	// debug
-	CubeGL m_cube;
-	m_shape_base.SetShape(m_cube.GetVertex(), m_cube.GetVertexSize(), m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION], m_shader_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL]);
 }
 // 更新処理
 // NOTE: ImGUIが即時処理のため, Update側で画面クリアを行う.
@@ -183,27 +205,24 @@ void MyViewer::Update()
 
 	// フラグ更新
 	m_gui_flags = m_gui_manager.GetGUIFlags();
-
 	// GUI結果に基づく処理
 	if (m_gui_flags != GUI_MANAGER_DEFINE::FLAGS::NONE) { SwitchProcessGUI(); }
+
+	// ここから3D描画
+	m_shader.UseProgram();	 // シェーダ起動
+	DrawBaseStage();         // 基準点を描画
+	m_shader.UnUseProgram(); // シェーダ終了
+	// ここまで3D描画
 }
 // 描画処理
 void MyViewer::Draw()
 {
-	// シェーダ起動
-	m_shader.UseProgram();
-
-	// 基準点を描画
-	DrawBaseStage();
-
 	// ImGui: レンダリング
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	// ダブルバッファリング
 	m_opengl_manager.SwapBuffer();
-	// シェーダ終了
-	m_shader.UnUseProgram();
 }
 // OpenGLの処理
 void MyViewer::ProcessOpenGL()
