@@ -12,10 +12,10 @@ MyShader::MyShader(const std::string fname1, const std::string fname2) :
 
 	source1.push_back('\0');
 	source2.push_back('\0');
-	VCompile(source1);
-	FCompile(source2);
-	Link();
-
+	if (!VCompile(source1)) { std::abort(); }
+	if (!FCompile(source2)) { std::abort(); }
+	if (!Link()) { std::abort(); }
+	
 	glUseProgram(gl2Program);
 	ifs_v.close();
 	ifs_f.close();
@@ -40,7 +40,7 @@ bool MyShader::Set(const std::string fname1,const std::string fname2)
 	source2.push_back('\0');
 	if(!VCompile(source1)){ exit(EXIT_FAILURE); }
 	if(!FCompile(source2)){ exit(EXIT_FAILURE); }
-	Link();
+	if (!Link()) { std::abort(); }
 
 	glUseProgram(gl2Program);
 
@@ -86,7 +86,7 @@ bool MyShader::FCompile(std::string &source)
 	/* Compile Error Message */
 	if (compiled == GL_FALSE) {
 		PrintCompileError(fragShader);
-		std::cout << "COMPILE ERROR: FRAGMENT PROGRAM" << std::endl;
+		std::cerr << "COMPILE ERROR: FRAGMENT PROGRAM" << std::endl;
 		return false;
 	}
 	return true;
@@ -105,7 +105,7 @@ bool MyShader::Link()
 	glGetProgramiv(gl2Program, GL_LINK_STATUS, &linked);
 	if (linked == GL_FALSE)
 	{
-		std::cout << "LINK ERROR: LINK" << std::endl;
+		std::cerr << "LINK ERROR: LINK" << std::endl;
 		return false;
 	}
 	return true;

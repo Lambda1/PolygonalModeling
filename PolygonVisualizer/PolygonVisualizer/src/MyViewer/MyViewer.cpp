@@ -2,7 +2,8 @@
 
 MyViewer::MyViewer():
 	m_window_width(0), m_window_height(0),
-	m_fovy(0.0f), m_aspect(0.0f)
+	m_fovy(0.0f), m_aspect(0.0f),
+	m_gui_flags(GUI_MANAGER_DEFINE::FLAGS::NONE)
 {
 
 }
