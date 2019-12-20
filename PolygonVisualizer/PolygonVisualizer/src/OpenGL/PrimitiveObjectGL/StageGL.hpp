@@ -11,8 +11,9 @@ class StageGL
 {
 	// 定数パラメータ
 	// 2点間の距離
-	inline static constexpr GLfloat length = 10000.0f;
-	inline static constexpr int POINTS_NUM = 2;
+	inline static constexpr GLfloat LENGTH = 20.0f;
+	inline static constexpr GLfloat MAGNIFICATION = 1.0f;
+	inline static constexpr int LINES_NUM = static_cast<int>(LENGTH);
 
 	// 頂点データ
 	std::vector<ObjectGL::Vertex> m_vertex;
@@ -24,7 +25,7 @@ public:
 	~StageGL();
 
 	inline const ObjectGL::Vertex* GetVertex() const { return m_vertex.data(); }
-	inline const int GetVertexSize() const { return POINTS_NUM; }
+	inline const int GetVertexSize() const { return static_cast<int>(m_vertex.size()); }
 };
 
 #endif

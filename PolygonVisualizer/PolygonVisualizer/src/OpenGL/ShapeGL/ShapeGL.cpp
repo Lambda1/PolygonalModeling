@@ -11,7 +11,7 @@ ShapeGL::~ShapeGL()
 
 void ShapeGL::Execute() const
 {
-	glDrawArrays(GL_LINE_LOOP, 0, m_vertex_count);
+	glDrawArrays(GL_LINES, 0, m_vertex_count);
 }
 
 void ShapeGL::Draw() const

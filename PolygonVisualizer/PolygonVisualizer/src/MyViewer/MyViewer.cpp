@@ -114,13 +114,13 @@ void MyViewer::InitThread()
 void MyViewer::InitViewer()
 {
 	// カメラ位置
-	m_main_camera.SetPos(10.0f, 10.0f, 10.0f);
+	m_main_camera.SetPos(20.0f, 10.0f, 20.0f);
 	m_main_camera.up_y = 1.0f;
 
 	// ライティング
 	m_main_light.SetPos(0.0f, 3.0f, 1.0f, 1.0f);
 	m_main_light.SetAmb(1.0f, 1.0f, 1.0f);
-	m_main_light.SetDiff(1.0f, 1.0f, 1.0f);
+	m_main_light.SetDiff(1.0f, 0.0f, 1.0f);
 	m_main_light.SetSpec(1.0f, 1.0f, 1.0f);
 	
 	// 画面処理
@@ -211,7 +211,7 @@ void MyViewer::Update()
 	// 基準とする地平線を描画
 	DrawBaseStage();
 	// モデルを描画
-	DrawModel();
+	if (m_model_data.IsRegistration()) { DrawModel(); }
 }
 // 描画処理
 // NOTE: モデル計算されたものをレンダリングするのみ

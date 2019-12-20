@@ -106,26 +106,23 @@ class MyViewer
 	// NOTE: baseシェーダ
 	inline void DrawModel()
 	{
-		if (m_model_data.IsRegistration())
-		{
-			m_shader_model.UseProgram();
+		m_shader_model.UseProgram();
 
-			// プロジェクション設定
-			m_shader_model.UniformMatrix4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
-			// 光源設定
-			UpdateShaderLight();
-			// 法線設定
-			GLfloat normal[9];
-			m_view.GetNormalMatrix(normal);
-			m_shader_model.UniformMatrix3fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX], 1, GL_FALSE, normal);
-			// ビュー設定
-			m_shader_model.UniformMatrix4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
+		// プロジェクション設定
+		m_shader_model.UniformMatrix4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
+		// 光源設定
+		UpdateShaderLight();
+		// 法線設定
+		GLfloat normal[9];
+		m_view.GetNormalMatrix(normal);
+		m_shader_model.UniformMatrix3fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX], 1, GL_FALSE, normal);
+		// ビュー設定
+		m_shader_model.UniformMatrix4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
 
-			// 描画
-			m_shape_base.Draw(DRAW_ID_MODEL);
+		// 描画
+		m_shape_base.Draw(DRAW_ID_MODEL);
 
-			m_shader_model.UnUseProgram();
-		}
+		m_shader_model.UnUseProgram();
 	}
 	// ビュアーの地平線を描画
 	// NOTE: stageシェーダ
