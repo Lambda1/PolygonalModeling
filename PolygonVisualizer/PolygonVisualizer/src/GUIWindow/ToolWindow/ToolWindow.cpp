@@ -53,7 +53,7 @@ void ToolWindow::UpdateCamera()
 void ToolWindow::Update()
 {
 	ImGui::Begin(TOOL_WINDOW_DEFINE::WINDOW_NAME);
-	ImGui::PushItemWidth(300);
+	ImGui::PushItemWidth(UI_WIDTH_SIZE);
 	// ƒ‚ƒfƒ‹‚ÌÚ×•\¦
 	DisplayModelData();
 
