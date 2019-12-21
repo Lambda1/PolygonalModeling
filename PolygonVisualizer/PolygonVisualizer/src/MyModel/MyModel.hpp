@@ -2,6 +2,7 @@
 #define __MY_MODEL_HPP__
 
 #include "../OpenGL/ObjectGL/ObjectGL.hpp"
+#include "../ModelReader/PCDReader/PCDReader.hpp"
 #include "../OpenGL/PrimitiveObjectGL/CubeGL.hpp"
 
 #include <GL/glew.h>
@@ -15,6 +16,8 @@ class MyModel
 	// 定数パラメータ
 	inline static const std::string DEFAULT_STRING = "NONE";
 
+	// モデルデータ
+	ModelReader* m_model_data;
 	// 基本モデルデータ
 	std::string m_file_name;         // ファイルネーム
 	std::string m_file_extension;    // 拡張子

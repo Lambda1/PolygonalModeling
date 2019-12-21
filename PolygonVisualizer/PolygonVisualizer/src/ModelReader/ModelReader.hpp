@@ -1,6 +1,7 @@
 #ifndef __MODEL_READER_HPP__
 #define __MODEL_READER_HPP__
 
+#include <string>
 #include <vector>
 
 class ModelReader
@@ -10,10 +11,8 @@ public:
 protected:
 	std::vector<Vector> m_vertex;
 
+	virtual void ReadFile(const std::string& open_file_path) = 0;
 public:
-	ModelReader()
-	{
-	}
 	virtual ~ModelReader()
 	{
 	}

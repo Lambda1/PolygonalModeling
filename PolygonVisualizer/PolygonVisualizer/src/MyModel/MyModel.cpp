@@ -1,6 +1,7 @@
 #include "./MyModel.hpp"
 
 MyModel::MyModel():
+	m_model_data(nullptr),
 	m_file_name(DEFAULT_STRING), m_file_extension(DEFAULT_STRING),
 	m_vertex_count(0), m_face_count(0),
 	is_registration(false)
@@ -10,6 +11,11 @@ MyModel::MyModel():
 
 MyModel::~MyModel()
 {
+	if (m_model_data)
+	{
+		delete m_model_data;
+		m_model_data = nullptr;
+	}
 }
 // private
 // ファイルパスを取り除く
@@ -40,6 +46,9 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 {
 	// 名前登録
 	RegistrationFileIndo(open_model_data);
+
+	// モデル読み込み
+	m_model_data = new PCDReader(open_model_data);
 
 	// テストモデル
 	CubeGL m_cube(5.0f);
