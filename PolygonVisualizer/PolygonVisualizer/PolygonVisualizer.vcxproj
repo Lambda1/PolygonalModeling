@@ -145,6 +145,7 @@
     <ClCompile Include="src\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MenuBar\MenuBar.cpp" />
+    <ClCompile Include="src\ModelReader\PCDReader\PCDReader.cpp" />
     <ClCompile Include="src\MyModel\MyModel.cpp" />
     <ClCompile Include="src\MyViewer\MyViewer.cpp" />
     <ClCompile Include="src\MyWinAPI\WinFiler\WinFiler.cpp" />
@@ -185,6 +186,8 @@
     <ClInclude Include="src\MainInfo.hpp" />
     <ClInclude Include="src\MenuBar\MenuBar.hpp" />
     <ClInclude Include="src\MenuBar\MenuBarDefine.hpp" />
+    <ClInclude Include="src\ModelReader\ModelReader.hpp" />
+    <ClInclude Include="src\ModelReader\PCDReader\PCDReader.hpp" />
     <ClInclude Include="src\MyMath\MyMath.hpp" />
     <ClInclude Include="src\MyModel\MyModel.hpp" />
     <ClInclude Include="src\MyViewer\MyViewer.hpp" />

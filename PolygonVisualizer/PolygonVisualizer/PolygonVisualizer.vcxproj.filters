@@ -139,6 +139,12 @@
     <Filter Include="ヘッダー ファイル\MyMath">
       <UniqueIdentifier>{45531059-64c4-4a40-b037-23ed61751ede}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\ModelReader">
+      <UniqueIdentifier>{d815201e-7da3-4a2b-8d97-cd0604fd4fd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ModelReader">
+      <UniqueIdentifier>{524f4d85-5d3a-4713-a6b6-3971c5376819}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp">
@@ -227,6 +233,9 @@
     </ClCompile>
     <ClCompile Include="src\OpenGL\PrimitiveObjectGL\StageGL.cpp">
       <Filter>ソース ファイル\OpenGL\PrimitiveGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ModelReader\PCDReader\PCDReader.cpp">
+      <Filter>ソース ファイル\ModelReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -358,6 +367,12 @@
     </ClInclude>
     <ClInclude Include="src\MyMath\MyMath.hpp">
       <Filter>ヘッダー ファイル\MyMath</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ModelReader\PCDReader\PCDReader.hpp">
+      <Filter>ヘッダー ファイル\ModelReader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ModelReader\ModelReader.hpp">
+      <Filter>ヘッダー ファイル\ModelReader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
