@@ -13,7 +13,8 @@
 class ToolWindow : public GUIWindow
 {
 	// 定数
-	inline static float ONE_MINUTE = 1000.0f;
+	inline static constexpr float ONE_MINUTE = 1000.0f;
+	inline static constexpr int CAMERA_COORDINATE = 3;
 
 	// モデルデータ
 	const MyModel* m_model_data_ptr;
@@ -21,12 +22,13 @@ class ToolWindow : public GUIWindow
 	// NOTE: ツール側から編集する可能性があるので非const
 	MainCameraGL* m_main_camera_ptr;
 
-	// 表示処理
+	// フレームレート表示
 	void DisplayFrameRate() const;
 	// モデルデータ表示
 	void DisplayModelData() const;
-	// カメラ設定表示
-	void DisplayCameaInfo() const;
+
+	// カメラデータ更新
+	void UpdateCamera();
 public:
 	ToolWindow();
 	~ToolWindow();

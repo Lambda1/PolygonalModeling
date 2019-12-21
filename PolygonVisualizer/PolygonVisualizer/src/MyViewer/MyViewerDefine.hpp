@@ -1,10 +1,17 @@
 #ifndef __MY_VIEWER_DEFINE_HPP__
 #define __MY_VIEWER_DEFINE_HPP__
 
+#include <GL/glew.h>
+
 #include <string>
 
 namespace MY_VIEWER_DEFINE
 {
+	namespace INIT
+	{
+		inline static constexpr GLfloat CAM_POS_MAX =  50.0f;
+		inline static constexpr GLfloat CAM_POS_MIN = -50.0f;
+	};
 	namespace IMGUI
 	{
 		inline static const std::string GLSL_VERSION = "#version 150 core";

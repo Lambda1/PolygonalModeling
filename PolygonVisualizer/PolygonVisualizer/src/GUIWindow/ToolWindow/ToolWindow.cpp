@@ -1,7 +1,8 @@
 #include "./ToolWindow.hpp"
 
 ToolWindow::ToolWindow():
-	m_model_data_ptr(nullptr)
+	m_model_data_ptr(nullptr),
+	m_main_camera_ptr(nullptr)
 {
 }
 
@@ -27,15 +28,24 @@ void ToolWindow::DisplayModelData() const
 		ImGui::Text(" FACE  : %-d", m_model_data_ptr->GetModelFaceNum());
 	}
 }
-// カメラ情報表示
-void ToolWindow::DisplayCameaInfo() const
+
+// カメラ更新処理
+// NOTE: ImGuiは, 文字列はラベルとして扱うので, 微妙に変えている.
+void ToolWindow::UpdateCamera()
 {
 	ImGui::TextColored(IMGUI_COLOR_DEFINE::COLOR4::GREEN, "Main Camera");
 	if (m_main_camera_ptr)
 	{
+		// FoV
 		ImGui::Text(" Field of View : %.2f", my::math::toDegree(m_main_camera_ptr->fov));
-		ImGui::Text(" POSITION : (%.2f, %.2f, %.2f)", m_main_camera_ptr->x, m_main_camera_ptr->y, m_main_camera_ptr->z);
-		ImGui::Text(" GAZE POS : (%.2f, %.2f, %.2f)", m_main_camera_ptr->gx, m_main_camera_ptr->gy, m_main_camera_ptr->gz);
+		// カメラ位置
+		ImGui::Text(" CAMERA POS:"); ImGui::SameLine();
+		ImGui::SliderFloat3("1", m_main_camera_ptr->GetPosPtr(), m_main_camera_ptr->GetMinPos(), m_main_camera_ptr->GetMaxPos(), "%.2f"); ImGui::SameLine();
+		if (ImGui::Button("ORIGIN")) { m_main_camera_ptr->ResetPos(); }
+		// カメラ注視点
+		ImGui::Text("  GAZE  POS:"); ImGui::SameLine();
+		ImGui::SliderFloat3("2", m_main_camera_ptr->GetGazePtr(), m_main_camera_ptr->GetMinPos(), m_main_camera_ptr->GetMaxPos(), "%.2f"); ImGui::SameLine();
+		if (ImGui::Button("ORIGlN")) { m_main_camera_ptr->ResetGaze(); }
 	}
 }
 
@@ -43,13 +53,13 @@ void ToolWindow::DisplayCameaInfo() const
 void ToolWindow::Update()
 {
 	ImGui::Begin(TOOL_WINDOW_DEFINE::WINDOW_NAME);
-
+	ImGui::PushItemWidth(300);
 	// モデルの詳細表示
 	DisplayModelData();
 
 	// カメラ設定表示
 	ImGui::Separator();
-	DisplayCameaInfo();
+	UpdateCamera();
 
 	// フレームレート表示
 	ImGui::Separator();
