@@ -136,6 +136,9 @@
     <Filter Include="ヘッダー ファイル\ColorDefine">
       <UniqueIdentifier>{ed7a5ae1-dcaa-455b-aadc-2e604e506ae4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\MyMath">
+      <UniqueIdentifier>{45531059-64c4-4a40-b037-23ed61751ede}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\imgui\imgui.cpp">
@@ -352,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="src\OpenGL\PrimitiveObjectGL\StageGL.hpp">
       <Filter>ヘッダー ファイル\OpenGL\PrimitiveGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyMath\MyMath.hpp">
+      <Filter>ヘッダー ファイル\MyMath</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

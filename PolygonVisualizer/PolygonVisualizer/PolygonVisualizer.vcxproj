@@ -125,7 +125,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.\library\glfw-3.3.bin.WIN64\lib-vc2019;.\library\glew-2.1.0\lib;.\library\gl3w\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <DisableSpecificWarnings>26495;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>26495;26451</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -185,6 +185,7 @@
     <ClInclude Include="src\MainInfo.hpp" />
     <ClInclude Include="src\MenuBar\MenuBar.hpp" />
     <ClInclude Include="src\MenuBar\MenuBarDefine.hpp" />
+    <ClInclude Include="src\MyMath\MyMath.hpp" />
     <ClInclude Include="src\MyModel\MyModel.hpp" />
     <ClInclude Include="src\MyViewer\MyViewer.hpp" />
     <ClInclude Include="src\MyViewer\MyViewerDefine.hpp" />

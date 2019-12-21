@@ -6,8 +6,8 @@ class MainCamera
 {
 private:
 	// ‰æŠpƒpƒ‰ƒ[ƒ^
-	inline static constexpr T MAX_FOV = static_cast<T>(1.00);
-	inline static constexpr T MIN_FOV = static_cast<T>(0.01);
+	inline static constexpr double MAX_FOV = 3.1415926535;
+	inline static constexpr double MIN_FOV = 0.001;
 
 	// Šg‘å—¦
 	T fov_magnification;
@@ -38,12 +38,12 @@ public:
 	inline void ZoomIn ()
 	{
 		fov -= fov_magnification;
-		if (fov < MIN_FOV) { fov = MIN_FOV; }
+		if (fov < static_cast<T>(MIN_FOV)) { fov = static_cast<T>(MIN_FOV); }
 	}
 	inline void ZoomOut()
 	{
 		fov += fov_magnification;
-		if (fov > MAX_FOV) { fov = MAX_FOV; }
+		if (fov > static_cast<T>(MAX_FOV)) { fov = static_cast<T>(MAX_FOV); }
 	}
 
 	// Setter

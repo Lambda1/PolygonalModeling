@@ -117,7 +117,7 @@ void MyViewer::InitViewer()
 	// カメラ初期化
 	m_main_camera.SetPos(20.0f, 10.0f, 20.0f);
 	m_main_camera.up_y = 1.0f;
-	m_main_camera.fov = 0.5f;
+	m_main_camera.fov = static_cast<GLfloat>(my::math::toRadian(60.0f));
 	m_main_camera.SetMagnification(ZOOM_MAGNIFICATION);
 
 	// ライティング

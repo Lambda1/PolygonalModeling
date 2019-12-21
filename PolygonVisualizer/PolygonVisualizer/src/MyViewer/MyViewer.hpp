@@ -2,6 +2,7 @@
 #define __MY_VIEWER_HPP__
 
 #include "./MyViewerDefine.hpp"
+#include "../MyMath/MyMath.hpp"
 #include "../GUIManager/GUIManagerDefine.hpp"
 #include "../GUIManager/GUIManager.hpp"
 #include "../OpenGL/MyGLFW/MyGLFW.hpp"
