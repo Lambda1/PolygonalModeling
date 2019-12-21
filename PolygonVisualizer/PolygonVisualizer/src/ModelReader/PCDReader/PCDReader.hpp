@@ -36,12 +36,16 @@ class PCDReader : public ModelReader
 	bool m_is_ascii;
 
 	// ヘッダ処理群
-	bool isEqual(const std::string &iteration, const std::string &source);
-	std::string ReadLine(const std::string::const_iterator &itr,const std::string &file_data);
+	bool isEqual(const std::string& iteration, const std::string& source);
+	std::string ReadLine(const std::string::const_iterator& itr, const std::string& file_data);
 
 	// ファイル読み込み
-	void ReadFile(const std::string &open_file_path) override;
-	void ReadHeader(const std::string &file_data);
+	void ReadFile(const std::string& open_file_path) override;
+	void ReadHeader(const std::string& file_data);
+	// データ関連
+	void ReadBinary(std::ifstream& file_path);
+	void ReadAscii(const std::string::const_iterator& start_itr, const std::string& file_data);
+	// ヘッダ関連
 	std::string::const_iterator ReadField(const std::string::const_iterator& n_itr, const std::string& file_data);
 	std::string::const_iterator ReadSize(const std::string::const_iterator& n_itr, const std::string& file_data);
 	std::string::const_iterator ReadType(const std::string::const_iterator& n_itr, const std::string& file_data);
@@ -68,6 +72,13 @@ class PCDReader : public ModelReader
 			}
 		}
 		return file_data.end();
+	}
+
+	// NOTE: 高速化のため, 主要なバイト変換はあらかじめ作成
+	template<class T>
+	inline T Byte4ToType(const char *buffer)
+	{
+		return static_cast<T>((buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3]);
 	}
 public:
 	PCDReader() = delete;

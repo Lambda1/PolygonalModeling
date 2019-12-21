@@ -37,6 +37,7 @@ std::string PCDReader::ReadLine(const std::string::const_iterator& itr, const st
 }
 
 // ファイル読み込み
+// NOTE: 当初はstring一括読み込みで処理する予定だったが, バイト読み込みに変更したため, 再度, 先頭へシークしている.
 void PCDReader::ReadFile(const std::string& open_file_path)
 {
 	std::ifstream file_stream(open_file_path, std::ios::in | std::ios::binary);
@@ -49,10 +50,12 @@ void PCDReader::ReadFile(const std::string& open_file_path)
 
 	// 1バイト単位で一括読み込み
 	std::string file_data((std::istreambuf_iterator<char>(file_stream)), std::istreambuf_iterator<char>());
-	file_stream.close();
-
 	// ヘッダ読み込み
 	ReadHeader(file_data);
+
+	file_stream.seekg(0, std::ios_base::beg);
+	if (!m_is_ascii) { ReadBinary(file_stream); }
+	file_stream.close();
 }
 // ファイルフォーマット読み込み
 // NOTE: 冗長な処理となるがフォーマットは全て保存する.
@@ -82,7 +85,26 @@ void PCDReader::ReadHeader(const std::string& file_data)
 	std::cout << "POINTS " << m_points << std::endl;
 	std::cout << "ASCII " << m_is_ascii << std::endl;
 }
-// 各種読み込み部
+// データ読み取り部
+void PCDReader::ReadBinary(std::ifstream& file_path)
+{
+	const int byte = (m_byte_size & 0x0F); // 下位バイトを基準
+	char* buffer = new char[byte];
+
+	// ヘッダシーク
+	std::string dummy;
+	while (std::getline(file_path, dummy)) { if (dummy.find(DATA) != std::string::npos) break; }
+	// データ読み取り
+	while (!file_path.eof())
+	{
+		file_path.read(buffer, sizeof(buffer));
+		float f = Byte4ToType<float>(buffer);
+		std::cout << f << std::endl;
+	}
+
+	delete[] buffer;
+}
+// ヘッダ読み込み部
 std::string::const_iterator PCDReader::ReadField(const std::string::const_iterator& n_itr, const std::string& file_data)
 {
 	std::string read_str;
