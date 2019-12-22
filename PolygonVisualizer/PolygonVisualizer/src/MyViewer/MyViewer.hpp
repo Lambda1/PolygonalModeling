@@ -38,7 +38,7 @@ class MyViewer
 	inline static constexpr int DRAW_ID_MODEL = 1;
 	// 定数パラメータ
 	// カメラの拡大率
-	inline static constexpr GLfloat ZOOM_MAGNIFICATION = 1.0f / 16.0f;
+	inline static constexpr GLfloat ZOOM_MAGNIFICATION = 1.0f / 256.0f;
 
 	// GLFWによるウィンドウマネージャ
 	MyGLFW m_opengl_manager;
