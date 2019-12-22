@@ -7,7 +7,9 @@
 #include <fstream>
 #include <string>
 
-// xyzデータを仮定
+#define DEBUG_PCD true
+
+// xyzデータ・4バイトを仮定
 class PCDReader : public ModelReader
 {
 	// ヘッダ情報
@@ -44,7 +46,8 @@ class PCDReader : public ModelReader
 	void ReadHeader(const std::string& file_data);
 	// データ関連
 	void ReadBinary(std::ifstream& file_path);
-	void ReadAscii(const std::string::const_iterator& start_itr, const std::string& file_data);
+	void ReadAscii(std::ifstream &file_path);
+	void SetDataNoRGB(const std::vector<float> &point_data);
 	// ヘッダ関連
 	std::string::const_iterator ReadField(const std::string::const_iterator& n_itr, const std::string& file_data);
 	std::string::const_iterator ReadSize(const std::string::const_iterator& n_itr, const std::string& file_data);
@@ -74,11 +77,16 @@ class PCDReader : public ModelReader
 		return file_data.end();
 	}
 
-	// NOTE: 高速化のため, 主要なバイト変換はあらかじめ作成
-	template<class T>
-	inline T Byte4ToType(const char *buffer)
+	// NOTE: リトルエンディアン -> ビッグエンディアン
+	inline float IEEE754_32(const char *buffer)
 	{
-		return static_cast<T>((buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3]);
+		uint32_t data = 0;
+		data |= (static_cast<unsigned char>(buffer[3]) << 24);
+		data |= (static_cast<unsigned char>(buffer[2]) << 16);
+		data |= (static_cast<unsigned char>(buffer[1]) <<  8);
+		data |= (static_cast<unsigned char>(buffer[0]) <<  0);
+		// 32bit仮定に注意
+		return reinterpret_cast<float&>(data);
 	}
 public:
 	PCDReader() = delete;

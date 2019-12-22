@@ -50,11 +50,16 @@ void PCDReader::ReadFile(const std::string& open_file_path)
 
 	// 1バイト単位で一括読み込み
 	std::string file_data((std::istreambuf_iterator<char>(file_stream)), std::istreambuf_iterator<char>());
+	// ファイルサイズ
+	m_file_size = file_data.length();
 	// ヘッダ読み込み
 	ReadHeader(file_data);
 
 	file_stream.seekg(0, std::ios_base::beg);
+	// NOTE: バイナリ形式は機種によってパディング方法が違うので注意
 	if (!m_is_ascii) { ReadBinary(file_stream); }
+	else{ ReadAscii(file_stream); }
+
 	file_stream.close();
 }
 // ファイルフォーマット読み込み
@@ -74,6 +79,8 @@ void PCDReader::ReadHeader(const std::string& file_data)
 	next_itr = ReadNum<int>(POINTS, next_itr, file_data, &m_points);
 	next_itr = ReadData(next_itr, file_data);
 
+#if DEBUG_PCD
+	std::cout << "SIZE " << m_file_size << std::endl;
 	std::cout << "VERSION " << m_version << std::endl;
 	std::cout << "RGB " << m_rgb << std::endl;
 	std::cout << "SIZE " << m_byte_size << std::endl;
@@ -84,25 +91,75 @@ void PCDReader::ReadHeader(const std::string& file_data)
 	std::cout << std::endl;
 	std::cout << "POINTS " << m_points << std::endl;
 	std::cout << "ASCII " << m_is_ascii << std::endl;
+#endif
 }
 // データ読み取り部
+// NOTE: 全体を読み込み後に各データを分割
+// HACK: 4バイト仮定からm_byte_sizeに対応を目指す
 void PCDReader::ReadBinary(std::ifstream& file_path)
 {
 	const int byte = (m_byte_size & 0x0F); // 下位バイトを基準
-	char* buffer = new char[byte];
+	char* num = new char[byte];
 
 	// ヘッダシーク
 	std::string dummy;
 	while (std::getline(file_path, dummy)) { if (dummy.find(DATA) != std::string::npos) break; }
+	
 	// データ読み取り
+	// NOTE: ファイルエラーに備えて, 1バイトずつ処理
+	std::vector<float> m_data;
+	char buffer;
+	int index = 0;
 	while (!file_path.eof())
 	{
-		file_path.read(buffer, sizeof(buffer));
-		float f = Byte4ToType<float>(buffer);
-		std::cout << f << std::endl;
+		file_path.read(&buffer, sizeof(buffer));
+		num[index] = buffer;
+		index = (index + 1) % byte;
+		if (index == 0) { m_data.push_back(IEEE754_32(num)); }
 	}
+	if (!m_rgb) { SetDataNoRGB(m_data); }
 
-	delete[] buffer;
+	delete[] num;
+}
+void PCDReader::ReadAscii(std::ifstream& file_path)
+{
+	const char delimiter = ' ';
+	// ヘッダシーク
+	std::string dummy;
+	while (std::getline(file_path, dummy)) { if (dummy.find(DATA) != std::string::npos) break; }
+
+	// データ読み取り
+	std::string buffer;
+	std::vector<float> m_data;
+	while (std::getline(file_path,buffer))
+	{
+		for (auto pos = buffer.find(delimiter); pos != std::string::npos; pos = buffer.find(delimiter))
+		{
+			m_data.emplace_back(std::stof(buffer.substr(0, pos)));
+			buffer.erase(0, pos+1);
+		}
+		// 改行コード分
+		m_data.emplace_back(std::stof(buffer));
+	}
+	if (!m_rgb) { SetDataNoRGB(m_data); }
+}
+// RGBなしデータのセット
+void PCDReader::SetDataNoRGB(const std::vector<float>& point_data)
+{
+	constexpr int points = 3; // 3点
+	Vector buf;
+	int index = 0;
+	for (auto itr = point_data.begin(); itr != point_data.end(); ++itr)
+	{
+		if (index == 0) buf.x = *itr;
+		else if (index == 1) buf.y = *itr;
+		else
+		{
+			buf.z = *itr;
+			m_vertex.emplace_back(buf);
+		}
+		index = (index+1) % points;
+	}
 }
 // ヘッダ読み込み部
 std::string::const_iterator PCDReader::ReadField(const std::string::const_iterator& n_itr, const std::string& file_data)

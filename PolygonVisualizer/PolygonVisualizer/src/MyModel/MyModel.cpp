@@ -4,7 +4,8 @@ MyModel::MyModel():
 	m_model_data(nullptr),
 	m_file_name(DEFAULT_STRING), m_file_extension(DEFAULT_STRING),
 	m_vertex_count(0), m_face_count(0),
-	is_registration(false)
+	is_registration(false),
+	m_model_type(MODEL_TYPE::NONE)
 {
 
 }
@@ -39,6 +40,19 @@ void MyModel::RegistrationFileIndo(const std::string &file_path)
 		first--;
 	}
 }
+// 色なし粒子の登録
+void MyModel::SetVertexParticle()
+{
+	for (int i = 0; i < m_model_data->GetVertexSize(); ++i)
+	{
+		m_model.emplace_back(ObjectGL::Vertex
+			{
+			static_cast<float>(m_model_data->GetVertex()[i].x),
+			static_cast<float>(m_model_data->GetVertex()[i].y),
+			static_cast<float>(m_model_data->GetVertex()[i].z)
+			});
+	}
+}
 
 // public
 // モデルデータのロード
@@ -47,19 +61,18 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	// 名前登録
 	RegistrationFileIndo(open_model_data);
 
-	// モデル読み込み
-	m_model_data = new PCDReader(open_model_data);
+	// メモリ開放
+	m_model.clear();
+	m_model.shrink_to_fit();
 
-	// テストモデル
-	CubeGL m_cube(5.0f);
-	for (int i = 0; i < m_cube.GetVertexSize(); ++i)
+	// モデル読み込み
+	if (m_file_extension == EXTENSION_PCD)
 	{
-		m_model.emplace_back(m_cube.GetVertex()[i]);
+		m_model_type = MODEL_TYPE::PARTICLE;
+		m_model_data = new PCDReader(open_model_data);
+		SetVertexParticle();
 	}
-	for (int i = 0; i < m_cube.GetIndexSize(); ++i)
-	{
-		m_index_data.emplace_back(m_cube.GetIndex()[i]);
-	}
+
 
 	// 各種データ登録
 	is_registration = true;

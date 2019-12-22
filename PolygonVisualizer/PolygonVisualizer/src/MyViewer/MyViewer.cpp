@@ -185,13 +185,16 @@ void MyViewer::RegistrationModel()
 	// 読み込み中のモデルデータの解放
 	m_shape_base.DiposeMemoryPop();
 	// モデルデータをGPUへ転送
-	m_shape_base.SetShape
-	(
-		m_model_data.GetModelData(),
-		m_model_data.GetModelDataSize(),
-		m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION],
-		m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL]
-	);
+	if (m_model_data.GetModelType() == MyModel::MODEL_TYPE::PARTICLE)
+	{
+		// 粒子のみ
+		m_shape_base.SetShapeParticle
+		(
+			m_model_data.GetModelData(),
+			m_model_data.GetModelDataSize(),
+			m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION]
+		);
+	}
 
 	// GUIManagerのモデルデータ更新
 	m_gui_manager.SetModelData(&m_model_data);
