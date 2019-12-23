@@ -46,8 +46,7 @@ private:
 	std::vector<GLuint> m_index_data;
 	// モデル行列
 	MatrixGL m_model_matrix;
-	MatrixGL m_translate, m_scale; // 平行移動, スケール
-	GLfloat m_angle_rad;
+	MatrixGL m_translate, m_scale, m_rotate; // 平行移動, スケール, 回転
 
 	// ファイル情報を登録
 	void RegistrationFileIndo(const std::string &file_path);
@@ -66,12 +65,14 @@ public:
 	// モデル行列の計算
 	inline void CalcModelMatrix(const MatrixGL& view)
 	{
-		m_model_matrix = view * m_translate * m_scale;
+		m_model_matrix = view * m_translate * m_rotate * m_scale;
 	}
 
 	// Setter
 	inline void SetTranslateMatrix(const GLfloat& x, const GLfloat& y, const GLfloat& z) { m_translate = MathGL::Translate(x,y,z); }
 	inline void SetFixedScaleMatrix(const GLfloat& scale) { m_scale = MathGL::Scale(scale, scale, scale); }
+	inline void SetRotateMatrix(const GLfloat& value, const int& x, const int& y, const int& z) { m_rotate = MathGL::Quaternion(value, x, y, z); }
+	inline void SetRotateMatrix(const GLfloat& value, const int *bits) { m_rotate = MathGL::Quaternion(value, bits[0], bits[1], bits[2]); }
 
 	// Getter
 	// モデルデータ

@@ -3,7 +3,8 @@
 ToolWindow::ToolWindow():
 	m_model_data_ptr(nullptr),
 	m_main_camera_ptr(nullptr),
-	m_translation{}, m_scale(1.0f), m_rotate{}
+	m_translation{}, m_scale(1.0f), m_rotate(0.0f),
+	m_rotate_bits{}
 {
 }
 
@@ -31,7 +32,7 @@ void ToolWindow::DisplayModelData() const
 }
 
 // カメラ更新処理
-// NOTE: ImGuiは, 文字列はラベルとして扱うので, 微妙に変えている.
+// NOTE: ImGuiは, 文字列はラベルとして扱うので, ##を加える.
 void ToolWindow::UpdateCamera()
 {
 	ImGui::TextColored(IMGUI_COLOR_DEFINE::COLOR4::GREEN, "Main Camera");
@@ -43,11 +44,11 @@ void ToolWindow::UpdateCamera()
 		// カメラ位置
 		ImGui::Text(" CAMERA POS:"); ImGui::SameLine();
 		ImGui::SliderFloat3("1", m_main_camera_ptr->GetPosPtr(), m_main_camera_ptr->GetMinPos(), m_main_camera_ptr->GetMaxPos(), "%.2f", SLIDER_SPEED); ImGui::SameLine();
-		if (ImGui::Button("ORIGIN")) { m_main_camera_ptr->ResetPos(); }
+		if (ImGui::Button("ORIGIN##1")) { m_main_camera_ptr->ResetPos(); }
 		// カメラ注視点
 		ImGui::Text("  GAZE  POS:"); ImGui::SameLine();
 		ImGui::SliderFloat3("2", m_main_camera_ptr->GetGazePtr(), m_main_camera_ptr->GetMinPos(), m_main_camera_ptr->GetMaxPos(), "%.2f", SLIDER_SPEED); ImGui::SameLine();
-		if (ImGui::Button("ORIGlN")) { m_main_camera_ptr->ResetGaze(); }
+		if (ImGui::Button("ORIGIN##2")) { m_main_camera_ptr->ResetGaze(); }
 	}
 }
 // モデル更新処理
@@ -58,17 +59,26 @@ void ToolWindow::UpdateModel()
 	// 平行移動
 	ImGui::Text(" TRANSLATION:"); ImGui::SameLine();
 	ImGui::DragFloat3("M1", m_translation, DRAG_RESOLUTION, -DRAG_MAX, DRAG_MAX, "%.2f"); ImGui::SameLine();
-	if (ImGui::Button("ORlGIN")) { m_translation[0] = m_translation[1] = m_translation[2] = 0.0f; }
+	if (ImGui::Button("ORIGIN##3")) { m_translation[0] = m_translation[1] = m_translation[2] = 0.0f; }
 	// スケール
 	ImGui::Text(" FIXED SCALE:"); ImGui::SameLine();
-	ImGui::SliderFloat("M2", &m_scale, 1.0f, DRAG_MAX, "%.2f", 3.0f); ImGui::SameLine();
-	if (ImGui::Button("ORlGlN")) { m_scale = 1.0f; }
+	ImGui::SliderFloat("M2", &m_scale, 0.0f, DRAG_MAX, "%.2f", 3.0f); ImGui::SameLine();
+	if (ImGui::Button("ORIGIN##4")) { m_scale = 1.0f; }
+	// 回転
+	ImGui::Text("    ROTATION:"); ImGui::SameLine();
+	ImGui::SliderFloat("M3", &m_rotate, -360.0f, 360.0f, "%.2f"); ImGui::SameLine();
+	if(ImGui::Button("ORIGIN##5")) { m_rotate = 0.0f; }
+	ImGui::Text(" AXIS:"); ImGui::SameLine();
+	ImGui::Checkbox("X", &m_rotate_bits[0]); ImGui::SameLine();
+	ImGui::Checkbox("Y", &m_rotate_bits[1]); ImGui::SameLine();
+	ImGui::Checkbox("Z", &m_rotate_bits[2]);
 
 	// モデル行列適用
 	if (m_model_data_ptr)
 	{
 		m_model_data_ptr->SetTranslateMatrix(m_translation[0], m_translation[1], m_translation[2]);
 		m_model_data_ptr->SetFixedScaleMatrix(m_scale);
+		m_model_data_ptr->SetRotateMatrix(static_cast<GLfloat>(my::math::toRadian(m_rotate)), BoolToInt(m_rotate_bits[0]), BoolToInt(m_rotate_bits[1]), BoolToInt(m_rotate_bits[2]));
 	}
 }
 

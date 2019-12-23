@@ -27,7 +27,8 @@ class ToolWindow : public GUIWindow
 	MainCameraGL* m_main_camera_ptr;
 	// モデル行列設定
 	// NOTE: 3ベクトル
-	float m_translation[3], m_scale, m_rotate[3];
+	float m_translation[3], m_scale, m_rotate;
+	bool  m_rotate_bits[3]; // 回転軸ビット
 
 	// フレームレート表示
 	void DisplayFrameRate() const;
@@ -38,6 +39,8 @@ class ToolWindow : public GUIWindow
 	void UpdateCamera();
 	// モデルデータ更新
 	void UpdateModel();
+
+	inline int BoolToInt(const bool& val) const { return (val) ? 1 : 0; }
 public:
 	ToolWindow();
 	~ToolWindow();
