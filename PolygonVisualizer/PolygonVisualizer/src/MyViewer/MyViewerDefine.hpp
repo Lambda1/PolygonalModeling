@@ -71,6 +71,10 @@ namespace MY_VIEWER_DEFINE
 		inline static const std::string MODEL_VIEW = "model_view";
 		inline static const std::string PROJECTION = "projection";
 	};
+	namespace SAMPLE
+	{
+		inline static const std::string SAMPLE_MODEL = "./bunny.pcd";
+	};
 };
 
 #endif

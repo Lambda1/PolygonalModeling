@@ -5,7 +5,6 @@ MyViewer::MyViewer():
 	m_aspect(0.0f),
 	m_gui_flags(GUI_MANAGER_DEFINE::FLAGS::NONE)
 {
-
 }
 
 MyViewer::~MyViewer()
@@ -230,6 +229,8 @@ void MyViewer::Update()
 
 	// カメラ更新
 	UpdateCamera();
+
+	// マウス処理
 
 	// PV行列の更新
 	SetPVMatrix();

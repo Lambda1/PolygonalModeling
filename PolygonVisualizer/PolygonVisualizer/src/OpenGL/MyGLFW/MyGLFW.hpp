@@ -13,6 +13,13 @@ class MyGLFW
 {
 public:
 	inline static constexpr int ZERO_VEC = 0;
+	enum class MOUSE_BUTTON
+	{
+		NONE = 0x00,
+		RIGHT = 0x01,
+		MIDDLE = 0x02,
+		LEFT = 0x04
+	};
 private:
 	GLFWwindow *m_window;
 
@@ -35,7 +42,9 @@ private:
 	GLfloat last_time, elapsed_time; /* FPS処理用 */
 
 	/* マウス処理 */
-	int m_scroll_vec_x, m_scroll_vec_y; // マウススクロール方向のベクトル(正規化済み)
+	int m_scroll_vec_x, m_scroll_vec_y;   // マウススクロール方向のベクトル(正規化済み)
+	GLfloat m_mouse_pos_x, m_mouse_pos_y; // マウスカーソル位置
+	MOUSE_BUTTON m_mouse_button;          // マウスボタン
 
 	void InitMode();
 	
@@ -43,6 +52,8 @@ private:
 	static void KeyCallBack(GLFWwindow *window, int key, int scancode, int action, int mods);
 	static void WindowCallBack(GLFWwindow *window,int width,int height);
 	static void MouseScrollCallBack(GLFWwindow* window, double xoffset, double yoffset);
+	static void MouseCursorCallBack(GLFWwindow* window,double xpos, double ypos);
+	static void MouseButtonCallBack(GLFWwindow* window, int button, int action, int mods);
 
 	public:
 	MyGLFW();
@@ -104,6 +115,7 @@ private:
 	// 変数リセット
 	// スクロール変数のクリア
 	inline void ResetScrollValue() { m_scroll_vec_x = m_scroll_vec_y = ZERO_VEC; }
+	inline void ResetMouseButton() { m_mouse_button = MOUSE_BUTTON::NONE; }
 
 	/* Getter */
 	inline GLFWwindow* GetWindow() const { return m_window; }
@@ -119,6 +131,23 @@ private:
 	inline GLfloat GetTimer() const { return static_cast<GLfloat>(glfwGetTime()); }
 	inline int GetScrollVecX() const { return m_scroll_vec_x; }
 	inline int GetScrollVecY() const { return m_scroll_vec_y; }
+	inline GLfloat GetMouseCursorX() const { return m_mouse_pos_x; }
+	inline GLfloat GetMouseCursorY() const { return m_mouse_pos_y; }
+	inline MOUSE_BUTTON GetMouseButton() const { return m_mouse_button; }
 };
 
+constexpr MyGLFW::MOUSE_BUTTON operator|(const MyGLFW::MOUSE_BUTTON& lhs, const MyGLFW::MOUSE_BUTTON& rhs)
+{
+	return static_cast<MyGLFW::MOUSE_BUTTON>(static_cast<int>(lhs) | static_cast<int>(rhs));
+}
+constexpr void operator|=(MyGLFW::MOUSE_BUTTON & lhs, const MyGLFW::MOUSE_BUTTON & rhs) { lhs = lhs | rhs; }
+constexpr MyGLFW::MOUSE_BUTTON operator^(const MyGLFW::MOUSE_BUTTON& lhs, const MyGLFW::MOUSE_BUTTON& rhs)
+{
+	return static_cast<MyGLFW::MOUSE_BUTTON>(static_cast<int>(lhs) ^ static_cast<int>(rhs));
+}
+constexpr void operator^=(MyGLFW::MOUSE_BUTTON & lhs, const MyGLFW::MOUSE_BUTTON & rhs) { lhs = lhs ^ rhs; }
+constexpr MyGLFW::MOUSE_BUTTON operator&(const MyGLFW::MOUSE_BUTTON& lhs, const MyGLFW::MOUSE_BUTTON& rhs)
+{
+	return static_cast<MyGLFW::MOUSE_BUTTON>(static_cast<int>(lhs) & static_cast<int>(rhs));
+}
 #endif

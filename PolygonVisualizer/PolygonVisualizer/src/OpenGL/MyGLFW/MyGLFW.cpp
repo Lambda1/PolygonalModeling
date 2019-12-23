@@ -5,7 +5,8 @@ MyGLFW::MyGLFW() :
 	m_now_key{}, m_prev_key{}, m_key_state{},
 	m_aspect(0), m_window_size{}, m_scale(WORLD_LENGTH_1),
 	m_timer_count(0.0f), last_time(0.0f), elapsed_time(0.0f),
-	m_scroll_vec_x(0), m_scroll_vec_y(0)
+	m_scroll_vec_x(0), m_scroll_vec_y(0),
+	m_mouse_button(MOUSE_BUTTON::NONE)
 {
 	if(glfwInit() == GL_FALSE)
 	{
@@ -47,7 +48,8 @@ void MyGLFW::SetCallBack()
 	glfwSetWindowUserPointer(m_window, this);
 	glfwSetWindowSizeCallback(m_window, WindowCallBack);
 	glfwSetScrollCallback(m_window, MouseScrollCallBack);
-
+	glfwSetCursorPosCallback(m_window, MouseCursorCallBack);
+	glfwSetMouseButtonCallback(m_window, MouseButtonCallBack);
 }
 /* キー入力コールバック関数 */
 /* NOTE: 同時押しに対応していないため, デバッグ以外には使用しない. */
@@ -89,9 +91,23 @@ void MyGLFW::WindowCallBack(GLFWwindow *window,int width,int height)
 void MyGLFW::MouseScrollCallBack(GLFWwindow* window, double xoffset, double yoffset)
 {
 	MyGLFW* win_p = static_cast<MyGLFW*>(glfwGetWindowUserPointer(window));
-
 	win_p->m_scroll_vec_x = static_cast<int>(xoffset);
 	win_p->m_scroll_vec_y = static_cast<int>(yoffset);
+}
+// マウスカーソルコールバック関数
+void MyGLFW::MouseCursorCallBack(GLFWwindow* window, double xpos, double ypos)
+{
+	MyGLFW* win_p = static_cast<MyGLFW*>(glfwGetWindowUserPointer(window));
+	win_p->m_mouse_pos_x = static_cast<GLfloat>(xpos);
+	win_p->m_mouse_pos_y = static_cast<GLfloat>(ypos);
+}
+// マウスボタンコールバック関数
+void MyGLFW::MouseButtonCallBack(GLFWwindow* window, int button, int action, int mods)
+{
+	MyGLFW* win_p = static_cast<MyGLFW*>(glfwGetWindowUserPointer(window));
+	if (button == GLFW_MOUSE_BUTTON_RIGHT)  { win_p->m_mouse_button ^= MOUSE_BUTTON::RIGHT; }
+	if (button == GLFW_MOUSE_BUTTON_MIDDLE) { win_p->m_mouse_button ^= MOUSE_BUTTON::MIDDLE; }
+	if (button == GLFW_MOUSE_BUTTON_LEFT)   { win_p->m_mouse_button ^= MOUSE_BUTTON::LEFT; }
 }
 
 void MyGLFW::InitWindow(const int &width,const int &height,const char *title)
