@@ -5,9 +5,10 @@ MyModel::MyModel():
 	m_file_name(DEFAULT_STRING), m_file_extension(DEFAULT_STRING),
 	m_vertex_count(0), m_face_count(0),
 	is_registration(false),
-	m_model_type(MODEL_TYPE::NONE)
+	m_model_type(MODEL_TYPE::NONE),
+	m_angle_rad(0)
 {
-
+	m_model_matrix.LoadIdentity();
 }
 
 MyModel::~MyModel()

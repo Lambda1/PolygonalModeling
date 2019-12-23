@@ -2,7 +2,8 @@
 
 ToolWindow::ToolWindow():
 	m_model_data_ptr(nullptr),
-	m_main_camera_ptr(nullptr)
+	m_main_camera_ptr(nullptr),
+	m_translation{}, m_scale{}, m_rotate{}
 {
 }
 
@@ -49,6 +50,16 @@ void ToolWindow::UpdateCamera()
 		if (ImGui::Button("ORIGlN")) { m_main_camera_ptr->ResetGaze(); }
 	}
 }
+// モデル更新処理
+// NOTE: モデル行列
+void ToolWindow::UpdateModel()
+{
+	ImGui::TextColored(IMGUI_COLOR_DEFINE::COLOR4::YELLOW, "Model Matrix");
+	// 平行移動
+	ImGui::Text(" TRANSLATION:"); ImGui::SameLine();
+	ImGui::DragFloat3("M1", m_translation, DRAG_RESOLUTION, -DRAG_MAX, DRAG_MAX, "%.2f"); ImGui::SameLine();
+	if (ImGui::Button("ORlGIN")) { m_translation[0] = m_translation[1] = m_translation[2] = 0.0f; }
+}
 
 // public
 void ToolWindow::Update()
@@ -61,6 +72,10 @@ void ToolWindow::Update()
 	// カメラ設定表示
 	ImGui::Separator();
 	UpdateCamera();
+
+	// モデル行列設定
+	ImGui::Separator();
+	UpdateModel();
 
 	// フレームレート表示
 	ImGui::Separator();

@@ -4,6 +4,8 @@
 #include "../OpenGL/ObjectGL/ObjectGL.hpp"
 #include "../ModelReader/PCDReader/PCDReader.hpp"
 #include "../ModelReader/Bin4Reader/Bin4Reader.hpp"
+#include "../OpenGL/MatrixGL/MatrixGL.hpp"
+#include "../OpenGL/MathGL/MathGL.hpp"
 #include "../OpenGL/PrimitiveObjectGL/CubeGL.hpp"
 
 #include <GL/glew.h>
@@ -42,6 +44,9 @@ private:
 	std::vector<ObjectGL::Vertex> m_model;
 	// インデックスデータ
 	std::vector<GLuint> m_index_data;
+	// モデル行列
+	MatrixGL m_model_matrix;
+	GLfloat m_angle_rad;
 
 	// ファイル情報を登録
 	void RegistrationFileIndo(const std::string &file_path);
@@ -52,12 +57,16 @@ public:
 	MyModel();
 	~MyModel();
 
-	// サンプルデータ
-
 	// モデルデータ読み込み
 	void LoadModelData(const std::string &open_model_data);
 	// モデルが登録されているか
 	inline bool IsRegistration() const { return is_registration; }
+
+	// モデル行列の計算
+	inline void CalcModelMatrix(const MatrixGL& view)
+	{
+		m_model_matrix = view * MathGL::Scale(5.0f, 5.0f, 5.0f);
+	}
 
 	// Getter
 	// モデルデータ
@@ -71,6 +80,10 @@ public:
 	inline const char* GetFileName_C_STR() const { return m_file_name.c_str(); }
 	inline int GetModelFaceNum() const { return m_face_count; }
 	inline int GetModelVertexNum() const { return m_vertex_count; }
+	// モデル姿勢
+	inline const MatrixGL& GetModelMatrix() const { return m_model_matrix; }
+	inline const GLfloat* GetModelMatrixPtr() const { return m_model_matrix.GetMatrix(); }
+	inline void GetModelNormal(GLfloat* normal) const { m_model_matrix.GetNormalMatrix(normal); }
 };
 
 #endif

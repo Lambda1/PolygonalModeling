@@ -252,7 +252,10 @@ std::string::const_iterator PCDReader::ReadCount(const std::string::const_iterat
 			std::string byte_str = ReadLine(itr, file_data);
 			for (auto m_itr = byte_str.begin(); m_itr != byte_str.end(); ++m_itr)
 			{
-				if (*m_itr != ' ') { m_count.push_back(std::stoi(std::string{ *m_itr })); }
+				// ”š‚Ì‚İˆµ‚¤
+				if (*m_itr >= '0' && *m_itr <= '9')
+				{ 
+					m_count.push_back(std::stoi(std::string{ *m_itr })); }
 			}
 			return ++itr;
 		}

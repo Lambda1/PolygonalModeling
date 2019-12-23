@@ -119,12 +119,14 @@ class MyViewer
 		m_shader_model.UniformMatrix4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION], 1, GL_FALSE, m_projection.GetMatrix());
 		// 光源設定
 		UpdateShaderLight();
+		// モデル行列計算
+		m_model_data.CalcModelMatrix(m_view);
 		// 法線設定
 		GLfloat normal[9];
-		m_view.GetNormalMatrix(normal);
+		m_model_data.GetModelNormal(normal);
 		m_shader_model.UniformMatrix3fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL_MATRIX], 1, GL_FALSE, normal);
-		// ビュー設定
-		m_shader_model.UniformMatrix4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_view.GetMatrix());
+		// モデルビュー設定
+		m_shader_model.UniformMatrix4fv(m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW], 1, GL_FALSE, m_model_data.GetModelMatrixPtr());
 
 		// 描画
 		m_shape_base.Draw(DRAW_ID_MODEL);

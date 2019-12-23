@@ -17,12 +17,17 @@ class ToolWindow : public GUIWindow
 	inline static constexpr float SLIDER_SPEED = 2.0f;
 	inline static constexpr int UI_WIDTH_SIZE = 300;
 	inline static constexpr int CAMERA_COORDINATE = 3;
+	inline static constexpr float DRAG_MAX = 100.0f;
+	inline static constexpr float DRAG_RESOLUTION = 0.02f;
 
 	// モデルデータ
 	const MyModel* m_model_data_ptr;
 	// カメラデータ
 	// NOTE: ツール側から編集する可能性があるので非const
 	MainCameraGL* m_main_camera_ptr;
+	// モデル行列設定
+	// NOTE: 3ベクトル
+	float m_translation[3], m_scale[3], m_rotate[3];
 
 	// フレームレート表示
 	void DisplayFrameRate() const;
@@ -31,6 +36,8 @@ class ToolWindow : public GUIWindow
 
 	// カメラデータ更新
 	void UpdateCamera();
+	// モデルデータ更新
+	void UpdateModel();
 public:
 	ToolWindow();
 	~ToolWindow();
