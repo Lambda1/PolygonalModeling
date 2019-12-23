@@ -4,11 +4,11 @@
 template<class T>
 class MainCamera
 {
-private:
+public:
 	// ‰æŠpƒpƒ‰ƒ[ƒ^
 	inline static constexpr double MAX_FOV = 3.1415926535;
 	inline static constexpr double MIN_FOV = 0.001;
-
+private:
 	// Šg‘å—¦
 	T fov_magnification;
 

@@ -33,7 +33,7 @@ namespace my
 
 		/* ƒ‰ƒWƒAƒ“-Šp“x•ÏŠ· */
 		inline static double toDegree(const double& radian) { return (radian * 180.0) / PI; }
-		inline static double toRadian(const double& degree) { return (degree / 180.0) * PI; }
+		constexpr inline static double toRadian(const double& degree) { return (degree / 180.0) * PI; }
 		inline static double NormalizeRadian(double radian)
 		{
 			if (radian < 0.0 || radian > 2.0 * PI)

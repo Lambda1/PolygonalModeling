@@ -9,8 +9,8 @@ namespace MY_VIEWER_DEFINE
 {
 	namespace INIT
 	{
-		inline static constexpr GLfloat CAM_POS_MAX =  50.0f;
-		inline static constexpr GLfloat CAM_POS_MIN = -50.0f;
+		inline static constexpr GLfloat CAM_POS_MAX =  100.0f;
+		inline static constexpr GLfloat CAM_POS_MIN = -100.0f;
 	};
 	namespace IMGUI
 	{

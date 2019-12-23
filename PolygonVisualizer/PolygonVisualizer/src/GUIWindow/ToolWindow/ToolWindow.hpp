@@ -14,6 +14,7 @@ class ToolWindow : public GUIWindow
 {
 	// íËêî
 	inline static constexpr float ONE_MINUTE = 1000.0f;
+	inline static constexpr float SLIDER_SPEED = 2.0f;
 	inline static constexpr int UI_WIDTH_SIZE = 300;
 	inline static constexpr int CAMERA_COORDINATE = 3;
 

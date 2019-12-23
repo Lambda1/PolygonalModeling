@@ -37,14 +37,15 @@ void ToolWindow::UpdateCamera()
 	if (m_main_camera_ptr)
 	{
 		// FoV
-		ImGui::Text(" Field of View : %.2f", my::math::toDegree(m_main_camera_ptr->fov));
+		ImGui::Text(" Field of View : %.2f", my::math::toDegree(m_main_camera_ptr->fov)); ImGui::SameLine();
+		ImGui::SliderFloat(" ", m_main_camera_ptr->GetFovPtr(), MainCameraGL::MIN_FOV_F, MainCameraGL::MAX_FOV_F, "%.2f");
 		// カメラ位置
 		ImGui::Text(" CAMERA POS:"); ImGui::SameLine();
-		ImGui::SliderFloat3("1", m_main_camera_ptr->GetPosPtr(), m_main_camera_ptr->GetMinPos(), m_main_camera_ptr->GetMaxPos(), "%.2f"); ImGui::SameLine();
+		ImGui::SliderFloat3("1", m_main_camera_ptr->GetPosPtr(), m_main_camera_ptr->GetMinPos(), m_main_camera_ptr->GetMaxPos(), "%.2f", SLIDER_SPEED); ImGui::SameLine();
 		if (ImGui::Button("ORIGIN")) { m_main_camera_ptr->ResetPos(); }
 		// カメラ注視点
 		ImGui::Text("  GAZE  POS:"); ImGui::SameLine();
-		ImGui::SliderFloat3("2", m_main_camera_ptr->GetGazePtr(), m_main_camera_ptr->GetMinPos(), m_main_camera_ptr->GetMaxPos(), "%.2f"); ImGui::SameLine();
+		ImGui::SliderFloat3("2", m_main_camera_ptr->GetGazePtr(), m_main_camera_ptr->GetMinPos(), m_main_camera_ptr->GetMaxPos(), "%.2f", SLIDER_SPEED); ImGui::SameLine();
 		if (ImGui::Button("ORIGlN")) { m_main_camera_ptr->ResetGaze(); }
 	}
 }

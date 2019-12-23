@@ -10,6 +10,10 @@
 
 class MainCameraGL : public MainCamera<GLfloat>
 {
+public:
+	inline static constexpr float MAX_FOV_F = static_cast<GLfloat>(MAX_FOV);
+	inline static constexpr float MIN_FOV_F = static_cast<GLfloat>(MIN_FOV);
+private:
 	// ƒJƒƒ‰ˆÊ’u‚Ìè‡’l
 	GLfloat m_max_pos, m_min_pos;
 
@@ -55,6 +59,7 @@ public:
 	// Getter
 	inline GLfloat* GetPosPtr() { return *m_pos_ptr; }
 	inline GLfloat* GetGazePtr() { return *m_gaze_ptr; }
+	inline GLfloat* GetFovPtr() { return &fov; }
 	inline GLfloat GetMaxPos() const { return m_max_pos; }
 	inline GLfloat GetMinPos() const { return m_min_pos; }
 };
