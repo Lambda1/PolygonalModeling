@@ -3,6 +3,7 @@
 
 #include "../OpenGL/ObjectGL/ObjectGL.hpp"
 #include "../ModelReader/PCDReader/PCDReader.hpp"
+#include "../ModelReader/Bin4Reader/Bin4Reader.hpp"
 #include "../OpenGL/PrimitiveObjectGL/CubeGL.hpp"
 
 #include <GL/glew.h>
@@ -24,6 +25,7 @@ public:
 	};
 	// 拡張子
 	inline static const std::string EXTENSION_PCD = ".pcd";
+	inline static const std::string EXTENSION_BIN4 = ".bin4";
 private:
 	// 定数パラメータ
 	inline static const std::string DEFAULT_STRING = "NONE";
@@ -45,6 +47,7 @@ private:
 	void RegistrationFileIndo(const std::string &file_path);
 	// データ整形
 	void SetVertexParticle(); // 粒子のみ
+	void SetVertexParticleColor(); // 点群+色
 public:
 	MyModel();
 	~MyModel();

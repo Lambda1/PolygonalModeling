@@ -18,7 +18,9 @@ OPENFILENAME WinFiler::CommonDialog()
 	// 親ウィンドウハンドル(MFCではないのでnull)
 	ofn.hwndOwner = nullptr;
 	// ファイルフィルター
-	ofn.lpstrFilter = TEXT("All files {*.*}\0*.*\0\0");
+	ofn.lpstrFilter =
+		TEXT("4-byte binary {*.bin4}\0*.bin4\0")
+		TEXT("Point Cloud {*.pcd}\0*.pcd\0");
 	// ユーザ定義フィルタ
 	ofn.lpstrCustomFilter = nullptr;
 	// ユーザ定義フィルタ長

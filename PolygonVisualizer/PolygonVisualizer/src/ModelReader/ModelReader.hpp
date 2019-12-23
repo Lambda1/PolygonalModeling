@@ -14,11 +14,13 @@ protected:
 	std::vector<VectorColor> m_vertex_color;
 
 	size_t m_file_size;
+	bool is_read_success;
 
 	virtual void ReadFile(const std::string& open_file_path) = 0;
 public:
 	ModelReader() :
-		m_file_size(0)
+		m_file_size(0),
+		is_read_success(false)
 	{
 	}
 	virtual ~ModelReader()

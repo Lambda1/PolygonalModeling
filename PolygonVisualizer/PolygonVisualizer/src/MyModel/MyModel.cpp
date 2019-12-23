@@ -53,6 +53,20 @@ void MyModel::SetVertexParticle()
 			});
 	}
 }
+// 色粒子の登録
+// HACK: まだ色の実装はしていない
+void MyModel::SetVertexParticleColor()
+{
+	for (int i = 0; i < m_model_data->GetVertexColorSize(); ++i)
+	{
+		m_model.emplace_back(ObjectGL::Vertex
+			{
+			static_cast<float>(m_model_data->GetVertexColor()[i].x),
+			static_cast<float>(m_model_data->GetVertexColor()[i].y),
+			static_cast<float>(m_model_data->GetVertexColor()[i].z)
+			});
+	}
+}
 
 // public
 // モデルデータのロード
@@ -66,13 +80,18 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	m_model.shrink_to_fit();
 
 	// モデル読み込み
+	// HACK: テーブル化を目指す
 	if (m_file_extension == EXTENSION_PCD)
 	{
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new PCDReader(open_model_data);
 		SetVertexParticle();
+	}else if (m_file_extension == EXTENSION_BIN4)
+	{
+		m_model_type = MODEL_TYPE::PARTICLE;
+		m_model_data = new Bin4Reader(open_model_data);
+		SetVertexParticleColor();
 	}
-
 
 	// 各種データ登録
 	is_registration = true;
