@@ -41,7 +41,7 @@ public:
 	// Setter
 	// モデルデータのセット
 	// NOTE: ToolWindowも同時更新
-	inline void SetModelData(const MyModel* model_data)
+	inline void SetModelData(MyModel* model_data)
 	{
 		m_model_data_ptr = model_data;
 		m_tool_window->SetModelData(model_data);

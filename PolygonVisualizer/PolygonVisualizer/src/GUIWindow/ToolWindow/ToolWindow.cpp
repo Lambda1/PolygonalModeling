@@ -3,7 +3,7 @@
 ToolWindow::ToolWindow():
 	m_model_data_ptr(nullptr),
 	m_main_camera_ptr(nullptr),
-	m_translation{}, m_scale{}, m_rotate{}
+	m_translation{}, m_scale(1.0f), m_rotate{}
 {
 }
 
@@ -59,6 +59,17 @@ void ToolWindow::UpdateModel()
 	ImGui::Text(" TRANSLATION:"); ImGui::SameLine();
 	ImGui::DragFloat3("M1", m_translation, DRAG_RESOLUTION, -DRAG_MAX, DRAG_MAX, "%.2f"); ImGui::SameLine();
 	if (ImGui::Button("ORlGIN")) { m_translation[0] = m_translation[1] = m_translation[2] = 0.0f; }
+	// スケール
+	ImGui::Text(" FIXED SCALE:"); ImGui::SameLine();
+	ImGui::SliderFloat("M2", &m_scale, 1.0f, DRAG_MAX, "%.2f", 3.0f); ImGui::SameLine();
+	if (ImGui::Button("ORlGlN")) { m_scale = 1.0f; }
+
+	// モデル行列適用
+	if (m_model_data_ptr)
+	{
+		m_model_data_ptr->SetTranslateMatrix(m_translation[0], m_translation[1], m_translation[2]);
+		m_model_data_ptr->SetFixedScaleMatrix(m_scale);
+	}
 }
 
 // public
