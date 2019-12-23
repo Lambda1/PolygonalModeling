@@ -41,6 +41,9 @@ private:
 	GLfloat m_timer_count; /* 経過時間 */
 	GLfloat last_time, elapsed_time; /* FPS処理用 */
 
+	// V-Sync
+	int m_v_sync_value;
+
 	/* マウス処理 */
 	int m_scroll_vec_x, m_scroll_vec_y;   // マウススクロール方向のベクトル(正規化済み)
 	GLfloat m_mouse_pos_x, m_mouse_pos_y; // マウスカーソル位置
@@ -110,6 +113,14 @@ private:
 			else if (m_now_key[i] && m_prev_key[i]) { m_key_state[i] = KeyState::STATE::HOLD; }
 			else { m_key_state[i] = KeyState::STATE::RELEASE; }
 		}
+	}
+
+	// V-Sync切り替え(60 <-> 0)
+	inline void SwitchLimitterFPS()
+	{
+		if (m_v_sync_value != 0) { m_v_sync_value = 0; }
+		else { m_v_sync_value = 1; }
+		glfwSwapInterval(m_v_sync_value);
 	}
 
 	// 変数リセット

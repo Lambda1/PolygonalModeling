@@ -1,10 +1,11 @@
 #include "./ToolWindow.hpp"
 
-ToolWindow::ToolWindow():
+ToolWindow::ToolWindow() :
 	m_model_data_ptr(nullptr),
 	m_main_camera_ptr(nullptr),
 	m_translation{}, m_scale(1.0f), m_rotate(0.0f),
-	m_rotate_bits{}
+	m_rotate_bits{},
+	m_is_demo(false), m_demo_step(0)
 {
 }
 
@@ -81,6 +82,70 @@ void ToolWindow::UpdateModel()
 		m_model_data_ptr->SetRotateMatrix(static_cast<GLfloat>(my::math::toRadian(m_rotate)), BoolToInt(m_rotate_bits[0]), BoolToInt(m_rotate_bits[1]), BoolToInt(m_rotate_bits[2]));
 	}
 }
+// デバッグモード
+// NOTE: デバッグにしか使用しないのでやっつけ
+void ToolWindow::DebugMode()
+{
+#if DEBUG_TOOL_WINDOW
+	ImGui::Separator();
+	ImGui::TextColored(IMGUI_COLOR_DEFINE::COLOR4::BLUE, "DEBUG");
+	if (ImGui::Button("Switch V-Sync")) { SwitchVSync(); }
+	static int frame_ = 0;
+	ImGui::Checkbox("DEMO", &m_is_demo);
+	if (m_is_demo)
+	{
+		if (static_cast<int>(m_rotate) % 45 == 0)
+		{
+			frame_++;
+			if (frame_ > 60) { m_rotate += 1.0f; frame_ = 0; }
+		}
+		else { m_rotate += 1.0f; }
+
+		// 初期化ステップ
+		// NOTE: 現段階で見えやすい位置のパラメータ設定
+		if (m_demo_step == 0)
+		{
+			m_demo_step = 1;
+			m_main_camera_ptr->SetPos(0.0f, 0.0f, 100.0f);
+			m_main_camera_ptr->fov = 0.03f;
+			m_rotate = 0.0f;
+			m_rotate_bits[0] = m_rotate_bits[2] = false;
+			m_rotate_bits[1] = true;
+		}
+		else if (m_demo_step == 1)
+		{
+			if (m_rotate > 360.0f)
+			{
+				m_rotate = 0.0f;
+				m_rotate_bits[1] = m_rotate_bits[2] = false;
+				m_rotate_bits[0] = true;
+				m_demo_step = 2;
+			}
+		}
+		else if (m_demo_step == 2)
+		{
+			if (m_rotate > 360.0f)
+			{
+				m_rotate_bits[0] = m_rotate_bits[2] = false;
+				m_rotate_bits[1] = true;
+				m_rotate = 0.0f;
+				m_demo_step = 1;
+			}
+		}
+	}
+	else { m_demo_step = 0; }
+#endif
+}
+
+// 垂直同期切り替え
+// NOTE: デバッグ時のみ
+void ToolWindow::SwitchVSync() const
+{
+	static int m_v_sync_value = 1;
+	if (m_v_sync_value != 0) { m_v_sync_value = 0; }
+	else { m_v_sync_value = 1; }
+	glfwSwapInterval(m_v_sync_value);
+}
 
 // public
 void ToolWindow::Update()
@@ -101,6 +166,9 @@ void ToolWindow::Update()
 	// フレームレート表示
 	ImGui::Separator();
 	DisplayFrameRate();
+
+	// デモモード
+	DebugMode();
 
 	ImGui::End();
 }

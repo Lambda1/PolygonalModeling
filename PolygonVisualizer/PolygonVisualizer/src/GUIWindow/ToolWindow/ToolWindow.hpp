@@ -10,6 +10,12 @@
 
 #include "../../imgui/imgui.h"
 
+#define DEBUG_TOOL_WINDOW true
+
+#if DEBUG_TOOL_WINDOW
+	#include <GLFW/glfw3.h>
+#endif
+
 class ToolWindow : public GUIWindow
 {
 	// 定数
@@ -29,6 +35,10 @@ class ToolWindow : public GUIWindow
 	// NOTE: 3ベクトル
 	float m_translation[3], m_scale, m_rotate;
 	bool  m_rotate_bits[3]; // 回転軸ビット
+	// デモ用
+	// NOTE: 最終的には使用しない
+	bool m_is_demo;
+	int  m_demo_step;
 
 	// フレームレート表示
 	void DisplayFrameRate() const;
@@ -39,7 +49,12 @@ class ToolWindow : public GUIWindow
 	void UpdateCamera();
 	// モデルデータ更新
 	void UpdateModel();
+	// デバッグモード
+	void DebugMode();
 
+	// V-Sync
+	void SwitchVSync() const;
+	
 	inline int BoolToInt(const bool& val) const { return (val) ? 1 : 0; }
 public:
 	ToolWindow();

@@ -5,6 +5,7 @@ MyGLFW::MyGLFW() :
 	m_now_key{}, m_prev_key{}, m_key_state{},
 	m_aspect(0), m_window_size{}, m_scale(WORLD_LENGTH_1),
 	m_timer_count(0.0f), last_time(0.0f), elapsed_time(0.0f),
+	m_v_sync_value(0),
 	m_scroll_vec_x(0), m_scroll_vec_y(0),
 	m_mouse_button(MOUSE_BUTTON::NONE)
 {
