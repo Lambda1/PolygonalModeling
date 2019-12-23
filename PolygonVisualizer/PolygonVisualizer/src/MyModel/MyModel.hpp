@@ -52,6 +52,8 @@ public:
 	MyModel();
 	~MyModel();
 
+	// サンプルデータ
+
 	// モデルデータ読み込み
 	void LoadModelData(const std::string &open_model_data);
 	// モデルが登録されているか

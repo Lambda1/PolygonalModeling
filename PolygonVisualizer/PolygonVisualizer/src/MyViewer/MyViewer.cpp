@@ -42,13 +42,14 @@ void MyViewer::InitImGui()
 // OpenGL初期化
 void MyViewer::InitOpenGL()
 {
-	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	// OpenGLコンテクストの作成
 	m_opengl_manager.InitWindow(m_window_width, m_window_height, m_window_name.c_str());
 	// 背景色設定
 	glClearColor(0.3f, 0.3f, 0.3f, 1);
 	// シェーダ初期化
 	InitShader();
+	// ポイントサイズ可変
+	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 }
 // シェーダ初期化
 void MyViewer::InitShader()

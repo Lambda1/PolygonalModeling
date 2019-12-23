@@ -4,7 +4,8 @@ MyGLFW::MyGLFW() :
 	m_window(nullptr),
 	m_now_key{}, m_prev_key{}, m_key_state{},
 	m_aspect(0), m_window_size{}, m_scale(WORLD_LENGTH_1),
-	m_timer_count(0.0f), last_time(0.0f), elapsed_time(0.0f)
+	m_timer_count(0.0f), last_time(0.0f), elapsed_time(0.0f),
+	m_scroll_vec_x(0), m_scroll_vec_y(0)
 {
 	if(glfwInit() == GL_FALSE)
 	{
@@ -110,6 +111,13 @@ void MyGLFW::InitWindow(const int &width,const int &height,const char *title)
 		std::cout << "ERROR: glew Init" << std::endl;
 		std::abort();
 	}
+	/*
+		ドライバのバージョンによってglewInitでエラーが起こるため, glewInit時のエラーを無視する.
+		OpenGL3.3移行の機能を使用時に発生する.
+		参考: (https:)//www.khronos.org/opengl/wiki/OpenGL_Loading_Library
+	*/
+	glGetError();
+
 	glfwSwapInterval(1);
 	InitMode();
 	SetCallBack();
