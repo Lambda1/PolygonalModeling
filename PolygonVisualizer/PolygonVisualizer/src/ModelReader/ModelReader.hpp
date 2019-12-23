@@ -14,13 +14,14 @@ protected:
 	std::vector<VectorColor> m_vertex_color;
 
 	size_t m_file_size;
+	bool is_color;
 	bool is_read_success;
 
 	virtual void ReadFile(const std::string& open_file_path) = 0;
 public:
 	ModelReader() :
 		m_file_size(0),
-		is_read_success(false)
+		is_color(false), is_read_success(false)
 	{
 	}
 	virtual ~ModelReader()
@@ -32,6 +33,9 @@ public:
 	inline int GetVertexSize() const { return static_cast<int>(m_vertex.size()); }
 	inline const VectorColor* GetVertexColor() const { return m_vertex_color.data(); }
 	inline int GetVertexColorSize() const { return static_cast<int>(m_vertex_color.size()); }
+	
+	// Is
+	inline bool IsColor() const { return is_color; }
 };
 
 #endif

@@ -90,7 +90,8 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	{
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new Bin4Reader(open_model_data);
-		SetVertexParticleColor();
+		if (m_model_data->IsColor()) { SetVertexParticleColor(); }
+		else { SetVertexParticle(); }
 	}
 
 	// 各種データ登録

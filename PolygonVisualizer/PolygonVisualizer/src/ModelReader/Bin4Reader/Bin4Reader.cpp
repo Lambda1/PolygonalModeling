@@ -21,10 +21,9 @@ void Bin4Reader::ReadFile(const std::string& open_file_path)
 	// ヘッダ読み込み
 	ReadHeader(file_data);
 	
-	if (m_vec_num != BASE_VECTOR){ std::cerr << "ERROR: " << open_file_path << " DOES NOT HAVE " << BASE_VECTOR << " VECTOR." << std::endl; return; }
-	
 	// データ読み込み
-	ReadDataNormalFormat(file_data);
+	if (m_vec_num == BASE_VECTOR) { ReadDataNormalFormat(file_data); }
+	else if (m_vec_num == POINTS_VECTOR) { ReadDataOnlyPoint(file_data); }
 
 	// 読み込み成功
 	is_read_success = true;
@@ -57,10 +56,32 @@ void Bin4Reader::ReadDataNormalFormat(std::ifstream& file_stream)
 	// データ配置
 	for (int i = 0; i+(BASE_VECTOR-1) < static_cast<int>(read_data.size()); i += BASE_VECTOR)
 	{
+		// x, y, z
+		// r, g, b, a
 		m_vertex_color.emplace_back(VectorColor
 			{
 				read_data[i+0], read_data[i+1], read_data[i+2],
 				read_data[i+3], read_data[i+4], read_data[i+5], read_data[i+6]
 			});
+	}
+	is_color = true;
+}
+// 点群データのみ
+void Bin4Reader::ReadDataOnlyPoint(std::ifstream& file_stream)
+{
+	// ファイル読み取り
+	std::vector<BYTE_4> read_data;
+	BYTE_4 temp_data;
+	while (!file_stream.eof())
+	{
+		file_stream.read(reinterpret_cast<char*>(&temp_data), sizeof(BYTE_4));
+		read_data.emplace_back(temp_data);
+	}
+
+	// データ配置
+	for (int i = 0; i + (POINTS_VECTOR - 1) < static_cast<int>(read_data.size()); i += POINTS_VECTOR)
+	{
+		// x, y, z
+		m_vertex.emplace_back(Vector { read_data[i + 0], read_data[i + 1], read_data[i + 2] });
 	}
 }
