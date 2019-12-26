@@ -4,6 +4,7 @@
 #include "../OpenGL/ObjectGL/ObjectGL.hpp"
 #include "../ModelReader/PCDReader/PCDReader.hpp"
 #include "../ModelReader/Bin4Reader/Bin4Reader.hpp"
+#include "../ModelReader/ObjReader/ObjReader.hpp"
 #include "../OpenGL/MatrixGL/MatrixGL.hpp"
 #include "../OpenGL/MathGL/MathGL.hpp"
 #include "../OpenGL/PrimitiveObjectGL/CubeGL.hpp"
@@ -28,6 +29,7 @@ public:
 	// 拡張子
 	inline static const std::string EXTENSION_PCD = ".pcd";
 	inline static const std::string EXTENSION_BIN4 = ".bin4";
+	inline static const std::string EXTENSION_OBJ = ".obj";
 private:
 	// 定数パラメータ
 	inline static const std::string DEFAULT_STRING = "NONE";

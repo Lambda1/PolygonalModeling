@@ -9,9 +9,12 @@ class ModelReader
 public:
 	struct Vector { double x, y, z; };
 	struct VectorColor : public Vector { double r, g, b, alpha; };
+	struct VertexNormal : public Vector { double xn, yn, zn; };
+	struct VertexNormalTexture : public VertexNormal { double tx, ty, tz; };
 protected:
 	std::vector<Vector> m_vertex;
 	std::vector<VectorColor> m_vertex_color;
+	std::vector<VertexNormalTexture> m_vertex_normal_texture;
 
 	size_t m_file_size;
 	bool is_color;

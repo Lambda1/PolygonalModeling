@@ -240,6 +240,9 @@
     <ClCompile Include="src\ModelReader\Bin4Reader\Bin4Reader.cpp">
       <Filter>ソース ファイル\ModelReader</Filter>
     </ClCompile>
+    <ClCompile Include="src\ModelReader\ObjReader\ObjReader.cpp">
+      <Filter>ソース ファイル\ModelReader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\imgui\imconfig.h">
@@ -378,6 +381,9 @@
       <Filter>ヘッダー ファイル\ModelReader</Filter>
     </ClInclude>
     <ClInclude Include="src\ModelReader\Bin4Reader\Bin4Reader.hpp">
+      <Filter>ヘッダー ファイル\ModelReader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ModelReader\ObjReader\ObjReader.hpp">
       <Filter>ヘッダー ファイル\ModelReader</Filter>
     </ClInclude>
   </ItemGroup>

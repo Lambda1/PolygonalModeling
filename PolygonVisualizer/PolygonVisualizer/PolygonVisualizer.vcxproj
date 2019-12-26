@@ -146,6 +146,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MenuBar\MenuBar.cpp" />
     <ClCompile Include="src\ModelReader\Bin4Reader\Bin4Reader.cpp" />
+    <ClCompile Include="src\ModelReader\ObjReader\ObjReader.cpp" />
     <ClCompile Include="src\ModelReader\PCDReader\PCDReader.cpp" />
     <ClCompile Include="src\MyModel\MyModel.cpp" />
     <ClCompile Include="src\MyViewer\MyViewer.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="src\MenuBar\MenuBarDefine.hpp" />
     <ClInclude Include="src\ModelReader\Bin4Reader\Bin4Reader.hpp" />
     <ClInclude Include="src\ModelReader\ModelReader.hpp" />
+    <ClInclude Include="src\ModelReader\ObjReader\ObjReader.hpp" />
     <ClInclude Include="src\ModelReader\PCDReader\PCDReader.hpp" />
     <ClInclude Include="src\MyMath\MyMath.hpp" />
     <ClInclude Include="src\MyModel\MyModel.hpp" />

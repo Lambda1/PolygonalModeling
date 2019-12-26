@@ -86,12 +86,17 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new PCDReader(open_model_data);
 		SetVertexParticle();
-	}else if (m_file_extension == EXTENSION_BIN4)
+	}
+	else if (m_file_extension == EXTENSION_BIN4)
 	{
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new Bin4Reader(open_model_data);
 		if (m_model_data->IsColor()) { SetVertexParticleColor(); }
 		else { SetVertexParticle(); }
+	}else if (m_file_extension == EXTENSION_OBJ)
+	{
+		m_model_type = MODEL_TYPE::WIRE;
+		m_model_data = new ObjReader(open_model_data);
 	}
 
 	// 各種データ登録
