@@ -100,6 +100,7 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	else if (m_file_extension == EXTENSION_ASCII) {
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new AsciiReader(open_model_data);
+		SetVertexParticle();
 	}
 
 	// 各種データ登録

@@ -46,7 +46,7 @@ std::vector<ModelReader::Vector> ObjReader::ReadVertex(std::ifstream& file_data)
 // NOTE: ‰‚ß‚Ì‹ó”’‚Ü‚Å‚ğ“Ç‚İ”ò‚Î‚·
 ModelReader::Vector ObjReader::ReadLineData(std::string& buffer)
 {
-	ModelReader::Vector data;
+	ModelReader::Vector data = {};
 	int head_pos = buffer.find(OBJ_FORMAT_DELIMITER);
 
 	buffer = buffer.substr(0, head_pos+1);
