@@ -243,6 +243,9 @@
     <ClCompile Include="src\ModelReader\ObjReader\ObjReader.cpp">
       <Filter>ソース ファイル\ModelReader</Filter>
     </ClCompile>
+    <ClCompile Include="src\ModelReader\AsciiReader\AsciiReader.cpp">
+      <Filter>ソース ファイル\ModelReader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\imgui\imconfig.h">
@@ -384,6 +387,9 @@
       <Filter>ヘッダー ファイル\ModelReader</Filter>
     </ClInclude>
     <ClInclude Include="src\ModelReader\ObjReader\ObjReader.hpp">
+      <Filter>ヘッダー ファイル\ModelReader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ModelReader\AsciiReader\AsciiReader.hpp">
       <Filter>ヘッダー ファイル\ModelReader</Filter>
     </ClInclude>
   </ItemGroup>

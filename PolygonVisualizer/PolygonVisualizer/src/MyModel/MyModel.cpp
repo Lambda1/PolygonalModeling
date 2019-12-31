@@ -1,6 +1,6 @@
 #include "./MyModel.hpp"
 
-MyModel::MyModel():
+MyModel::MyModel() :
 	m_model_data(nullptr),
 	m_file_name(DEFAULT_STRING), m_file_extension(DEFAULT_STRING),
 	m_vertex_count(0), m_face_count(0),
@@ -20,13 +20,13 @@ MyModel::~MyModel()
 }
 // private
 // ファイルパスを取り除く
-void MyModel::RegistrationFileIndo(const std::string &file_path)
+void MyModel::RegistrationFileIndo(const std::string& file_path)
 {
 	const char DELIMITER = '\\';
 	const char EXTENSION_DELIMITER = '.';
 
 	int first = static_cast<int>(file_path.length());
-	int end   = static_cast<int>(file_path.length());
+	int end = static_cast<int>(file_path.length());
 	for (auto itr = file_path.rbegin(); itr != file_path.rend(); ++itr)
 	{
 		// 拡張子の探索
@@ -87,16 +87,19 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 		m_model_data = new PCDReader(open_model_data);
 		SetVertexParticle();
 	}
-	else if (m_file_extension == EXTENSION_BIN4)
-	{
+	else if (m_file_extension == EXTENSION_BIN4) {
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new Bin4Reader(open_model_data);
 		if (m_model_data->IsColor()) { SetVertexParticleColor(); }
 		else { SetVertexParticle(); }
-	}else if (m_file_extension == EXTENSION_OBJ)
-	{
+	}
+	else if (m_file_extension == EXTENSION_OBJ) {
 		m_model_type = MODEL_TYPE::WIRE;
 		m_model_data = new ObjReader(open_model_data);
+	}
+	else if (m_file_extension == EXTENSION_ASCII) {
+		m_model_type = MODEL_TYPE::PARTICLE;
+		m_model_data = new AsciiReader(open_model_data);
 	}
 
 	// 各種データ登録

@@ -5,6 +5,7 @@
 #include "../ModelReader/PCDReader/PCDReader.hpp"
 #include "../ModelReader/Bin4Reader/Bin4Reader.hpp"
 #include "../ModelReader/ObjReader/ObjReader.hpp"
+#include "../ModelReader/AsciiReader/AsciiReader.hpp"
 #include "../OpenGL/MatrixGL/MatrixGL.hpp"
 #include "../OpenGL/MathGL/MathGL.hpp"
 #include "../OpenGL/PrimitiveObjectGL/CubeGL.hpp"
@@ -30,6 +31,7 @@ public:
 	inline static const std::string EXTENSION_PCD = ".pcd";
 	inline static const std::string EXTENSION_BIN4 = ".bin4";
 	inline static const std::string EXTENSION_OBJ = ".obj";
+	inline static const std::string EXTENSION_ASCII = ".ascii";
 private:
 	// íËêîÉpÉâÉÅÅ[É^
 	inline static const std::string DEFAULT_STRING = "NONE";

@@ -145,6 +145,7 @@
     <ClCompile Include="src\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MenuBar\MenuBar.cpp" />
+    <ClCompile Include="src\ModelReader\AsciiReader\AsciiReader.cpp" />
     <ClCompile Include="src\ModelReader\Bin4Reader\Bin4Reader.cpp" />
     <ClCompile Include="src\ModelReader\ObjReader\ObjReader.cpp" />
     <ClCompile Include="src\ModelReader\PCDReader\PCDReader.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="src\MainInfo.hpp" />
     <ClInclude Include="src\MenuBar\MenuBar.hpp" />
     <ClInclude Include="src\MenuBar\MenuBarDefine.hpp" />
+    <ClInclude Include="src\ModelReader\AsciiReader\AsciiReader.hpp" />
     <ClInclude Include="src\ModelReader\Bin4Reader\Bin4Reader.hpp" />
     <ClInclude Include="src\ModelReader\ModelReader.hpp" />
     <ClInclude Include="src\ModelReader\ObjReader\ObjReader.hpp" />
