@@ -26,6 +26,8 @@ class PCDReader : public ModelReader
 	inline static const std::string POINTS = "POINTS ";
 	inline static const std::string DATA = "DATA ";
 	inline static const std::string ASCII = "ascii";
+	// デフォルト定数
+	inline static constexpr double DEFAULT_COLOR = 1.0;
 
 	// フォーマット情報
 	double m_version;

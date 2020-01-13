@@ -58,7 +58,6 @@ void MyModel::SetVertexParticle()
 	}
 }
 // êFó±éqÇÃìoò^
-// HACK: Ç‹ÇæêFÇÃé¿ëïÇÕÇµÇƒÇ¢Ç»Ç¢
 void MyModel::SetVertexParticleColor()
 {
 	for (int i = 0; i < m_model_data->GetVertexColorSize(); ++i)
@@ -92,7 +91,7 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	{
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new PCDReader(open_model_data);
-		SetVertexParticle();
+		SetVertexParticleColor();
 	}
 	else if (m_file_extension == EXTENSION_BIN4) {
 		m_model_type = MODEL_TYPE::PARTICLE;
