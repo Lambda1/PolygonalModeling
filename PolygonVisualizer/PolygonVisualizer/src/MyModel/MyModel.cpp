@@ -43,13 +43,17 @@ void MyModel::RegistrationFileIndo(const std::string& file_path)
 // êFÇ»Çµó±éqÇÃìoò^
 void MyModel::SetVertexParticle()
 {
+	constexpr float default_color = 1.0f;
 	for (int i = 0; i < m_model_data->GetVertexSize(); ++i)
 	{
 		m_model.emplace_back(ObjectGL::Vertex
 			{
 			static_cast<float>(m_model_data->GetVertex()[i].x),
 			static_cast<float>(m_model_data->GetVertex()[i].y),
-			static_cast<float>(m_model_data->GetVertex()[i].z)
+			static_cast<float>(m_model_data->GetVertex()[i].z),
+			static_cast<float>(default_color),
+			static_cast<float>(default_color),
+			static_cast<float>(default_color)
 			});
 	}
 }

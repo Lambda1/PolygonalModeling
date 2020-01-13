@@ -36,6 +36,7 @@ namespace MY_VIEWER_DEFINE
 			LDIFF,
 			LSPEC,
 			MATERIAL,
+			COLOR,
 
 			SIZE
 		};
@@ -50,6 +51,7 @@ namespace MY_VIEWER_DEFINE
 		inline static const std::string LAMB = "Lamb";
 		inline static const std::string LDIFF = "Ldiff";
 		inline static const std::string LSPEC = "Lspec";
+		inline static const std::string COLOR = "color";
 	};
 	namespace STAGE_SHADER
 	{
