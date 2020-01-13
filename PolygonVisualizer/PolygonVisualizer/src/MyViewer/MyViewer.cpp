@@ -188,7 +188,6 @@ void MyViewer::RegistrationModel()
 	// モデルデータをGPUへ転送
 	if (m_model_data.GetModelType() == MyModel::MODEL_TYPE::PARTICLE)
 	{
-		// 粒子のみ
 		m_shape_base.SetShapeParticle
 		(
 			m_model_data.GetModelData(),

@@ -41,6 +41,7 @@ void MyModel::RegistrationFileIndo(const std::string& file_path)
 	}
 }
 // 色なし粒子の登録
+// HACK: 旧バージョンに伴い削除予定
 void MyModel::SetVertexParticle()
 {
 	constexpr float default_color = 1.0f;
@@ -105,7 +106,7 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	else if (m_file_extension == EXTENSION_ASCII) {
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new AsciiReader(open_model_data);
-		SetVertexParticle();
+		SetVertexParticleColor();
 	}
 
 	// 各種データ登録
