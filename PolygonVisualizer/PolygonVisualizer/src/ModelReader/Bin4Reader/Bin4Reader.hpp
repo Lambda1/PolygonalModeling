@@ -20,6 +20,7 @@ class Bin4Reader : public ModelReader
 	// 定数パラメータ
 	inline static constexpr int BASE_VECTOR = 7;   // 点群+色ベクトル数
 	inline static constexpr int POINTS_VECTOR = 3; // 基本ベクトル数
+	inline static constexpr double DEFAULT_COLOR = 1.0; // 標準色
 	// floatを4バイト仮定
 	using BYTE_4 = float;
 

@@ -79,9 +79,13 @@ void Bin4Reader::ReadDataOnlyPoint(std::ifstream& file_stream)
 	}
 
 	// データ配置
+	// NOTE: 色は標準色
 	for (int i = 0; i + (POINTS_VECTOR - 1) < static_cast<int>(read_data.size()); i += POINTS_VECTOR)
 	{
-		// x, y, z
-		m_vertex.emplace_back(Vector { read_data[i + 0], read_data[i + 1], read_data[i + 2] });
+		m_vertex_color.emplace_back(VectorColor
+			{
+				read_data[i + 0], read_data[i + 1], read_data[i + 2],
+				DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR
+			});
 	}
 }

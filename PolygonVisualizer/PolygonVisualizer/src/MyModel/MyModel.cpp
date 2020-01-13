@@ -67,7 +67,10 @@ void MyModel::SetVertexParticleColor()
 			{
 			static_cast<float>(m_model_data->GetVertexColor()[i].x),
 			static_cast<float>(m_model_data->GetVertexColor()[i].y),
-			static_cast<float>(m_model_data->GetVertexColor()[i].z)
+			static_cast<float>(m_model_data->GetVertexColor()[i].z),
+			static_cast<float>(m_model_data->GetVertexColor()[i].r),
+			static_cast<float>(m_model_data->GetVertexColor()[i].g),
+			static_cast<float>(m_model_data->GetVertexColor()[i].b),
 			});
 	}
 }
@@ -94,8 +97,7 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	else if (m_file_extension == EXTENSION_BIN4) {
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new Bin4Reader(open_model_data);
-		if (m_model_data->IsColor()) { SetVertexParticleColor(); }
-		else { SetVertexParticle(); }
+		SetVertexParticleColor();
 	}
 	else if (m_file_extension == EXTENSION_OBJ) {
 		m_model_type = MODEL_TYPE::WIRE;
