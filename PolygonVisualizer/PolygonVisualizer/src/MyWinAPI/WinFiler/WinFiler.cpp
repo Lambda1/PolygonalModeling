@@ -19,6 +19,7 @@ OPENFILENAME WinFiler::CommonDialog()
 	ofn.hwndOwner = nullptr;
 	// ファイルフィルター
 	ofn.lpstrFilter =
+		TEXT("All files {*.ascii,*.pcd,*.bin4}\0*.ascii;*.pcd;*.bin4\0")
 		TEXT("ASCII {*.ascii}\0*.ascii\0")
 		TEXT("Wavefront {*.obj}\0*.obj\0")
 		TEXT("Point Cloud {*.pcd}\0*.pcd\0")
