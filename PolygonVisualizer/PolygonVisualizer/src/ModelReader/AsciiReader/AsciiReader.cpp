@@ -43,6 +43,10 @@ void AsciiReader::ReadData(std::ifstream& file_data)
 	// vertexÇ…ç¿ïWÇï€ë∂
 	for (int i = 0; i+3 < static_cast<int>(data.size()); i+=3)
 	{
-		m_vertex.emplace_back(Vector{ data[i + 0], data[i + 1], data[i + 2] });
+		m_vertex_color.emplace_back(VectorColor
+			{
+				data[i + 0], data[i + 1], data[i + 2],
+				DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR
+			});
 	}
 }

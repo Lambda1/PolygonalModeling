@@ -74,6 +74,7 @@ void MyViewer::InitModelShaderTable()
 	// Attribute
 	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::POSITION, m_shader_model.GetAttLocationValue(MY_VIEWER_DEFINE::SHADER::POSITION));
 	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::NORMAL, m_shader_model.GetAttLocationValue(MY_VIEWER_DEFINE::SHADER::NORMAL));
+	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::COLOR, m_shader_model.GetAttLocationValue(MY_VIEWER_DEFINE::SHADER::COLOR));
 	// Uniform
 	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::MODEL_VIEW, m_shader_model.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::MODEL_VIEW));
 	m_shader_model_table.emplace(MY_VIEWER_DEFINE::SHADER::TABLE::PROJECION, m_shader_model.GetUniLocationValue(MY_VIEWER_DEFINE::SHADER::PROJECTION));
@@ -187,12 +188,12 @@ void MyViewer::RegistrationModel()
 	// モデルデータをGPUへ転送
 	if (m_model_data.GetModelType() == MyModel::MODEL_TYPE::PARTICLE)
 	{
-		// 粒子のみ
 		m_shape_base.SetShapeParticle
 		(
 			m_model_data.GetModelData(),
 			m_model_data.GetModelDataSize(),
-			m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION]
+			m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::POSITION],
+			m_shader_model_table[MY_VIEWER_DEFINE::SHADER::TABLE::COLOR]
 		);
 	}
 

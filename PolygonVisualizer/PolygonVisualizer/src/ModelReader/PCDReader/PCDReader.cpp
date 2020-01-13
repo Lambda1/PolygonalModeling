@@ -147,7 +147,7 @@ void PCDReader::ReadAscii(std::ifstream& file_path)
 void PCDReader::SetDataNoRGB(const std::vector<float>& point_data)
 {
 	constexpr int points = 3; // 3“_
-	Vector buf;
+	VectorColor buf{ DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR };
 	int index = 0;
 	for (auto itr = point_data.begin(); itr != point_data.end(); ++itr)
 	{
@@ -156,7 +156,7 @@ void PCDReader::SetDataNoRGB(const std::vector<float>& point_data)
 		else
 		{
 			buf.z = *itr;
-			m_vertex.emplace_back(buf);
+			m_vertex_color.emplace_back(buf);
 		}
 		index = (index+1) % points;
 	}

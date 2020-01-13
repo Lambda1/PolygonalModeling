@@ -55,3 +55,9 @@ void ShapeManager::SetShapeParticle(const ObjectGL::Vertex* data, const int& siz
 	m_shape.emplace_back(new ShapeGLParticle(static_cast<GLsizei>(size), data));
 	m_shape.back()->VertexAttribPointer(position_id);
 }
+void ShapeManager::SetShapeParticle(const ObjectGL::Vertex* data, const int& size, const GLint& position_id, const GLint& color_id)
+{
+	std::cout << data[0].normal[0] << std::endl;
+	m_shape.emplace_back(new ShapeGLParticle(static_cast<GLsizei>(size), data));
+	m_shape.back()->VertexAttribPointer(position_id, color_id);
+}

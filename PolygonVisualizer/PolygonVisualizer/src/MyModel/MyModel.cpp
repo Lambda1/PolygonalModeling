@@ -41,20 +41,24 @@ void MyModel::RegistrationFileIndo(const std::string& file_path)
 	}
 }
 // 色なし粒子の登録
+// HACK: 旧バージョンに伴い削除予定
 void MyModel::SetVertexParticle()
 {
+	constexpr float default_color = 1.0f;
 	for (int i = 0; i < m_model_data->GetVertexSize(); ++i)
 	{
 		m_model.emplace_back(ObjectGL::Vertex
 			{
 			static_cast<float>(m_model_data->GetVertex()[i].x),
 			static_cast<float>(m_model_data->GetVertex()[i].y),
-			static_cast<float>(m_model_data->GetVertex()[i].z)
+			static_cast<float>(m_model_data->GetVertex()[i].z),
+			static_cast<float>(default_color),
+			static_cast<float>(default_color),
+			static_cast<float>(default_color)
 			});
 	}
 }
 // 色粒子の登録
-// HACK: まだ色の実装はしていない
 void MyModel::SetVertexParticleColor()
 {
 	for (int i = 0; i < m_model_data->GetVertexColorSize(); ++i)
@@ -63,7 +67,10 @@ void MyModel::SetVertexParticleColor()
 			{
 			static_cast<float>(m_model_data->GetVertexColor()[i].x),
 			static_cast<float>(m_model_data->GetVertexColor()[i].y),
-			static_cast<float>(m_model_data->GetVertexColor()[i].z)
+			static_cast<float>(m_model_data->GetVertexColor()[i].z),
+			static_cast<float>(m_model_data->GetVertexColor()[i].r),
+			static_cast<float>(m_model_data->GetVertexColor()[i].g),
+			static_cast<float>(m_model_data->GetVertexColor()[i].b),
 			});
 	}
 }
@@ -85,13 +92,12 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	{
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new PCDReader(open_model_data);
-		SetVertexParticle();
+		SetVertexParticleColor();
 	}
 	else if (m_file_extension == EXTENSION_BIN4) {
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new Bin4Reader(open_model_data);
-		if (m_model_data->IsColor()) { SetVertexParticleColor(); }
-		else { SetVertexParticle(); }
+		SetVertexParticleColor();
 	}
 	else if (m_file_extension == EXTENSION_OBJ) {
 		m_model_type = MODEL_TYPE::WIRE;
@@ -100,7 +106,7 @@ void MyModel::LoadModelData(const std::string& open_model_data)
 	else if (m_file_extension == EXTENSION_ASCII) {
 		m_model_type = MODEL_TYPE::PARTICLE;
 		m_model_data = new AsciiReader(open_model_data);
-		SetVertexParticle();
+		SetVertexParticleColor();
 	}
 
 	// 各種データ登録

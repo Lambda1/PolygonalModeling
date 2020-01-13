@@ -12,6 +12,9 @@
 
 class AsciiReader : public ModelReader
 {
+	// ‰Šú’è”
+	inline static constexpr double DEFAULT_COLOR = 1.0;
+
 	void ReadData(std::ifstream &file_data);
 	void ReadFile(const std::string& open_file_path) override;
 public:

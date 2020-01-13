@@ -48,6 +48,7 @@ class ShapeManager
 		void SetShapeWire(const ObjectGL::Vertex* data, const int& size, const GLint& position_id, const GLint& normal_id);
 		void SetShapeWire(const ObjectGL::Vertex* data, const int& size, const GLint& position_id);
 		void SetShapeParticle(const ObjectGL::Vertex* data, const int& size, const GLint& position_id);
+		void SetShapeParticle(const ObjectGL::Vertex* data, const int& size, const GLint& position_id, const GLint& color_id);
 		void SetShapeWireIndex(const ObjectGL::Vertex* vertex_data, const int& vertex_size, const GLuint* index_data, const GLint& index_size, const GLint& position_id, const GLint& normal_id);
 
 		/* Getter */
