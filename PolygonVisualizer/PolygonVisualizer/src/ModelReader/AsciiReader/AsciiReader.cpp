@@ -41,7 +41,17 @@ void AsciiReader::ReadData(std::ifstream& file_data)
 		else { data.emplace_back(std::stof(num)); num.clear(); }
 	}
 	// vertexÇ…ç¿ïWÇï€ë∂
-	for (int i = 0; i+3 < static_cast<int>(data.size()); i+=3)
+	for (int i = 0; i+5 <= static_cast<int>(data.size()); i+=6)
+	{
+		m_vertex_color.emplace_back(VectorColor
+			{
+				data[i + 0]*0.0001, data[i + 1]*0.0001, data[i + 2]*0.0001,
+				data[i + 3], data[i + 4], data[i + 5]
+			});
+	}
+	/*
+	// vertexÇ…ç¿ïWÇï€ë∂
+	for (int i = 0; i + 3 < static_cast<int>(data.size()); i += 3)
 	{
 		m_vertex_color.emplace_back(VectorColor
 			{
@@ -49,4 +59,5 @@ void AsciiReader::ReadData(std::ifstream& file_data)
 				DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR
 			});
 	}
+	*/
 }
