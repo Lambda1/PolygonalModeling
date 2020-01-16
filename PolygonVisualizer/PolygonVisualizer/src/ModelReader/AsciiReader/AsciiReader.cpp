@@ -41,14 +41,7 @@ void AsciiReader::ReadData(std::ifstream& file_data)
 		else { data.emplace_back(std::stof(num)); num.clear(); }
 	}
 	// vertexに座標を保存
-	for (int i = 0; i+5 <= static_cast<int>(data.size()); i+=6)
-	{
-		m_vertex_color.emplace_back(VectorColor
-			{
-				data[i + 0]*0.0001, data[i + 1]*0.0001, data[i + 2]*0.0001,
-				data[i + 3], data[i + 4], data[i + 5]
-			});
-	}
+	SendVertexColor(data);
 	/*
 	// vertexに座標を保存
 	for (int i = 0; i + 3 < static_cast<int>(data.size()); i += 3)
@@ -60,4 +53,18 @@ void AsciiReader::ReadData(std::ifstream& file_data)
 			});
 	}
 	*/
+}
+// 色付きデータを形成
+void AsciiReader::SendVertexColor(const std::vector<float>& data)
+{
+	constexpr int next_data_bias = 6;
+	constexpr int read_data_bias = 5;
+	for (int i = 0; i + read_data_bias <= static_cast<int>(data.size()); i += next_data_bias)
+	{
+		m_vertex_color.emplace_back(VectorColor
+			{
+				data[i + 0], data[i + 1], data[i + 2],
+				data[i + 3], data[i + 4], data[i + 5]
+			});
+	}
 }
