@@ -28,7 +28,20 @@ void AsciiReader::ReadData(std::ifstream& file_data)
 {
 	std::vector<float> data;
 	std::string num;
-	char buff;
+	char buff = 0;
+
+	// RGB or BIN 判定
+	int count = 0;
+	while (buff != '\n')
+	{
+		file_data.read(&buff, sizeof(char));
+		if (buff == ' ') count++;
+	}
+	std::cout << "COUNT: " << count << std::endl;
+	// 先頭までシーク
+	file_data.seekg(0, std::ios_base::beg);
+	
+	// 読み込み
 	while (true)
 	{
 		file_data.read(&buff, sizeof(char));
@@ -41,18 +54,8 @@ void AsciiReader::ReadData(std::ifstream& file_data)
 		else { data.emplace_back(std::stof(num)); num.clear(); }
 	}
 	// vertexに座標を保存
-	SendVertexColor(data);
-	/*
-	// vertexに座標を保存
-	for (int i = 0; i + 3 < static_cast<int>(data.size()); i += 3)
-	{
-		m_vertex_color.emplace_back(VectorColor
-			{
-				data[i + 0], data[i + 1], data[i + 2],
-				DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR
-			});
-	}
-	*/
+	if (count == RGB_VERTEX_COUNT) { SendVertexColor(data); }
+	else { SendVertex(data); }
 }
 // 色付きデータを形成
 void AsciiReader::SendVertexColor(const std::vector<float>& data)
