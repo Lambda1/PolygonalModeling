@@ -63,7 +63,7 @@ void AsciiReader::SendVertexColor(const std::vector<float>& data)
 	{
 		m_vertex_color.emplace_back(VectorColor
 			{
-				data[i + 0], data[i + 1], data[i + 2],
+				data[i + 0], data[i + 1], data[i + 2]*2,
 				data[i + 3], data[i + 4], data[i + 5]
 			});
 	}
