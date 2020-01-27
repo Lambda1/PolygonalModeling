@@ -63,8 +63,22 @@ void AsciiReader::SendVertexColor(const std::vector<float>& data)
 	{
 		m_vertex_color.emplace_back(VectorColor
 			{
-				data[i + 0], data[i + 1], data[i + 2]*2,
+				data[i + 0], data[i + 1], data[i + 2],
 				data[i + 3], data[i + 4], data[i + 5]
+			});
+	}
+}
+// PCD‚Ì‚Ý
+void AsciiReader::SendVertex(const std::vector<float>& data)
+{
+	constexpr int next_data_bias = 3;
+	constexpr int read_data_bias = 2;
+	for (int i = 0; i + read_data_bias <= static_cast<int>(data.size()); i += next_data_bias)
+	{
+		m_vertex_color.emplace_back(VectorColor
+			{
+				data[i + 0], data[i + 1], data[i + 2],
+				DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR, DEFAULT_COLOR
 			});
 	}
 }

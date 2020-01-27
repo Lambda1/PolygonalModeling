@@ -9,6 +9,7 @@ uniform vec3 Lspec[Lcount]; // 鏡面反射光成分
 
 in vec4 P;
 in vec3 N;
+in vec3 vColor;
 
 out vec4 fragment;
 
@@ -27,5 +28,5 @@ void main()
 		Ispec += pow(max(dot(normalize(N),H),0.0),1.0) * Lspec[i];
 	}
 
-	fragment = vec4(Idiff + Ispec, 1.0); // アルファ値:1.0
+	fragment = vec4(vColor*Idiff + Ispec, 1.0); // アルファ値:1.0
 }
