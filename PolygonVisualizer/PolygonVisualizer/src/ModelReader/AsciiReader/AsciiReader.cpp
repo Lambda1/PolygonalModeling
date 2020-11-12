@@ -70,6 +70,7 @@ void AsciiReader::SendVertexColor(const std::vector<float>& data)
 				data[i + 3], data[i + 4], data[i + 5]
 			});
 	}
+	std::cout << "Color mode" << std::endl;
 }
 // PCD‚Ì‚Ý
 void AsciiReader::SendVertex(const std::vector<float>& data)
